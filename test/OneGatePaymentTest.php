@@ -26,7 +26,7 @@ class OneGatePaymentTest extends TestCase
         $bni = $this->init();
         $ogp = new OneGatePayment($bni);
         $response = $ogp->getBalance('115471119');
-        $this->assertEquals($response->getBalanceResponse->parameters->responseCode,'0001');
+        $this->assertEquals($response->getBalanceResponse->parameters->responseCode, '0001');
     }
 
     public function test_ogp_getInHouseInquiry()
@@ -34,7 +34,7 @@ class OneGatePaymentTest extends TestCase
         $bni = $this->init();
         $ogp = new OneGatePayment($bni);
         $response = $ogp->getInHouseInquiry('115471119');
-        $this->assertEquals($response->getInHouseInquiryResponse->parameters->responseCode,'0001');
+        $this->assertEquals($response->getInHouseInquiryResponse->parameters->responseCode, '0001');
     }
 
     public function test_ogp_doPayment()
@@ -57,7 +57,7 @@ class OneGatePaymentTest extends TestCase
             'CENAIDJAXXX',
             'OUR'
         );
-        $this->assertEquals($response->doPaymentResponse->parameters->responseCode,'0001');
+        $this->assertEquals($response->doPaymentResponse->parameters->responseCode, '0001');
     }
 
     public function test_ogp_getPaymentStatus()
@@ -65,7 +65,7 @@ class OneGatePaymentTest extends TestCase
         $bni = $this->init();
         $ogp = new OneGatePayment($bni);
         $response = $ogp->getPaymentStatus('20170227000000000020');
-        $this->assertEquals($response->getPaymentStatusResponse->parameters->responseCode,'0001');
+        $this->assertEquals($response->getPaymentStatusResponse->parameters->responseCode, '0001');
     }
 
     public function test_ogp_getInterBankInquiry()
@@ -78,7 +78,7 @@ class OneGatePaymentTest extends TestCase
             '014',
             '01400000'
         );
-        $this->assertEquals($response->getInterbankInquiryResponse->parameters->responseCode,'0001');
+        $this->assertEquals($response->getInterbankInquiryResponse->parameters->responseCode, '0001');
     }
 
     public function test_ogp_getInterBankPayment()
@@ -95,7 +95,7 @@ class OneGatePaymentTest extends TestCase
             '0316031099',
             '100000000097'
         );
-        $this->assertEquals($response->getInterbankPaymentResponse->parameters->responseCode,'0001');
+        $this->assertEquals($response->getInterbankPaymentResponse->parameters->responseCode, '0001');
     }
 
     public function test_ogp_holdAmount()
@@ -108,7 +108,7 @@ class OneGatePaymentTest extends TestCase
             '0115476151',
             'testHold'
         );
-        $this->assertEquals($response->holdAmountResponse->parameters->responseCode,'0001');
+        $this->assertEquals($response->holdAmountResponse->parameters->responseCode, '0001');
     }
 
     public function test_ogp_holdAmountRelease()
@@ -122,6 +122,6 @@ class OneGatePaymentTest extends TestCase
             '657364',
             '31052010'
         );
-        $this->assertEquals($response->holdAmountReleaseResponse->parameters->responseCode,'0001');
+        $this->assertEquals($response->holdAmountReleaseResponse->parameters->responseCode, '0001');
     }
 }

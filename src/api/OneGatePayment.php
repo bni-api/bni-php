@@ -74,8 +74,7 @@ class OneGatePayment
         string $beneficiaryAddress2,
         string $destinationBankCode,
         string $chargingModelId
-    )
-    {
+    ) {
 
         $body = [
             "clientId" => $this->utils->generateClientId($this->bni->appName),
@@ -133,8 +132,7 @@ class OneGatePayment
         string $accountNum,
         string $destinationBankCode,
         string $destinationAccountNum
-    )
-    {
+    ) {
         $body = [
             'customerReferenceNumber' => $customerReferenceNumber,
             'accountNum' => $accountNum,
@@ -165,8 +163,7 @@ class OneGatePayment
         string $destinationBankName,
         string $accountNum,
         string $retrievalReffNum
-    )
-    {
+    ) {
         $body = [
             'customerReferenceNumber' => $customerReferenceNumber,
             'amount' => $amount,
@@ -197,8 +194,7 @@ class OneGatePayment
         int $amount,
         string $accountNo,
         string $detail
-    )
-    {
+    ) {
         $body = [
             'customerReferenceNumber' => $customerReferenceNumber,
             'amount' => $amount,
@@ -226,8 +222,7 @@ class OneGatePayment
         string $accountNo,
         string $bankReference,
         string $holdTransactionDate
-    )
-    {
+    ) {
         $body = [
             'customerReferenceNumber' => $customerReferenceNumber,
             'amount' => $amount,
@@ -249,5 +244,4 @@ class OneGatePayment
 
         return Response::oneGatePayment($response, 'holdAmountReleaseResponse');
     }
-
 }

@@ -15,7 +15,7 @@ class Bni
     public $apiKey;
     public $apiSecret;
 
-    const SANBOX_BASE_URL = "https://127.0.0.1:1238";
+    const SANBOX_BASE_URL = "https://newapidev.bni.co.id";
     const PRODUCTION_BASE_URL = "https://api.bni.co.id";
 
     function __construct(bool $prod, $appName, $clientId, $clientSecret, $apiKey, $apiSecret)
@@ -35,21 +35,19 @@ class Bni
 
     public function getToken()
     {
-       $response = Http::withHeaders([
-        'user-agent' => 'bni-php@0.1.0'
-       ])
-       ->asForm()
-       ->withBasicAuth($this->clientId, $this->clientSecret)
-       ->post("{$this->getBaseUrl()}/api/oauth/token", [
-        'grant_type' => 'client_credentials'
-       ]);
+        $response = Http::withHeaders([
+            'user-agent' => 'bni-php@0.1.0'
+        ])
+            ->asForm()
+            ->withBasicAuth($this->clientId, $this->clientSecret)
+            ->post("{$this->getBaseUrl()}/api/oauth/token", [
+                'grant_type' => 'client_credentials'
+            ]);
 
-       if ($response->failed()) {
-        throw new Exception($response->object()->error);
-       }
+        if ($response->failed()) {
+            throw new Exception($response->object()->error);
+        }
 
-       return $response->object()->access_token;
-
-
+        return $response->object()->access_token;
     }
 }

@@ -18,7 +18,6 @@ class Response
             return $resObject;
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
-
         }
     }
 
@@ -28,12 +27,13 @@ class Response
             $resObject = $response->object();
             if ($response->failed()) {
                 throw new Exception(
-                    $resObject->responseCode. ' : ' . $resObject->responseMessage
+                    $resObject->responseCode . ' : ' . $resObject->responseMessage
                 );
             }
 
             $statusCodeSuccess = [
                 '2000000',
+                '2001100',
                 '2001400',
                 '2001500',
                 '2001600',
@@ -47,14 +47,13 @@ class Response
 
             if (!in_array($resObject->responseCode, $statusCodeSuccess)) {
                 throw new Exception(
-                    $resObject->responseCode. ' : ' . $resObject->responseMessage
+                    $resObject->responseCode . ' : ' . $resObject->responseMessage
                 );
             }
 
             return $resObject;
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
-
         }
     }
 }

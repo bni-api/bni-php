@@ -20,16 +20,21 @@ class Util
         $base64UrlHeader = $this->escapeString(base64_encode($header));
         $base64UrlPayload = $this->escapeString(base64_encode($payload));
         $signature = hash_hmac(
-            'sha256', $base64UrlHeader.".".$base64UrlPayload, $apiSecret, true
+            'sha256',
+            $base64UrlHeader . "." . $base64UrlPayload,
+            $apiSecret,
+            true
         );
         $base64UrlSignature = $this->escapeString(base64_encode($signature));
-        return $base64UrlHeader.".".$base64UrlPayload.".".$base64UrlSignature;
+        return $base64UrlHeader . "." . $base64UrlPayload . "." . $base64UrlSignature;
     }
 
     public function escapeString(string $string)
     {
         return str_replace(
-            ['+', '/', '='], ['-', '_', ''], $string
+            ['+', '/', '='],
+            ['-', '_', ''],
+            $string
         );
     }
 
@@ -63,6 +68,6 @@ class Util
 
     public function randomNumber()
     {
-        return rand(10,100000000) . time();
+        return rand(10, 100000000) . time();
     }
 }
