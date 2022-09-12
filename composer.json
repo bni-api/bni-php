@@ -1,5 +1,5 @@
 {
-    "name": "bni-api/bni-php",
+    "name": "bni-api/bni-php-client",
     "description": "integrasi sama bno",
     "type": "library",
     "license": "MIT",
