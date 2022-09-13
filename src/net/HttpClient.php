@@ -1,6 +1,6 @@
 <?php
 
-namespace Wawatprigala\BniPhp\net;
+namespace BniApi\BniPhp\net;
 
 use Illuminate\Support\Facades\Http;
 

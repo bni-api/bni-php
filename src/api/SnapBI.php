@@ -1,13 +1,13 @@
 <?php
 
-namespace Wawatprigala\BniPhp\api;
+namespace BniApi\BniPhp\api;
 
 use Exception;
 use Illuminate\Support\Facades\Http;
-use Wawatprigala\BniPhp\Bni;
-use Wawatprigala\BniPhp\net\HttpClient;
-use Wawatprigala\BniPhp\utils\Response;
-use Wawatprigala\BniPhp\utils\Util;
+use BniApi\BniPhp\Bni;
+use BniApi\BniPhp\net\HttpClient;
+use BniApi\BniPhp\utils\Response;
+use BniApi\BniPhp\utils\Util;
 
 class SnapBI
 {
@@ -223,7 +223,7 @@ class SnapBI
         return Response::snapBI($response);
     }
 
-    public function transferIntrabank(
+    public function transferIntraBank(
         string $partnerReferenceNo,
         string $amountValue,
         string $amountCurrency,
@@ -503,7 +503,7 @@ class SnapBI
         return Response::snapBI($response);
     }
 
-    public function transferInterbank(
+    public function transferInterBank(
         string $partnerReferenceNo,
         string $amountValue,
         string $amountCurrency,

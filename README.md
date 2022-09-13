@@ -147,7 +147,6 @@ $holdAmountRelease =  $ogp->holdAmountRelease(
 
 Create `Snap BI` class object
 ```php
-//snap
 $bni = new Bni(
   $prod = false,
   $clientId = '{your-client-id}',
@@ -156,7 +155,6 @@ $bni = new Bni(
   $apiSecret = '{your-api-secret}',
   $appName = '{your-app-name}'
 );
-//snap 
 $snap = new SnapBI(
   $bni = '{instance-of-bni-class}',
   $privateKeyPath = '{your-path-private-key}',
@@ -208,7 +206,7 @@ $transactionStatusInquiry = $snap->transactionStatusInquiry(
 
 #### Transfer Intra Bank
 ```php
-$transferIntrabank = $snap->transferIntrabank(
+$transferIntraBank = $snap->transferIntraBank(
   $partnerReferenceNo = '202201911020300006', // transaction reference number
   $amountValue = '12500',
   $amountCurrency = 'IDR',
@@ -296,7 +294,7 @@ $externalAccountInquiry = $snap->externalAccountInquiry(
 
 #### Transfer Inter Bank
 ```php
-$transferInterbank = $snap->transferInterbank(
+$transferInterBank = $snap->transferInterBank(
   $partnerReferenceNo = '2020102900000000000001', // transaction reference number
   $amountValue = '12345678.00',
   $amountCurrency = 'IDR',

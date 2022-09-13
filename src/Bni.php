@@ -1,6 +1,6 @@
 <?php
 
-namespace Wawatprigala\BniPhp;
+namespace BniApi\BniPhp;
 
 use Exception;
 use Illuminate\Support\Facades\Http;

@@ -5,7 +5,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "BNI-APM\\BniPhp\\": "src/"
+            "BniApi\\BniPhp\\": "src/"
         }
     },
     "authors": [

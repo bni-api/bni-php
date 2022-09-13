@@ -1,11 +1,11 @@
 <?php
 
-namespace Wawatprigala\BniPhp\api;
+namespace BniApi\BniPhp\api;
 
-use Wawatprigala\BniPhp\Bni;
-use Wawatprigala\BniPhp\net\HttpClient;
-use Wawatprigala\BniPhp\utils\Response;
-use Wawatprigala\BniPhp\utils\Util;
+use BniApi\BniPhp\Bni;
+use BniApi\BniPhp\net\HttpClient;
+use BniApi\BniPhp\utils\Response;
+use BniApi\BniPhp\utils\Util;
 
 class OneGatePayment
 {
