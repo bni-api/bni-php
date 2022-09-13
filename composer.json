@@ -1,6 +1,6 @@
 {
-    "name": "bni-api/bni-php",
-    "description": "integrasi sama bno",
+    "name": "bni-api/bni-php-client",
+    "description": "Official BNI API SDK for PHP",
     "type": "library",
     "license": "MIT",
     "autoload": {
