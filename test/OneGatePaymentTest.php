@@ -1,10 +1,10 @@
 <?php
 
-namespace Wawatprigala\BniPhp\test;
+namespace BniApi\BniPhp\test;
 
 use Tests\TestCase;
-use Wawatprigala\BniPhp\api\OneGatePayment;
-use Wawatprigala\BniPhp\Bni;
+use BniApi\BniPhp\api\OneGatePayment;
+use BniApi\BniPhp\Bni;
 
 class OneGatePaymentTest extends TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Wawatprigala\BniPhp;
+namespace BniApi\BniPhp;
 
 use Exception;
 use Illuminate\Support\Facades\Http;
@@ -18,14 +18,14 @@ class Bni
     const SANBOX_BASE_URL = "https://newapidev.bni.co.id";
     const PRODUCTION_BASE_URL = "https://api.bni.co.id";
 
-    function __construct(bool $prod, $appName, $clientId, $clientSecret, $apiKey, $apiSecret)
+    function __construct(bool $prod, $clientId, $clientSecret, $apiKey, $apiSecret, $appName)
     {
         $this->prod = $prod;
-        $this->appName = $appName;
         $this->clientId = $clientId;
         $this->clientSecret = $clientSecret;
         $this->apiKey = $apiKey;
         $this->apiSecret = $apiSecret;
+        $this->appName = $appName;
     }
 
     public function getBaseUrl()

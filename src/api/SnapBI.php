@@ -1,13 +1,13 @@
 <?php
 
-namespace Wawatprigala\BniPhp\api;
+namespace BniApi\BniPhp\api;
 
 use Exception;
 use Illuminate\Support\Facades\Http;
-use Wawatprigala\BniPhp\Bni;
-use Wawatprigala\BniPhp\net\HttpClient;
-use Wawatprigala\BniPhp\utils\Response;
-use Wawatprigala\BniPhp\utils\Util;
+use BniApi\BniPhp\Bni;
+use BniApi\BniPhp\net\HttpClient;
+use BniApi\BniPhp\utils\Response;
+use BniApi\BniPhp\utils\Util;
 
 class SnapBI
 {
@@ -223,7 +223,7 @@ class SnapBI
         return Response::snapBI($response);
     }
 
-    public function transferIntrabank(
+    public function transferIntraBank(
         string $partnerReferenceNo,
         string $amountValue,
         string $amountCurrency,
@@ -289,8 +289,8 @@ class SnapBI
 
     public function transferRTGS(
         string $partnerReferenceNo,
-        string $amountvalue,
-        string $amountcurrency,
+        string $amountValue,
+        string $amountCurrency,
         string $beneficiaryAccountName,
         string $beneficiaryAccountNo,
         string $beneficiaryAccountAddress,
@@ -310,15 +310,15 @@ class SnapBI
         string $senderPhone,
         string $sourceAccountNo,
         string $transactionDate,
-        string $additionalInfochanel,
-        string $additionalInfodeviceid
+        string $additionalInfoDeviceId,
+        string $additionalInfoChannel
     ) {
         $timeStamp = $this->utils->getTimeStamp();
         $body = [
             'partnerReferenceNo' => $partnerReferenceNo,
             'amount' => [
-                'value' => $amountvalue,
-                'currency' => $amountcurrency
+                'value' => $amountValue,
+                'currency' => $amountCurrency
             ],
             'beneficiaryAccountName' => $beneficiaryAccountName,
             'beneficiaryAccountNo' => $beneficiaryAccountNo,
@@ -340,8 +340,8 @@ class SnapBI
             'sourceAccountNo' => $sourceAccountNo,
             'transactionDate' => $transactionDate,
             'additionalInfo' => [
-                'deviceid' => $additionalInfodeviceid,
-                'chanel' => $additionalInfochanel
+                'deviceId' => $additionalInfoDeviceId,
+                'channel' => $additionalInfoChannel
             ]
         ];
         $token = $this->getToken();
@@ -374,8 +374,8 @@ class SnapBI
 
     public function transferSKNBI(
         string $partnerReferenceNo,
-        string $amountvalue,
-        string $amountcurrency,
+        string $amountValue,
+        string $amountCurrency,
         string $beneficiaryAccountName,
         string $beneficiaryAccountNo,
         string $beneficiaryAccountAddress,
@@ -395,15 +395,15 @@ class SnapBI
         string $senderPhone,
         string $sourceAccountNo,
         string $transactionDate,
-        string $additionalInfochanel,
-        string $additionalInfodeviceid
+        string $additionalInfoDeviceId,
+        string $additionalInfoChannel
     ) {
         $timeStamp = $this->utils->getTimeStamp();
         $body = [
             'partnerReferenceNo' => $partnerReferenceNo,
             'amount' => [
-                'value' => $amountvalue,
-                'currency' => $amountcurrency
+                'value' => $amountValue,
+                'currency' => $amountCurrency
             ],
             'beneficiaryAccountName' => $beneficiaryAccountName,
             'beneficiaryAccountNo' => $beneficiaryAccountNo,
@@ -425,8 +425,8 @@ class SnapBI
             'sourceAccountNo' => $sourceAccountNo,
             'transactionDate' => $transactionDate,
             'additionalInfo' => [
-                'deviceid' => $additionalInfodeviceid,
-                'chanel' => $additionalInfochanel
+                'deviceId' => $additionalInfoDeviceId,
+                'channel' => $additionalInfoChannel
             ]
         ];
         $token = $this->getToken();
@@ -461,8 +461,8 @@ class SnapBI
         string $beneficiaryBankCode,
         string $beneficiaryAccountNo,
         string $partnerReferenceNo,
-        string $additionalInfodeviceid,
-        string $additionalInfochanel
+        string $additionalInfoDeviceId,
+        string $additionalInfoChannel
 
     ) {
         $timeStamp = $this->utils->getTimeStamp();
@@ -471,8 +471,8 @@ class SnapBI
             'beneficiaryAccountNo' => $beneficiaryAccountNo,
             'beneficiaryBankCode' => $beneficiaryBankCode,
             'additionalInfo' => [
-                'deviceId' => $additionalInfodeviceid,
-                'channel' => $additionalInfochanel
+                'deviceId' => $additionalInfoDeviceId,
+                'channel' => $additionalInfoChannel
             ]
         ];
         $token = $this->getToken();
@@ -503,10 +503,10 @@ class SnapBI
         return Response::snapBI($response);
     }
 
-    public function transferInterbank(
+    public function transferInterBank(
         string $partnerReferenceNo,
-        string $amountvalue,
-        string $amountcurrency,
+        string $amountValue,
+        string $amountCurrency,
         string $beneficiaryAccountName,
         string $beneficiaryAccountNo,
         string $beneficiaryAccountAddress,
@@ -518,15 +518,15 @@ class SnapBI
         string $sourceAccountNo,
         string $transactionDate,
         string $feeType,
-        string $additionalInfochanel,
-        string $additionalInfodeviceid
+        string $additionalInfoDeviceId,
+        string $additionalInfoChannel
     ) {
         $timeStamp = $this->utils->getTimeStamp();
         $body = [
             'partnerReferenceNo' => $partnerReferenceNo,
             'amount' => [
-                'value' => $amountvalue,
-                'currency' => $amountcurrency
+                'value' => $amountValue,
+                'currency' => $amountCurrency
             ],
             'beneficiaryAccountName' => $beneficiaryAccountName,
             'beneficiaryAccountNo' => $beneficiaryAccountNo,
@@ -540,8 +540,8 @@ class SnapBI
             'transactionDate' => $transactionDate,
             'feeType' => $feeType,
             'additionalInfo' => [
-                'deviceId' => $additionalInfodeviceid,
-                'channel' => $additionalInfochanel
+                'deviceId' => $additionalInfoDeviceId,
+                'channel' => $additionalInfoChannel
             ]
         ];
         $token = $this->getToken();

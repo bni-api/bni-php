@@ -1,10 +1,10 @@
 <?php
 
-namespace Wawatprigala\BniPhp\test;
+namespace BniApi\BniPhp\test;
 
 use Tests\TestCase;
-use Wawatprigala\BniPhp\api\SnapBI;
-use Wawatprigala\BniPhp\Bni;
+use BniApi\BniPhp\api\SnapBI;
+use BniApi\BniPhp\Bni;
 
 class SnapBITest extends TestCase
 {
@@ -84,7 +84,7 @@ class SnapBITest extends TestCase
     {
         $bni = $this->init();
         $snap = $this->snap($bni);
-        $response = $snap->transferIntrabank(
+        $response = $snap->transferIntraBank(
             '207113OO00842662',
             '500000.00',
             'IDR',
@@ -186,7 +186,7 @@ class SnapBITest extends TestCase
     {
         $bni = $this->init();
         $snap = $this->snap($bni);
-        $response = $snap->transferinterbank(
+        $response = $snap->transferInterBank(
             '2022090254000000000021',
             '55000',
             'IDR',
