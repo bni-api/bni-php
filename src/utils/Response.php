@@ -1,6 +1,6 @@
 <?php
 
-namespace Wawatprigala\BniPhp\utils;
+namespace BniApi\BniPhp\utils;
 
 use Exception;
 
