@@ -12,7 +12,7 @@ class OneGatePaymentTest extends TestCase
 
     private function init()
     {
-        $credentials = json_decode(file_get_contents(public_pat('constant.js')));
+        $credentials = json_decode(file_get_contents(public_path('constant.json')));
 
         return new Bni(
             $production = false,

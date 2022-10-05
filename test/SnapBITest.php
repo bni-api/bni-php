@@ -12,7 +12,7 @@ class SnapBITest extends TestCase
 
     public function getCredentials()
     {
-        $credentials = json_decode(file_get_contents(public_path('constant.js')));
+        $credentials = json_decode(file_get_contents(public_path('constant.json')));
         return $credentials->snap_bi;
     }
     private function init()
