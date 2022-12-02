@@ -9,13 +9,13 @@ class Response
     public static function oneGatePayment($response, $resService)
     {
         try {
-            $resObject = $response->object();
-            if ($response->failed()) {
-                throw new Exception(
-                    $resObject->$resService->parameters->responseCode . ' : ' . $resObject->$resService->parameters->responseMessage
-                );
-            }
-            return $resObject;
+            // $resObject = $response->object();
+            // if ($response->failed()) {
+            //     throw new Exception(
+            //         $resObject->$resService->parameters->responseCode . ' : ' . $resObject->$resService->parameters->responseMessage
+            //     );
+            // }
+            return $response;
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }

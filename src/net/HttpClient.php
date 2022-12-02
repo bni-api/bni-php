@@ -2,10 +2,21 @@
 
 namespace BniApi\BniPhp\net;
 
-use Illuminate\Support\Facades\Http;
+use Exception;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\RequestOptions;
 
 class HttpClient
 {
+
+    public function __construct()
+    {
+        $this->client = new Client([
+            'verify' => false,
+        ]);
+    }
 
     public function request(
         string $apiKey,
@@ -13,13 +24,16 @@ class HttpClient
         string $url,
         array $data
     ) {
-        $response = Http::withHeaders([
+        $headers = [
             'X-API-Key' => $apiKey,
             'user-agent' => 'bni-php/0.1.0',
-        ])
-            ->post($url . '?access_token=' . $accessToken, $data);
-
-        return $response;
+        ];
+        $options = [
+            RequestOptions::JSON => $data
+        ];
+        $request = new Request('POST', $url . '?access_token=' . $accessToken, $headers);
+        $res = $this->client->sendAsync($request, $options)->wait();
+        return json_decode($res->getBody());
     }
 
     public function requestSnapBI(
@@ -30,13 +44,34 @@ class HttpClient
     ) {
         $header = [
             'user-agent' => 'bni-php/0.1.0',
+            'Authorization' => $accessToken
         ];
-
         $headers = array_merge($header, $additionalHeaders);
-        $response = Http::withHeaders($headers)
-            ->withToken($accessToken)
-            ->post($url, $data);
 
-        return $response;
+        $options = [
+            RequestOptions::JSON => $data
+        ];
+        $request = new Request('POST', $url, $headers);
+        $res = $this->client->sendAsync($request, $options)->wait();
+        return json_decode($res->getBody());
+
+
+
+        // $header = [
+        //     'user-agent' => 'bni-php/0.1.0',
+        // ];
+
+        // $headers = array_merge($header, $additionalHeaders);
+        // $response = Http::withHeaders($headers)
+        //     ->withToken($accessToken)
+        //     ->post($url, $data);
+
+        // return $response;
     }
+
+    public function requestTokenSnap()
+    {
+        
+    }
+    
 }

@@ -6,6 +6,7 @@ use BniApi\BniPhp\Bni;
 use BniApi\BniPhp\net\HttpClient;
 use BniApi\BniPhp\utils\Response;
 use BniApi\BniPhp\utils\Util;
+use Exception;
 
 class OneGatePayment
 {
@@ -21,22 +22,26 @@ class OneGatePayment
 
     public function getBalance(string $accountNo)
     {
-        $body = [
-            'accountNo' => $accountNo,
-            'clientId' => $this->utils->generateClientId($this->bni->appName)
-        ];
-
-        $signature = [
-            'signature' => $this->utils->generateSignature($body, $this->bni->apiSecret)
-        ];
-        $response = $this->httpClient->request(
-            $this->bni->apiKey,
-            $this->bni->getToken(),
-            $this->bni->getBaseUrl() . '/H2H/v2/getbalance',
-            array_merge($body, $signature)
-        );
-
-        return Response::oneGatePayment($response, 'getBalanceResponse');
+        try {
+            $body = [
+                'accountNo' => $accountNo,
+                'clientId' => $this->utils->generateClientId($this->bni->appName)
+            ];
+    
+            $signature = [
+                'signature' => $this->utils->generateSignature($body, $this->bni->apiSecret)
+            ];
+            $response = $this->httpClient->request(
+                $this->bni->apiKey,
+                $this->bni->getToken(),
+                $this->bni->getBaseUrl() . '/H2H/v2/getbalance',
+                array_merge($body, $signature)
+            );
+    
+            return Response::oneGatePayment($response, 'getBalanceResponse');
+        } catch (Exception $th) {
+            return Response::oneGatePayment($response, 'getBalanceResponse');
+        }
     }
 
     public function getInHouseInquiry(string $accountNo)
