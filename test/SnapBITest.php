@@ -4,7 +4,7 @@ namespace BniApi\BniPhp\test;
 
 use BniApi\BniPhp\api\SnapBI;
 use BniApi\BniPhp\Bni;
-use Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 
 
 class SnapBITest extends TestCase
@@ -12,13 +12,13 @@ class SnapBITest extends TestCase
 
     public function getCredentials()
     {
-        $credentials = json_decode(file_get_contents(base_path('package/bni-php/test/constant.json')));
+        $credentials = json_decode(file_get_contents(__DIR__ . '/constant.json'));
         return $credentials->snap_bi;
     }
     private function init()
     {
         return new Bni(
-            $production = false,
+            $env = 'dev',
             $clientId = $this->getCredentials()->clientId,
             $clientSecret = $this->getCredentials()->clientSecret,
             $apiKey = $this->getCredentials()->apiKey,
@@ -31,7 +31,7 @@ class SnapBITest extends TestCase
     {
         return new SnapBI(
             $bni,
-            storage_path($this->getCredentials()->privateKey),
+            __DIR__ . '/' . $this->getCredentials()->privateKey,
             $this->getCredentials()->channelId
         );
     }

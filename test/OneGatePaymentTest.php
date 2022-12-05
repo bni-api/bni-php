@@ -4,18 +4,16 @@ namespace BniApi\BniPhp\test;
 
 use BniApi\BniPhp\api\OneGatePayment;
 use BniApi\BniPhp\Bni;
-use Tests\TestCase;
-
+use PHPUnit\Framework\TestCase;
 
 class OneGatePaymentTest extends TestCase
 {
 
     private function init()
     {
-        $credentials = json_decode(file_get_contents(base_path('package/bni-php/test/constant.json')));
-
+        $credentials = json_decode(file_get_contents(__DIR__ . '/constant.json'));
         return new Bni(
-            $production = false,
+            $env = 'sandbox',
             $clientId = $credentials->one_gate_payment->clientId,
             $clientSecret = $credentials->one_gate_payment->clientSecret,
             $apiKey = $credentials->one_gate_payment->apiKey,
