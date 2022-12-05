@@ -7,7 +7,6 @@ use BniApi\BniPhp\net\HttpClient;
 use BniApi\BniPhp\utils\Constant;
 use BniApi\BniPhp\utils\Response;
 use BniApi\BniPhp\utils\Util;
-use Exception;
 use GuzzleHttp\RequestOptions;
 
 class OneGatePayment

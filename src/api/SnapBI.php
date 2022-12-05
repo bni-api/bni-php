@@ -2,14 +2,11 @@
 
 namespace BniApi\BniPhp\api;
 
-use Exception;
-use Illuminate\Support\Facades\Http;
 use BniApi\BniPhp\Bni;
 use BniApi\BniPhp\net\HttpClient;
 use BniApi\BniPhp\utils\Constant;
 use BniApi\BniPhp\utils\Response;
 use BniApi\BniPhp\utils\Util;
-use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\RequestOptions;
 
 class SnapBI
