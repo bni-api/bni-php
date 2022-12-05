@@ -27,7 +27,7 @@ class HttpClient
         string $method,
         string $url,
         array $headers,
-        array $data,
+        array $data
     ) {
         try {
 
