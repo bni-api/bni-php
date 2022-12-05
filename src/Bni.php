@@ -2,16 +2,19 @@
 
 namespace BniApi\BniPhp;
 
+use BniApi\BniPhp\net\HttpClient;
+use BniApi\BniPhp\utils\Constant;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\RequestOptions;
 use Illuminate\Support\Facades\Http;
 
 class Bni
 {
 
-    public $prod;
+    public $env;
     public $appName;
     public $clientId;
     public $clientSecret;
@@ -20,44 +23,57 @@ class Bni
 
     private $client;
     
-    const SANBOX_BASE_URL = "https://dev.harismawan.com";
+    const DEV_BASE_URL = 'https://newapidev.bni.co.id:8066';
+    const SANBOX_BASE_URL = "https://sandbox.bni.co.id";
     const PRODUCTION_BASE_URL = "https://api.bni.co.id";
 
-    function __construct(bool $prod, $clientId, $clientSecret, $apiKey, $apiSecret, $appName)
+    const ENV_DEV = 'dev';
+    const ENV_SANDBOX = 'sandbox';
+    const ENV_PRODUCTION = 'prod';
+
+    function __construct(string $env, $clientId, $clientSecret, $apiKey, $apiSecret, $appName)
     {
-        $this->prod = $prod;
+        $this->env = $env;
         $this->clientId = $clientId;
         $this->clientSecret = $clientSecret;
         $this->apiKey = $apiKey;
         $this->apiSecret = $apiSecret;
         $this->appName = $appName;
-        $this->client = new Client([
-            'verify' => false,
-        ]);
+        $this->client = new HttpClient;
     }
 
     public function getBaseUrl()
     {
-        return $this->prod ? self::PRODUCTION_BASE_URL : self::SANBOX_BASE_URL;
+        $baseUrl = self::PRODUCTION_BASE_URL;
+        if ($this->env === self::ENV_DEV) 
+            $baseUrl = self::DEV_BASE_URL;
+        else if ($this->env === self::ENV_SANDBOX) 
+            $baseUrl = self::SANBOX_BASE_URL;
+        else if ($this->env === self::PRODUCTION_BASE_URL) 
+            $baseUrl = self::PRODUCTION_BASE_URL;
+        
+        return $baseUrl;
     }
 
     public function getToken()
     {
         try {
-            $headers = [
+            $url = $this->getBaseUrl(). Constant::URL_GET_TOKEN;
+
+            $header = [
                 'Content-Type' => 'application/x-www-form-urlencoded',
                 'Authorization' => 'Basic ' . base64_encode($this->clientId . ":" . $this->clientSecret)
             ];
-            $options = [
-                'form_params' => [
+            $data = [
+                RequestOptions::FORM_PARAMS => [
                     'grant_type' => 'client_credentials'
                 ]
             ];
-            $request = new Request('POST', "{$this->getBaseUrl()}/api/oauth/token", $headers);
-            $res = $this->client->sendAsync($request, $options)->wait();
-            return json_decode($res->getBody())->access_token;
+
+            $response = $this->client->request('POST', $url, $header, $data);
+            return json_decode($response->getBody())->access_token;
         } catch (ClientException $th) {
-            throw new Exception("error get token");
+            throw new Exception(Constant::ERROR_GET_TOKEN);
         }
     }
 }

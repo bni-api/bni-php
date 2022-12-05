@@ -13,7 +13,7 @@ class OneGatePaymentTest extends TestCase
     {
         $credentials = json_decode(file_get_contents(__DIR__ . '/constant.json'));
         return new Bni(
-            $production = false,
+            $env = 'sandbox',
             $clientId = $credentials->one_gate_payment->clientId,
             $clientSecret = $credentials->one_gate_payment->clientSecret,
             $apiKey = $credentials->one_gate_payment->apiKey,

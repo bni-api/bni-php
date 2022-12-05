@@ -1,3 +1,4 @@
 /vendor/*
 autoload.php
 /test/constant.json
+/test/private.key

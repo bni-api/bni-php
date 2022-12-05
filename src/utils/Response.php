@@ -9,13 +9,13 @@ class Response
     public static function oneGatePayment($response, $resService)
     {
         try {
-            // $resObject = $response->object();
-            // if ($response->failed()) {
-            //     throw new Exception(
-            //         $resObject->$resService->parameters->responseCode . ' : ' . $resObject->$resService->parameters->responseMessage
-            //     );
-            // }
-            return $response;
+            $resObject = json_decode($response->getBody());
+            if ($response->getStatusCode() !== 200) {
+                throw new Exception(
+                    $resObject->$resService->parameters->responseCode . ' : ' . $resObject->$resService->parameters->responseMessage
+                );
+            }
+            return $resObject;
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -24,11 +24,11 @@ class Response
     public static function snapBI($response)
     {
         try {
-            $resObject = $response->object();
-            if ($response->failed()) {
+            $resObject = json_decode($response->getBody());
+            if ($response->getStatusCode() !== 200) {
                 throw new Exception(
                     $resObject->responseCode . ' : ' . $resObject->responseMessage
-                );
+                ); 
             }
 
             $statusCodeSuccess = [

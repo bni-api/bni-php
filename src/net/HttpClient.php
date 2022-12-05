@@ -2,9 +2,13 @@
 
 namespace BniApi\BniPhp\net;
 
+use BniApi\BniPhp\api\SnapBI;
+use BniApi\BniPhp\Bni;
+use BniApi\BniPhp\utils\Util;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\RequestOptions;
 
@@ -13,65 +17,34 @@ class HttpClient
 
     public function __construct()
     {
+        $this->utils = new Util;
         $this->client = new Client([
             'verify' => false,
         ]);
     }
 
     public function request(
-        string $apiKey,
-        string $accessToken,
+        string $method,
         string $url,
-        array $data
-    ) {
-        $headers = [
-            'X-API-Key' => $apiKey,
-            'user-agent' => 'bni-php/0.1.0',
-        ];
-        $options = [
-            RequestOptions::JSON => $data
-        ];
-        $request = new Request('POST', $url . '?access_token=' . $accessToken, $headers);
-        $res = $this->client->sendAsync($request, $options)->wait();
-        return json_decode($res->getBody());
-    }
-
-    public function requestSnapBI(
-        string $accessToken,
-        string $url,
+        array $headers,
         array $data,
-        array $additionalHeaders
     ) {
-        $header = [
-            'user-agent' => 'bni-php/0.1.0',
-            'Authorization' => $accessToken
-        ];
-        $headers = array_merge($header, $additionalHeaders);
+        try {
 
-        $options = [
-            RequestOptions::JSON => $data
-        ];
-        $request = new Request('POST', $url, $headers);
-        $res = $this->client->sendAsync($request, $options)->wait();
-        return json_decode($res->getBody());
+            $header = [
+                'user-agent' => 'bni-php/0.1.0',
+            ];
 
-
-
-        // $header = [
-        //     'user-agent' => 'bni-php/0.1.0',
-        // ];
-
-        // $headers = array_merge($header, $additionalHeaders);
-        // $response = Http::withHeaders($headers)
-        //     ->withToken($accessToken)
-        //     ->post($url, $data);
-
-        // return $response;
+            $headers = array_merge($header, $headers);
+            $request = new Request($method, $url, $headers);
+            $res = $this->client->sendAsync($request, $data)->wait();
+            return $res;
+        } catch (RequestException $e) {
+            if ($e->hasResponse()) {
+                return $e->getResponse();
+            } else {
+                return new Exception($e->getMessage(), 503);
+            }
+        }
     }
-
-    public function requestTokenSnap()
-    {
-        
-    }
-    
 }
