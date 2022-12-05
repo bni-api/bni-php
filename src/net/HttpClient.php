@@ -2,15 +2,11 @@
 
 namespace BniApi\BniPhp\net;
 
-use BniApi\BniPhp\api\SnapBI;
-use BniApi\BniPhp\Bni;
 use BniApi\BniPhp\utils\Util;
 use Exception;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\RequestOptions;
 
 class HttpClient
 {
@@ -18,16 +14,14 @@ class HttpClient
     public function __construct()
     {
         $this->utils = new Util;
-        $this->client = new Client([
-            'verify' => false,
-        ]);
+        $this->client = new Client();
     }
 
     public function request(
         string $method,
         string $url,
         array $headers,
-        array $data,
+        array $data
     ) {
         try {
 

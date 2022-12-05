@@ -5,11 +5,8 @@ namespace BniApi\BniPhp;
 use BniApi\BniPhp\net\HttpClient;
 use BniApi\BniPhp\utils\Constant;
 use Exception;
-use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\RequestOptions;
-use Illuminate\Support\Facades\Http;
 
 class Bni
 {
