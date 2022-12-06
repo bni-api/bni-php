@@ -50,6 +50,7 @@ Create `One Gate Payment` class object
 ```php
 
 use BniApi\BniPhp\Bni;
+use BniApi\BniPhp\api\OneGatePayment;
 
 
 $bni = new Bni(
@@ -155,6 +156,7 @@ Create `Snap BI` class object
 ```php
 
 use BniApi\BniPhp\Bni;
+use BniApi\BniPhp\api\SnapBI;
 
 
 $bni = new Bni(
