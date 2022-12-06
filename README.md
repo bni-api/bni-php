@@ -32,8 +32,10 @@ Get your client key and server key from [Menu - Applications](https://digitalser
 Create API client object
 
 ```php
+use BniApi\BniPhp\Bni;
+
 $bni = new Bni(
-  $prod = false,
+  $env = 'sandbox', // dev, sandbox, prod
   $clientId = '{your-client-id}',
   $clientSecret = '{your-client-secret}',
   $apiKey = '{your-api-key}',
@@ -46,8 +48,13 @@ $bni = new Bni(
 
 Create `One Gate Payment` class object
 ```php
+
+use BniApi\BniPhp\Bni;
+use BniApi\BniPhp\api\OneGatePayment;
+
+
 $bni = new Bni(
-  $prod = false,
+  $env = 'sandbox', // dev, sandbox, prod
   $clientId = '{your-client-id}',
   $clientSecret = '{your-client-secret}',
   $apiKey = '{your-api-key}',
@@ -147,8 +154,13 @@ $holdAmountRelease =  $ogp->holdAmountRelease(
 
 Create `Snap BI` class object
 ```php
+
+use BniApi\BniPhp\Bni;
+use BniApi\BniPhp\api\SnapBI;
+
+
 $bni = new Bni(
-  $prod = false,
+  $env = 'sandbox', // dev, sandbox, prod
   $clientId = '{your-client-id}',
   $clientSecret = '{your-client-secret}',
   $apiKey = '{your-api-key}',
