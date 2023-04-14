@@ -21,7 +21,8 @@ class Bni
     private $client;
     
     const DEV_BASE_URL = 'https://newapidev.bni.co.id:8066';
-    const SANBOX_BASE_URL = "https://sandbox.bni.co.id";
+    const SANDBOX_BASE_URL = "https://sandbox.bni.co.id";
+    const SANDBOX_DEV_BASE_URL = "http://localhost:8080"
     const PRODUCTION_BASE_URL = "https://api.bni.co.id";
 
     const ENV_DEV = 'dev';
@@ -45,10 +46,11 @@ class Bni
         if ($this->env === self::ENV_DEV) 
             $baseUrl = self::DEV_BASE_URL;
         else if ($this->env === self::ENV_SANDBOX) 
-            $baseUrl = self::SANBOX_BASE_URL;
+            $baseUrl = self::SANDBOX_BASE_URL;
+        else if ($this->env === self::SANDBOX_DEV_BASE_URL) 
+            $baseUrl = self::SANDBOX_DEV_BASE_URL;
         else if ($this->env === self::PRODUCTION_BASE_URL) 
             $baseUrl = self::PRODUCTION_BASE_URL;
-        
         return $baseUrl;
     }
 
