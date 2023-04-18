@@ -22,7 +22,7 @@ class Bni
     
     const DEV_BASE_URL = 'https://newapidev.bni.co.id:8066';
     const SANDBOX_BASE_URL = "https://sandbox.bni.co.id";
-    const SANDBOX_DEV_BASE_URL = "http://localhost:8080";
+    const SANDBOX_DEV_BASE_URL = "https://sb-dev.harismawan.com";
     const UAT_BASE_URL = 'https://newapidev.bni.co.id:8065';
     const PRODUCTION_BASE_URL = "https://api.bni.co.id";
 
