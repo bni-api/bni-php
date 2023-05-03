@@ -29,6 +29,7 @@ class Bni
     const ENV_DEV = 'dev';
     const ENV_UAT = 'uat';
     const ENV_SANDBOX = 'sandbox';
+    const ENV_SANDBOX_DEV = 'sandbox_dev';
     const ENV_PRODUCTION = 'prod';
 
     function __construct(string $env, $clientId, $clientSecret, $apiKey, $apiSecret, $appName)
@@ -49,11 +50,11 @@ class Bni
             $baseUrl = self::DEV_BASE_URL;
         else if ($this->env === self::ENV_SANDBOX) 
             $baseUrl = self::SANDBOX_BASE_URL;
-        else if ($this->env === self::SANDBOX_DEV_BASE_URL) 
+        else if ($this->env === self::ENV_SANDBOX_DEV) 
             $baseUrl = self::SANDBOX_DEV_BASE_URL;
-        else if ($this->env === self::UAT_BASE_URL) 
-            $baseUrl = self::SANDBOX_DEV_BASE_URL;
-        else if ($this->env === self::PRODUCTION_BASE_URL) 
+        else if ($this->env === self::ENV_UAT) 
+            $baseUrl = self::UAT_BASE_URL;
+        else if ($this->env === self::ENV_PRODUCTION) 
             $baseUrl = self::PRODUCTION_BASE_URL;
         return $baseUrl;
     }
