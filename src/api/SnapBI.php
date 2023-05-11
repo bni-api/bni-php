@@ -137,10 +137,16 @@ class SnapBI
         $token = $this->getToken();
 
         $url = Constant::URL_SNAP_INTERNALACCOUNTINQUIRY;
-        $body = [
-            'partnerReferenceNo' => $partnerReferenceNo,
-            'beneficiaryAccountNo' => $beneficiaryAccountNo
-        ];
+        if($beneficiaryAccountNo == ""){
+            $body = [
+                'partnerReferenceNo' => $partnerReferenceNo,
+            ];
+        } else {
+            $body = [
+                'partnerReferenceNo' => $partnerReferenceNo,
+                'beneficiaryAccountNo' => $beneficiaryAccountNo
+            ];
+        }
 
         $response = $this->requestSnapBI($url, $token, $body, $timeStamp);
 
