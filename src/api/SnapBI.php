@@ -210,7 +210,7 @@ class SnapBI
 
         $token = $this->getToken();
 
-        $url = Constant::URL_SNAP_TRANSACTIONSTATUSINQUIRY;
+        $url = Constant::URL_SNAP_TRANSFERINTRABANK;
 
         $body = [
             'partnerReferenceNo' => $partnerReferenceNo,
