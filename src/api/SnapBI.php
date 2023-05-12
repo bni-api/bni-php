@@ -130,14 +130,14 @@ class SnapBI
 
     public function internalAccountInquiry(
         string $partnerReferenceNo,
-        string $beneficiaryAccountNo
+        string $beneficiaryAccountNo = "false"
     ) {
         $timeStamp = $this->utils->getTimeStamp();
         
         $token = $this->getToken();
 
         $url = Constant::URL_SNAP_INTERNALACCOUNTINQUIRY;
-        if($beneficiaryAccountNo == ""){
+        if($beneficiaryAccountNo == "false"){
             $body = [
                 'partnerReferenceNo' => $partnerReferenceNo,
             ];
