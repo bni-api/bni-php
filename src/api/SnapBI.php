@@ -130,17 +130,23 @@ class SnapBI
 
     public function internalAccountInquiry(
         string $partnerReferenceNo,
-        string $beneficiaryAccountNo
+        string $beneficiaryAccountNo = "false"
     ) {
         $timeStamp = $this->utils->getTimeStamp();
         
         $token = $this->getToken();
 
         $url = Constant::URL_SNAP_INTERNALACCOUNTINQUIRY;
-        $body = [
-            'partnerReferenceNo' => $partnerReferenceNo,
-            'beneficiaryAccountNo' => $beneficiaryAccountNo
-        ];
+        if($beneficiaryAccountNo == "false"){
+            $body = [
+                'partnerReferenceNo' => $partnerReferenceNo,
+            ];
+        } else {
+            $body = [
+                'partnerReferenceNo' => $partnerReferenceNo,
+                'beneficiaryAccountNo' => $beneficiaryAccountNo
+            ];
+        }
 
         $response = $this->requestSnapBI($url, $token, $body, $timeStamp);
 
@@ -204,7 +210,7 @@ class SnapBI
 
         $token = $this->getToken();
 
-        $url = Constant::URL_SNAP_TRANSACTIONSTATUSINQUIRY;
+        $url = Constant::URL_SNAP_TRANSFERINTRABANK;
 
         $body = [
             'partnerReferenceNo' => $partnerReferenceNo,
