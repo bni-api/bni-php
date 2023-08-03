@@ -56,4 +56,19 @@ class Response
             throw new Exception($e->getMessage());
         }
     }
+
+    public static function RDF($response)
+    {
+        try {
+            $resObject = json_decode($response->getBody());
+            if ($response->getStatusCode() !== 200) {
+                throw new Exception(
+                    $resObject->response->responseCode . ' : ' . $resObject->response->responseMessage
+                );
+            }
+            return $resObject;
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
 }
