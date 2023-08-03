@@ -29,4 +29,16 @@ class Constant
     const URL_SNAP_EXTERNALACCOUNTINQUIRY = '/snap-service/v1/account-inquiry-external';
     const URL_SNAP_TRANSFERINTERBANK = '/snap-service/v1/transfer-interbank';
 
+    const URL_RDF_FACERECOGNITION = '/rekdana/v1.1/face/recog';
+    const URL_RDF_REGISTERINVESTOR = '/rdf/v2.1/register/investor';
+    const URL_RDF_REGISTERINVESTORACCOUNT = '/rdf/v2.1/register/investor/account';
+    const URL_RDF_INQUIRYACCOUNTBALANCE = '/rdf/v2.1/inquiry/account/balance';
+    const URL_RDF_INQUIRYACCOUNTHISTORY = '/rdf/v2.1/inquiry/account/history';
+    const URL_RDF_INQUIRYACCOUNTINFO = '/rdf/v2.1/inquiry/account/info';
+    const URL_RDF_PAYMENTUSINGTRANSFER = '/rdf/v2.1/payment/transfer';
+    const URL_RDF_PAYMENTUSINGCLEARING = '/rdf/v2.1/payment/clearing';
+    const URL_RDF_PAYMENTUSINGRTGS = '/rdf/v2.1/payment/rtgs';
+    const URL_RDF_INQUIRYINTERBANKACCOUNT = '/rdf/v2.1/inquiry/interbank/account';
+    const URL_RDF_INQUIRYPAYMENTSTATUS = '/rdf/v2.1/inquiry/payment/status';
+    const URL_RDF_PAYMENTUSINGINTERBANK = '/rdf/v2.1/payment/interbank';
 }
