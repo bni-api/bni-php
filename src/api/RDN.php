@@ -20,7 +20,7 @@ class RDN
         $this->utils = new Util;
     }
 
-    private function requestRDF($url, $dataJson, $data)
+    private function requestRDN($url, $dataJson, $data)
     {
         $time = $this->utils->getTimeStamp();
         $header = [
@@ -28,9 +28,104 @@ class RDN
             'X-Signature' => $this->utils->generateSignatureV2($data, $this->bni->apiSecret, $time),
             'X-Timestamp' => $time
         ];
-        // print_r($this->utils->generateSignatureV2($data, $this->bni->apiSecret, $time));
-        // print_r($time);
         return $this->httpClient->request('POST', $url, $header, $dataJson);
+    }
+
+    public function faceRecognition(
+        string $companyId,
+        string $parentCompanyId,
+        string $firstName,
+        string $middleName,
+        string $lastName,
+        string $idNumber,
+        string $birthDate,
+        string $birthPlace,
+        string $gender,
+        string $cityAddress,
+        string $stateProvAddress,
+        string $addressCountry,
+        string $streetAddress1,
+        string $streetAddress2,
+        string $postCodeAddress,
+        string $country,
+        string $selfiePhoto,
+    ) {
+        $url = $this->bni->getBaseUrl() . Constant::URL_RDN_FACERECOGNITION;
+        $data = [
+            "request" => [
+                "header" => [
+                    "companyId" => $companyId,
+                    "parentCompanyId" => $parentCompanyId,
+                    "requestUuid" => $this->utils->generateUUID(),
+                ],
+                "firstName" => $firstName,
+                "middleName" => $middleName,
+                "lastName" => $lastName,
+                "idNumber" => $idNumber,
+                "birthDate" => $birthDate,
+                "birthPlace" => $birthPlace,
+                "gender" => $gender,
+                "cityAddress" => $cityAddress,
+                "stateProvAddress" => $stateProvAddress,
+                "addressCountry" => $addressCountry,
+                "streetAddress1" => $streetAddress1,
+                "streetAddress2" => $streetAddress2,
+                "postCodeAddress" => $postCodeAddress,
+                "country" => $country,
+                "selfiePhoto" => $selfiePhoto,
+            ]
+        ];
+
+        $dataJson = [
+            RequestOptions::JSON => $data
+        ];
+        $response = $this->requestRDN($url, $dataJson, $data);
+        return Response::RDN($response);
+    }
+
+    public function checkSID(
+        string $companyId,
+        string $parentCompanyId,
+        string $requestUuid,
+        string $participantId,
+        string $sidNumber,
+        string $accountNumberOnKsei,
+        string $branchCode,
+        string $ack,
+        string $externalReff,
+        string $investorName,
+        string $investorID,
+        string $investorNPWP,
+        string $investorPassport,
+        string $actStatus
+    ) {
+        $url = $this->bni->getBaseUrl() . Constant::URL_RDN_CHECKSIDV2;
+        $data = [
+            "request" => [
+                "header" => [
+                    "companyId" => $companyId,
+                    "parentCompanyId" => $parentCompanyId,
+                    "requestUuid" => $this->utils->generateUUID(),
+                ],
+                "participantId" => $participantId,
+                "sidNumber" => $sidNumber,
+                "accountNumberOnKsei" => $accountNumberOnKsei,
+                "branchCode" => $branchCode,
+                "ack" => $ack,
+                "externalReff" => $externalReff,
+                "investorName" => $investorName,
+                "investorID" => $investorID,
+                "investorNPWP" => $investorNPWP,
+                "investorPassport" => $investorPassport,
+                "actStatus" => $actStatus,
+            ]
+        ];
+
+        $dataJson = [
+            RequestOptions::JSON => $data
+        ];
+        $response = $this->requestRDN($url, $dataJson, $data);
+        return Response::RDN($response);
     }
 
     public function registerInvestor(
@@ -82,7 +177,7 @@ class RDN
         string $ownedBankAccNo,
         string $idIssuingDate
     ) {
-        $url = $this->bni->getBaseUrl() . Constant::URL_RDF_REGISTERINVESTOR . '?access_token=' . $this->bni->getToken();
+        $url = $this->bni->getBaseUrl() . Constant::URL_RDN_REGISTERINVESTOR . '?access_token=' . $this->bni->getToken();
         $data = [
             "request" => [
                 "header" => [
@@ -141,62 +236,9 @@ class RDN
         $dataJson = [
             RequestOptions::JSON => $data
         ];
-        $response = $this->requestRDF($url, $dataJson, $data);
-        print_r(json_decode($response->getBody()));
-        return Response::RDF($response);
-    }
+        $response = $this->requestRDN($url, $dataJson, $data);
 
-    public function faceRecognition(
-        string $companyId,
-        string $parentCompanyId,
-        string $firstName,
-        string $middleName,
-        string $lastName,
-        string $idNumber,
-        string $birthDate,
-        string $birthPlace,
-        string $gender,
-        string $cityAddress,
-        string $stateProvAddress,
-        string $addressCountry,
-        string $streetAddress1,
-        string $streetAddress2,
-        string $postCodeAddress,
-        string $country,
-        string $selfiePhoto,
-    ) {
-        $url = $this->bni->getBaseUrl() . Constant::URL_RDF_FACERECOGNITION;
-        $data = [
-            "request" => [
-                "header" => [
-                    "companyId" => $companyId,
-                    "parentCompanyId" => $parentCompanyId,
-                    "requestUuid" => $this->utils->generateUUID(),
-                ],
-                "firstName" => $firstName,
-                "middleName" => $middleName,
-                "lastName" => $lastName,
-                "idNumber" => $idNumber,
-                "birthDate" => $birthDate,
-                "birthPlace" => $birthPlace,
-                "gender" => $gender,
-                "cityAddress" => $cityAddress,
-                "stateProvAddress" => $stateProvAddress,
-                "addressCountry" => $addressCountry,
-                "streetAddress1" => $streetAddress1,
-                "streetAddress2" => $streetAddress2,
-                "postCodeAddress" => $postCodeAddress,
-                "country" => $country,
-                "selfiePhoto" => $selfiePhoto,
-            ]
-        ];
-
-        $dataJson = [
-            RequestOptions::JSON => $data
-        ];
-        $response = $this->requestRDF($url, $dataJson, $data);
-        // print_r(json_decode($response->getBody()));
-        return Response::RDF($response);
+        return Response::RDN($response);
     }
 
     public function registerInvestorAccount(
@@ -210,7 +252,7 @@ class RDN
         string $bnisId,
         string $sre,
     ) {
-        $url = $this->bni->getBaseUrl() . Constant::URL_RDF_REGISTERINVESTORACCOUNT . '?access_token=' . $this->bni->getToken();
+        $url = $this->bni->getBaseUrl() . Constant::URL_RDN_REGISTERINVESTORACCOUNT . '?access_token=' . $this->bni->getToken();
         $data = [
             "request" => [
                 "header" => [
@@ -231,9 +273,47 @@ class RDN
         $dataJson = [
             RequestOptions::JSON => $data
         ];
-        $response = $this->requestRDF($url, $dataJson, $data);
-        // print_r(json_decode($response->getBody()));
-        return Response::RDF($response);
+        $response = $this->requestRDN($url, $dataJson, $data);
+
+        return Response::RDN($response);
+    }
+
+    public function sendDataStatic(
+        string $companyId,
+        string $parentCompanyId,
+        string $uuidFaceRecog,
+        string $participantCode,
+        string $investorName,
+        string $investorCode,
+        string $investorAccountNumber,
+        string $bankAccountNumber,
+        string $activityDate,
+        string $activity
+    ) {
+        $url = $this->bni->getBaseUrl() . Constant::URL_RDN_SENDATASTATIC . '?access_token=' . $this->bni->getToken();
+        $data = [
+            "request" => [
+                "header" => [
+                    "companyId" => $companyId,
+                    "parentCompanyId" => $parentCompanyId,
+                    "requestUuid" => $this->utils->generateUUID(),
+                ],
+                "participantCode" => $participantCode
+                "investorName" => $investorName
+                "investorCode" => $investorCode
+                "investorAccountNumber" => $investorAccountNumber
+                "bankAccountNumber" => $bankAccountNumber
+                "activityDate" => $activityDate
+                "activity" => $activity
+            ]
+        ];
+
+        $dataJson = [
+            RequestOptions::JSON => $data
+        ];
+        $response = $this->requestRDN($url, $dataJson, $data);
+
+        return Response::RDN($response);
     }
 
     public function inquiryAccountBalance(
@@ -241,7 +321,7 @@ class RDN
         string $parentCompanyId,
         string $accountNumber
     ) {
-        $url = $this->bni->getBaseUrl() . Constant::URL_RDF_INQUIRYACCOUNTBALANCE . '?access_token=' . $this->bni->getToken();
+        $url = $this->bni->getBaseUrl() . Constant::URL_RDN_INQUIRYACCOUNTBALANCE . '?access_token=' . $this->bni->getToken();
         $data = [
             "request" => [
                 "header" => [
@@ -256,9 +336,9 @@ class RDN
         $dataJson = [
             RequestOptions::JSON => $data
         ];
-        $response = $this->requestRDF($url, $dataJson, $data);
+        $response = $this->requestRDN($url, $dataJson, $data);
 
-        return Response::RDF($response);
+        return Response::RDN($response);
     }
 
     public function inquiryAccountHistory(
@@ -266,7 +346,7 @@ class RDN
         string $parentCompanyId,
         string $accountNumber
     ) {
-        $url = $this->bni->getBaseUrl() . Constant::URL_RDF_INQUIRYACCOUNTHISTORY . '?access_token=' . $this->bni->getToken();
+        $url = $this->bni->getBaseUrl() . Constant::URL_RDN_INQUIRYACCOUNTHISTORY . '?access_token=' . $this->bni->getToken();
         $data = [
             "request" => [
                 "header" => [
@@ -281,9 +361,9 @@ class RDN
         $dataJson = [
             RequestOptions::JSON => $data
         ];
-        $response = $this->requestRDF($url, $dataJson, $data);
+        $response = $this->requestRDN($url, $dataJson, $data);
 
-        return Response::RDF($response);
+        return Response::RDN($response);
     }
 
     public function paymentUsingTransfer(
@@ -295,7 +375,7 @@ class RDN
         int $amount,
         string $remark,
     ) {
-        $url = $this->bni->getBaseUrl() . Constant::URL_RDF_PAYMENTUSINGTRANSFER . '?access_token=' . $this->bni->getToken();
+        $url = $this->bni->getBaseUrl() . Constant::URL_RDN_PAYMENTUSINGTRANSFER . '?access_token=' . $this->bni->getToken();
         $data = [
             "request" => [
                 "header" => [
@@ -314,9 +394,9 @@ class RDN
         $dataJson = [
             RequestOptions::JSON => $data
         ];
-        $response = $this->requestRDF($url, $dataJson, $data);
+        $response = $this->requestRDN($url, $dataJson, $data);
 
-        return Response::RDF($response);
+        return Response::RDN($response);
     }
 
     public function paymentUsingClearing(
@@ -333,7 +413,7 @@ class RDN
         string $remark,
         string $chargingType
     ) {
-        $url = $this->bni->getBaseUrl() . Constant::URL_RDF_PAYMENTUSINGCLEARING . '?access_token=' . $this->bni->getToken();
+        $url = $this->bni->getBaseUrl() . Constant::URL_RDN_PAYMENTUSINGCLEARING . '?access_token=' . $this->bni->getToken();
         $data = [
             "request" => [
                 "header" => [
@@ -357,9 +437,9 @@ class RDN
         $dataJson = [
             RequestOptions::JSON => $data
         ];
-        $response = $this->requestRDF($url, $dataJson, $data);
-        // print_r(json_decode($response->getBody()));
-        return Response::RDF($response);
+        $response = $this->requestRDN($url, $dataJson, $data);
+
+        return Response::RDN($response);
     }
 
     public function inquiryAccountInfo(
@@ -367,7 +447,7 @@ class RDN
         string $parentCompanyId,
         string $accountNumber
     ) {
-        $url = $this->bni->getBaseUrl() . Constant::URL_RDF_INQUIRYACCOUNTINFO . '?access_token=' . $this->bni->getToken();
+        $url = $this->bni->getBaseUrl() . Constant::URL_RDN_INQUIRYACCOUNTINFO . '?access_token=' . $this->bni->getToken();
         $data = [
             "request" => [
                 "header" => [
@@ -382,9 +462,9 @@ class RDN
         $dataJson = [
             RequestOptions::JSON => $data
         ];
-        $response = $this->requestRDF($url, $dataJson, $data);
+        $response = $this->requestRDN($url, $dataJson, $data);
 
-        return Response::RDF($response);
+        return Response::RDN($response);
     }
 
     public function paymentUsingRTGS(
@@ -401,7 +481,7 @@ class RDN
         string $remark,
         string $chargingType
     ) {
-        $url = $this->bni->getBaseUrl() . Constant::URL_RDF_PAYMENTUSINGRTGS . '?access_token=' . $this->bni->getToken();
+        $url = $this->bni->getBaseUrl() . Constant::URL_RDN_PAYMENTUSINGRTGS . '?access_token=' . $this->bni->getToken();
         $data = [
             "request" => [
                 "header" => [
@@ -425,9 +505,9 @@ class RDN
         $dataJson = [
             RequestOptions::JSON => $data
         ];
-        $response = $this->requestRDF($url, $dataJson, $data);
-        // print_r(json_decode($response->getBody()));
-        return Response::RDF($response);
+        $response = $this->requestRDN($url, $dataJson, $data);
+
+        return Response::RDN($response);
     }
 
     public function inquiryInterbankAccount(
@@ -437,7 +517,7 @@ class RDN
         string $beneficiaryBankCode,
         string $beneficiaryAccountNumber,
     ) {
-        $url = $this->bni->getBaseUrl() . Constant::URL_RDF_INQUIRYINTERBANKACCOUNT . '?access_token=' . $this->bni->getToken();
+        $url = $this->bni->getBaseUrl() . Constant::URL_RDN_INQUIRYINTERBANKACCOUNT . '?access_token=' . $this->bni->getToken();
         $data = [
             "request" => [
                 "header" => [
@@ -454,9 +534,9 @@ class RDN
         $dataJson = [
             RequestOptions::JSON => $data
         ];
-        $response = $this->requestRDF($url, $dataJson, $data);
+        $response = $this->requestRDN($url, $dataJson, $data);
 
-        return Response::RDF($response);
+        return Response::RDN($response);
     }
 
     public function inquiryPaymentStatus(
@@ -464,7 +544,7 @@ class RDN
         string $parentCompanyId,
         string $requestedUuid
     ) {
-        $url = $this->bni->getBaseUrl() . Constant::URL_RDF_INQUIRYPAYMENTSTATUS . '?access_token=' . $this->bni->getToken();
+        $url = $this->bni->getBaseUrl() . Constant::URL_RDN_INQUIRYPAYMENTSTATUS . '?access_token=' . $this->bni->getToken();
         $data = [
             "request" => [
                 "header" => [
@@ -479,9 +559,9 @@ class RDN
         $dataJson = [
             RequestOptions::JSON => $data
         ];
-        $response = $this->requestRDF($url, $dataJson, $data);
+        $response = $this->requestRDN($url, $dataJson, $data);
 
-        return Response::RDF($response);
+        return Response::RDN($response);
     }
 
     public function paymentUsingInterbank(
@@ -494,7 +574,7 @@ class RDN
         string $beneficiaryBankName,
         int $amount,
     ) {
-        $url = $this->bni->getBaseUrl() . Constant::URL_RDF_PAYMENTUSINGINTERBANK . '?access_token=' . $this->bni->getToken();
+        $url = $this->bni->getBaseUrl() . Constant::URL_RDN_PAYMENTUSINGINTERBANK . '?access_token=' . $this->bni->getToken();
         $data = [
             "request" => [
                 "header" => [
@@ -514,8 +594,8 @@ class RDN
         $dataJson = [
             RequestOptions::JSON => $data
         ];
-        $response = $this->requestRDF($url, $dataJson, $data);
+        $response = $this->requestRDN($url, $dataJson, $data);
 
-        return Response::RDF($response);
+        return Response::RDN($response);
     }
 }

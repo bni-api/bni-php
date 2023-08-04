@@ -57,6 +57,36 @@ class Response
         }
     }
 
+    public static function RDN($response)
+    {
+        try {
+            $resObject = json_decode($response->getBody());
+            if ($response->getStatusCode() !== 200) {
+                throw new Exception(
+                    $resObject->response->responseCode . ' : ' . $resObject->response->responseMessage
+                );
+            }
+            return $resObject;
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function RDL($response)
+    {
+        try {
+            $resObject = json_decode($response->getBody());
+            if ($response->getStatusCode() !== 200) {
+                throw new Exception(
+                    $resObject->response->responseCode . ' : ' . $resObject->response->responseMessage
+                );
+            }
+            return $resObject;
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
     public static function RDF($response)
     {
         try {

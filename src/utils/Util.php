@@ -40,7 +40,6 @@ class Util
             "timestamp" => $time
         ];
         $payload = array_merge($payload, $timeStamp);
-        print_r($payload);    
         $base64UrlHeader = $this->escapeString(base64_encode($header));
         $base64UrlPayload = $this->escapeString(base64_encode(JSON_encode($payload)));
         $signature = hash_hmac(
@@ -50,7 +49,6 @@ class Util
             true
         );
         $base64UrlSignature = $this->escapeString(base64_encode($signature));
-        print_r($base64UrlSignature);
         return $base64UrlSignature;
     }
 
