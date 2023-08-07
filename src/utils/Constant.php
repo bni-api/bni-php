@@ -46,17 +46,17 @@ class Constant
 
 
     const URL_RDL_FACERECOGNITION = '/rekdana/v1.1/face/recog';
-    const URL_RDL_REGISTERINVESTOR = '/rdl/v2.1/register/investor';
-    const URL_RDL_REGISTERINVESTORACCOUNT = '/rdl/v2.1/register/investor/account';
-    const URL_RDL_INQUIRYACCOUNTBALANCE = '/rdl/v2.1/inquiry/account/balance';
-    const URL_RDL_INQUIRYACCOUNTHISTORY = '/rdl/v2.1/inquiry/account/history';
-    const URL_RDL_INQUIRYACCOUNTINFO = '/rdl/v2.1/inquiry/account/info';
-    const URL_RDL_PAYMENTUSINGTRANSFER = '/rdl/v2.1/payment/transfer';
-    const URL_RDL_PAYMENTUSINGCLEARING = '/rdl/v2.1/payment/clearing';
-    const URL_RDL_INQUIRYINTERBANKACCOUNT = '/rdl/v2.1/inquiry/interbank/account';
-    const URL_RDL_PAYMENTUSINGRTGS = '/rdl/v2.1/payment/rtgs';
-    const URL_RDL_INQUIRYPAYMENTSTATUS = '/rdl/v2.1/inquiry/payment/status';
-    const URL_RDL_PAYMENTUSINGINTERBANK = '/rdl/v2.1/payment/interbank';
+    const URL_RDL_REGISTERINVESTOR = '/p2pl/v2.1/register/investor';
+    const URL_RDL_REGISTERINVESTORACCOUNT = '/p2pl/v2.1/register/investor/account';
+    const URL_RDL_INQUIRYACCOUNTBALANCE = '/p2pl/v2.1/inquiry/account/balance';
+    const URL_RDL_INQUIRYACCOUNTHISTORY = '/p2pl/v2.1/inquiry/account/history';
+    const URL_RDL_INQUIRYACCOUNTINFO = '/p2pl/v2.1/inquiry/account/info';
+    const URL_RDL_PAYMENTUSINGTRANSFER = '/p2pl/v2.1/payment/transfer';
+    const URL_RDL_PAYMENTUSINGCLEARING = '/p2pl/v2.1/payment/clearing';
+    const URL_RDL_INQUIRYINTERBANKACCOUNT = '/p2pl/v2.1/inquiry/interbank/account';
+    const URL_RDL_PAYMENTUSINGRTGS = '/p2pl/v2.1/payment/rtgs';
+    const URL_RDL_INQUIRYPAYMENTSTATUS = '/p2pl/v2.1/inquiry/payment/status';
+    const URL_RDL_PAYMENTUSINGINTERBANK = '/p2pl/v2.1/payment/interbank';
 
 
     const URL_RDF_FACERECOGNITION = '/rekdana/v1.1/face/recog';

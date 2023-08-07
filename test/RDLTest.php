@@ -22,61 +22,61 @@ class RDLTest extends TestCase
         );
     }
 
-    // public function test_rdl_registerInvestor()
-    // {
-    //     $bni = $this->init();
-    //     $rdl = new RDL($bni);
-    //     $response = $rdl->registerInvestor(
-    //         'SANDBOX',
-    //         'STI_CHS',
-    //         '492F33851D634CFB',
-    //         '01',
-    //         'Agus',
-    //         '',
-    //         'Saputra',
-    //         '1',
-    //         '001058893408123',
-    //         'ID',
-    //         'ID',
-    //         '2',
-    //         'Semarang',
-    //         '14081982',
-    //         'M',
-    //         'S',
-    //         'Dina Maryati',
-    //         '01',
-    //         '07',
-    //         '01',
-    //         '4147016201959998',
-    //         'Jakarta Barat',
-    //         '26102099',
-    //         'Jalan Mawar Melati',
-    //         '003009Sentosa',
-    //         'Cengkareng Barat',
-    //         'Cengkareng/Jakarta Barat',
-    //         '11730',
-    //         '0214',
-    //         '7459',
-    //         '',
-    //         '',
-    //         '0812',
-    //         '12348331',
-    //         '',
-    //         '',
-    //         'agus.saputra@gmail.com',
-    //         '8000000',
-    //         '0259',
-    //         'PT. BNI SECURITIES',
-    //         'IDD280436215354',
-    //         'Salman',
-    //         'St Baker',
-    //         'Arrandelle',
-    //         'Pedagang',
-    //         '0337109074',
-    //         '10122008'
-    //     );
-    //     $this->assertEquals($response->response->responseCode, '0001');
-    // }
+    public function test_rdl_registerInvestor()
+    {
+        $bni = $this->init();
+        $rdl = new RDL($bni);
+        $response = $rdl->registerInvestor(
+            'SANDBOX',
+            'STI_CHS',
+            '492F33851D634CFB',
+            '01',
+            'Agus',
+            '',
+            'Saputra',
+            '1',
+            '001058893408123',
+            'ID',
+            'ID',
+            '2',
+            'Semarang',
+            '14081982',
+            'M',
+            'S',
+            'Dina Maryati',
+            '01',
+            '07',
+            '01',
+            '4147016201959998',
+            'Jakarta Barat',
+            '26102099',
+            'Jalan Mawar Melati',
+            '003009Sentosa',
+            'Cengkareng Barat',
+            'Cengkareng/Jakarta Barat',
+            '11730',
+            '0214',
+            '7459',
+            '',
+            '',
+            '0812',
+            '12348331',
+            '',
+            '',
+            'agus.saputra@gmail.com',
+            '8000000',
+            '0259',
+            'PT. BNI SECURITIES',
+            'IDD280436215354',
+            'Salman',
+            'St Baker',
+            'Arrandelle',
+            'Pedagang',
+            '0337109074',
+            '10122008'
+        );
+        $this->assertEquals($response->response->responseCode, '0001');
+    }
 
     // public function test_rdl_faceRecognition()
     // {
