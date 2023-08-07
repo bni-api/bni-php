@@ -66,6 +66,7 @@ class Response
                     $resObject->response->responseCode . ' : ' . $resObject->response->responseMessage
                 );
             }
+            print_r($resObject);
             return $resObject;
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
@@ -96,6 +97,30 @@ class Response
                     $resObject->response->responseCode . ' : ' . $resObject->response->responseMessage
                 );
             }
+            return $resObject;
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function faceRecog($response)
+    {
+        try {
+            $resObject = json_decode($response->getBody());
+            if ($response->getStatusCode() !== 200) {
+                throw new Exception(
+                    json_encode($resObject)
+                );                    
+                // if($resObject->response->responseCode){
+                //     throw new Exception(
+                //         $resObject->response->responseCode . ' : ' . $resObject->response->responseMessage
+                //     );                    
+                // }
+                // throw new Exception(
+                //     $resObject->Response->parameters->responseCode . ' : ' . $resObject->Response->parameters->responseMessage
+                // );
+            }
+            print_r($resObject);
             return $resObject;
         } catch (Exception $e) {
             throw new Exception($e->getMessage());

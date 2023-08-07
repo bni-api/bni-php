@@ -50,7 +50,7 @@ class RDN
         string $country,
         string $selfiePhoto,
     ) {
-        $url = $this->bni->getBaseUrl() . Constant::URL_RDN_FACERECOGNITION;
+        $url = $this->bni->getBaseUrl() . Constant::URL_RDN_FACERECOGNITION . '?access_token=' . $this->bni->getToken();
         $data = [
             "request" => [
                 "header" => [
@@ -80,7 +80,8 @@ class RDN
             RequestOptions::JSON => $data
         ];
         $response = $this->requestRDN($url, $dataJson, $data);
-        return Response::RDN($response);
+
+        return Response::faceRecog($response);
     }
 
     public function checkSID(
@@ -91,15 +92,15 @@ class RDN
         string $sidNumber,
         string $accountNumberOnKsei,
         string $branchCode,
-        string $ack,
-        string $externalReff,
-        string $investorName,
-        string $investorID,
-        string $investorNPWP,
-        string $investorPassport,
-        string $actStatus
+        string $ack
+        // string $externalReff,
+        // string $investorName,
+        // string $investorID,
+        // string $investorNPWP,
+        // string $investorPassport,
+        // string $actStatus
     ) {
-        $url = $this->bni->getBaseUrl() . Constant::URL_RDN_CHECKSIDV2;
+        $url = $this->bni->getBaseUrl() . Constant::URL_RDN_CHECKSIDV2 . '?access_token=' . $this->bni->getToken();
         $data = [
             "request" => [
                 "header" => [
@@ -111,13 +112,13 @@ class RDN
                 "sidNumber" => $sidNumber,
                 "accountNumberOnKsei" => $accountNumberOnKsei,
                 "branchCode" => $branchCode,
-                "ack" => $ack,
-                "externalReff" => $externalReff,
-                "investorName" => $investorName,
-                "investorID" => $investorID,
-                "investorNPWP" => $investorNPWP,
-                "investorPassport" => $investorPassport,
-                "actStatus" => $actStatus,
+                "ack" => $ack
+                // "externalReff" => $externalReff,
+                // "investorName" => $investorName,
+                // "investorID" => $investorID,
+                // "investorNPWP" => $investorNPWP,
+                // "investorPassport" => $investorPassport,
+                // "actStatus" => $actStatus,
             ]
         ];
 
@@ -298,12 +299,12 @@ class RDN
                     "parentCompanyId" => $parentCompanyId,
                     "requestUuid" => $this->utils->generateUUID(),
                 ],
-                "participantCode" => $participantCode
-                "investorName" => $investorName
-                "investorCode" => $investorCode
-                "investorAccountNumber" => $investorAccountNumber
-                "bankAccountNumber" => $bankAccountNumber
-                "activityDate" => $activityDate
+                "participantCode" => $participantCode,
+                "investorName" => $investorName,
+                "investorCode" => $investorCode,
+                "investorAccountNumber" => $investorAccountNumber,
+                "bankAccountNumber" => $bankAccountNumber,
+                "activityDate" => $activityDate,
                 "activity" => $activity
             ]
         ];

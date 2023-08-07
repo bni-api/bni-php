@@ -28,8 +28,6 @@ class RDL
             'X-Signature' => $this->utils->generateSignatureV2($data, $this->bni->apiSecret, $time),
             'X-Timestamp' => $time
         ];
-        // print_r($this->utils->generateSignatureV2($data, $this->bni->apiSecret, $time));
-        // print_r($time);
         return $this->httpClient->request('POST', $url, $header, $dataJson);
     }
 
@@ -142,8 +140,8 @@ class RDL
             RequestOptions::JSON => $data
         ];
         $response = $this->requestRDL($url, $dataJson, $data);
-        print_r(json_decode($response->getBody()));
-        return Response::RDL($response);
+
+        return Response::faceRecog($response);
     }
 
     public function faceRecognition(
@@ -165,7 +163,7 @@ class RDL
         string $country,
         string $selfiePhoto,
     ) {
-        $url = $this->bni->getBaseUrl() . Constant::URL_RDL_FACERECOGNITION;
+        $url = $this->bni->getBaseUrl() . Constant::URL_RDL_FACERECOGNITION . '?access_token=' . $this->bni->getToken();
         $data = [
             "request" => [
                 "header" => [
@@ -195,8 +193,8 @@ class RDL
             RequestOptions::JSON => $data
         ];
         $response = $this->requestRDL($url, $dataJson, $data);
-        // print_r(json_decode($response->getBody()));
-        return Response::RDL($response);
+
+        return Response::faceRecog($response);
     }
 
     public function registerInvestorAccount(
