@@ -129,13 +129,12 @@ class RDNTest extends TestCase
     //     $this->assertEquals($response->response->responseCode, '0001');
     // }
 
-    /*kurang payload*/
     // public function test_rdn_sendDataStatic()
     // {
     //     $bni = $this->init();
     //     $rdn = new RDN($bni);
     //     $response = $rdn->sendDataStatic(
-    //         'sps app',
+    //         'SPS App',
     //         'KSEI',
     //         '52D3E26AA18D4FCA',
     //         'NI001',
@@ -147,7 +146,7 @@ class RDNTest extends TestCase
     //         '20180511',
     //         'O'
     //     );
-    //     $this->assertEquals($response->response->responseCode, '0001');
+    //     $this->assertEquals($response->sendResponse, '0');
     // }
 
     // public function test_rdn_inquiryAccountBalance()
