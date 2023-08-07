@@ -1,22 +1,22 @@
 {
-    "name": "wawatprigala/bni-php",
-    "description": "integrasi sama bno",
+    "name": "bni-api/bni-php-client",
+    "description": "Official BNI API SDK for PHP",
     "type": "library",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Wawatprigala\\BniPhp\\": "src/"
+            "BniApi\\BniPhp\\": "src/"
         }
     },
     "authors": [
         {
-            "name": "Wawat Prigala",
-            "email": "wawatprigala00@gmail.com"
+            "name": "BNI-APM",
+            "email": "bni.dgl.apm@gmail.com"
         }
     ],
     "minimum-stability": "dev",
     "require": {
-        "guzzlehttp/guzzle": "*"
+        "guzzlehttp/guzzle": "7.*"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5"

@@ -1,6 +1,6 @@
 <?php
 
-namespace Wawatprigala\BniPhp\utils;
+namespace BniApi\BniPhp\utils;
 
 use Exception;
 
@@ -9,8 +9,8 @@ class Response
     public static function oneGatePayment($response, $resService)
     {
         try {
-            $resObject = $response->object();
-            if ($response->failed()) {
+            $resObject = json_decode($response->getBody());
+            if ($response->getStatusCode() !== 200) {
                 throw new Exception(
                     $resObject->$resService->parameters->responseCode . ' : ' . $resObject->$resService->parameters->responseMessage
                 );
@@ -24,11 +24,11 @@ class Response
     public static function snapBI($response)
     {
         try {
-            $resObject = $response->object();
-            if ($response->failed()) {
+            $resObject = json_decode($response->getBody());
+            if ($response->getStatusCode() !== 200) {
                 throw new Exception(
                     $resObject->responseCode . ' : ' . $resObject->responseMessage
-                );
+                ); 
             }
 
             $statusCodeSuccess = [
@@ -51,6 +51,51 @@ class Response
                 );
             }
 
+            return $resObject;
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function RDN($response)
+    {
+        try {
+            $resObject = json_decode($response->getBody());
+            if ($response->getStatusCode() !== 200) {
+                throw new Exception(
+                    $resObject->response->responseCode . ' : ' . $resObject->response->responseMessage
+                );
+            }
+            return $resObject;
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function RDL($response)
+    {
+        try {
+            $resObject = json_decode($response->getBody());
+            if ($response->getStatusCode() !== 200) {
+                throw new Exception(
+                    $resObject->response->responseCode . ' : ' . $resObject->response->responseMessage
+                );
+            }
+            return $resObject;
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function RDF($response)
+    {
+        try {
+            $resObject = json_decode($response->getBody());
+            if ($response->getStatusCode() !== 200) {
+                throw new Exception(
+                    $resObject->response->responseCode . ' : ' . $resObject->response->responseMessage
+                );
+            }
             return $resObject;
         } catch (Exception $e) {
             throw new Exception($e->getMessage());

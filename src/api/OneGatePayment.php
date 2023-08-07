@@ -1,11 +1,13 @@
 <?php
 
-namespace Wawatprigala\BniPhp\api;
+namespace BniApi\BniPhp\api;
 
-use Wawatprigala\BniPhp\Bni;
-use Wawatprigala\BniPhp\net\HttpClient;
-use Wawatprigala\BniPhp\utils\Response;
-use Wawatprigala\BniPhp\utils\Util;
+use BniApi\BniPhp\Bni;
+use BniApi\BniPhp\net\HttpClient;
+use BniApi\BniPhp\utils\Constant;
+use BniApi\BniPhp\utils\Response;
+use BniApi\BniPhp\utils\Util;
+use GuzzleHttp\RequestOptions;
 
 class OneGatePayment
 {
@@ -19,8 +21,18 @@ class OneGatePayment
         $this->utils = new Util;
     }
 
+    private function requestOgp($url, $data)
+    {
+        $header = [
+            'X-API-Key' => $this->bni->apiKey,
+        ];
+
+        return $this->httpClient->request('POST', $url, $header, $data);
+    }
+
     public function getBalance(string $accountNo)
     {
+        $url = $this->bni->getBaseUrl() . Constant::URL_H2H_GETBALANCE . '?access_token=' . $this->bni->getToken();
         $body = [
             'accountNo' => $accountNo,
             'clientId' => $this->utils->generateClientId($this->bni->appName)
@@ -29,18 +41,20 @@ class OneGatePayment
         $signature = [
             'signature' => $this->utils->generateSignature($body, $this->bni->apiSecret)
         ];
-        $response = $this->httpClient->request(
-            $this->bni->apiKey,
-            $this->bni->getToken(),
-            $this->bni->getBaseUrl() . '/H2H/v2/getbalance',
-            array_merge($body, $signature)
-        );
+
+        $data = [
+            RequestOptions::JSON => array_merge($body, $signature)
+        ];
+
+        $response = $this->requestOgp($url, $data);
 
         return Response::oneGatePayment($response, 'getBalanceResponse');
     }
 
     public function getInHouseInquiry(string $accountNo)
     {
+        $url = $this->bni->getBaseUrl() . Constant::URL_H2H_GETINHOUSEINQUIRY . '?access_token=' . $this->bni->getToken();
+
         $body = [
             'accountNo' => $accountNo,
             'clientId' => $this->utils->generateClientId($this->bni->appName)
@@ -49,12 +63,12 @@ class OneGatePayment
         $signature = [
             'signature' => $this->utils->generateSignature($body, $this->bni->apiSecret)
         ];
-        $response = $this->httpClient->request(
-            $this->bni->apiKey,
-            $this->bni->getToken(),
-            $this->bni->getBaseUrl() . '/H2H/v2/getinhouseinquiry',
-            array_merge($body, $signature)
-        );
+
+        $data = [
+            RequestOptions::JSON => array_merge($body, $signature)
+        ];
+
+        $response = $this->requestOgp($url, $data);
 
         return Response::oneGatePayment($response, 'getInHouseInquiryResponse');
     }
@@ -76,6 +90,7 @@ class OneGatePayment
         string $chargingModelId
     ) {
 
+        $url = $this->bni->getBaseUrl() . Constant::URL_H2H_DOYPAYMENT . '?access_token=' .  $this->bni->getToken();
         $body = [
             "clientId" => $this->utils->generateClientId($this->bni->appName),
             "customerReferenceNumber" => $customerReferenceNumber,
@@ -97,18 +112,19 @@ class OneGatePayment
         $signature = [
             'signature' => $this->utils->generateSignature($body, $this->bni->apiSecret)
         ];
-        $response = $this->httpClient->request(
-            $this->bni->apiKey,
-            $this->bni->getToken(),
-            $this->bni->getBaseUrl() . '/H2H/v2/dopayment',
-            array_merge($body, $signature)
-        );
+
+        $data = [
+            RequestOptions::JSON => array_merge($body, $signature)
+        ];
+
+        $response = $this->requestOgp($url, $data);
 
         return Response::oneGatePayment($response, 'doPaymentResponse');
     }
 
     public function getPaymentStatus(string $customerReferenceNumber)
     {
+        $url = $this->bni->getBaseUrl() . Constant::URL_H2H_GETPAYMENTSTATUS . '?access_token=' . $this->bni->getToken();
         $body = [
             'customerReferenceNumber' => $customerReferenceNumber,
             'clientId' => $this->utils->generateClientId($this->bni->appName)
@@ -117,12 +133,12 @@ class OneGatePayment
         $signature = [
             'signature' => $this->utils->generateSignature($body, $this->bni->apiSecret)
         ];
-        $response = $this->httpClient->request(
-            $this->bni->apiKey,
-            $this->bni->getToken(),
-            $this->bni->getBaseUrl() . '/H2H/v2/getpaymentstatus',
-            array_merge($body, $signature)
-        );
+
+        $data = [
+            RequestOptions::JSON => array_merge($body, $signature)
+        ];
+
+        $response = $this->requestOgp($url, $data);
 
         return Response::oneGatePayment($response, 'getPaymentStatusResponse');
     }
@@ -133,6 +149,8 @@ class OneGatePayment
         string $destinationBankCode,
         string $destinationAccountNum
     ) {
+        $url = $this->bni->getBaseUrl() . Constant::URL_H2H_GETINTERBANKINQUIRY . '?access_token=' . $this->bni->getToken();
+
         $body = [
             'customerReferenceNumber' => $customerReferenceNumber,
             'accountNum' => $accountNum,
@@ -144,12 +162,12 @@ class OneGatePayment
         $signature = [
             'signature' => $this->utils->generateSignature($body, $this->bni->apiSecret)
         ];
-        $response = $this->httpClient->request(
-            $this->bni->apiKey,
-            $this->bni->getToken(),
-            $this->bni->getBaseUrl() . '/H2H/v2/getinterbankinquiry',
-            array_merge($body, $signature)
-        );
+
+        $data = [
+            RequestOptions::JSON => array_merge($body, $signature)
+        ];
+
+        $response = $this->requestOgp($url, $data);
 
         return Response::oneGatePayment($response, 'getInterbankInquiryResponse');
     }
@@ -164,6 +182,8 @@ class OneGatePayment
         string $accountNum,
         string $retrievalReffNum
     ) {
+        $url = $this->bni->getBaseUrl() . Constant::URL_H2H_GETINTERBANKPAYMENT . '?access_token=' . $this->bni->getToken();
+
         $body = [
             'customerReferenceNumber' => $customerReferenceNumber,
             'amount' => $amount,
@@ -179,12 +199,12 @@ class OneGatePayment
         $signature = [
             'signature' => $this->utils->generateSignature($body, $this->bni->apiSecret)
         ];
-        $response = $this->httpClient->request(
-            $this->bni->apiKey,
-            $this->bni->getToken(),
-            $this->bni->getBaseUrl() . '/H2H/v2/getinterbankpayment',
-            array_merge($body, $signature)
-        );
+
+        $data = [
+            RequestOptions::JSON => array_merge($body, $signature)
+        ];
+
+        $response = $this->requestOgp($url, $data);
 
         return Response::oneGatePayment($response, 'getInterbankPaymentResponse');
     }
@@ -195,6 +215,8 @@ class OneGatePayment
         string $accountNo,
         string $detail
     ) {
+        $url = $this->bni->getBaseUrl() . Constant::URL_H2H_HOLDAMOUNT . '?access_token=' . $this->bni->getToken();
+
         $body = [
             'customerReferenceNumber' => $customerReferenceNumber,
             'amount' => $amount,
@@ -206,12 +228,12 @@ class OneGatePayment
         $signature = [
             'signature' => $this->utils->generateSignature($body, $this->bni->apiSecret)
         ];
-        $response = $this->httpClient->request(
-            $this->bni->apiKey,
-            $this->bni->getToken(),
-            $this->bni->getBaseUrl() . '/H2H/v2/holdamount',
-            array_merge($body, $signature)
-        );
+
+        $data = [
+            RequestOptions::JSON => array_merge($body, $signature)
+        ];
+
+        $response = $this->requestOgp($url, $data);
 
         return Response::oneGatePayment($response, 'holdAmountResponse');
     }
@@ -223,6 +245,8 @@ class OneGatePayment
         string $bankReference,
         string $holdTransactionDate
     ) {
+        $url = $this->bni->getBaseUrl() . Constant::URL_H2H_HOLDAMOUNTRELEASE . '?access_token=' . $this->bni->getToken();
+
         $body = [
             'customerReferenceNumber' => $customerReferenceNumber,
             'amount' => $amount,
@@ -235,12 +259,12 @@ class OneGatePayment
         $signature = [
             'signature' => $this->utils->generateSignature($body, $this->bni->apiSecret)
         ];
-        $response = $this->httpClient->request(
-            $this->bni->apiKey,
-            $this->bni->getToken(),
-            $this->bni->getBaseUrl() . '/H2H/v2/holdamountrelease',
-            array_merge($body, $signature)
-        );
+
+        $data = [
+            RequestOptions::JSON => array_merge($body, $signature)
+        ];
+
+        $response = $this->requestOgp($url, $data);
 
         return Response::oneGatePayment($response, 'holdAmountReleaseResponse');
     }

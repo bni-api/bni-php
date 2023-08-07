@@ -1,23 +1,24 @@
 <?php
 
-namespace Wawatprigala\BniPhp\test;
+namespace BniApi\BniPhp\test;
 
-use Tests\TestCase;
-use Wawatprigala\BniPhp\api\OneGatePayment;
-use Wawatprigala\BniPhp\Bni;
+use BniApi\BniPhp\api\OneGatePayment;
+use BniApi\BniPhp\Bni;
+use PHPUnit\Framework\TestCase;
 
 class OneGatePaymentTest extends TestCase
 {
 
     private function init()
     {
+        $credentials = json_decode(file_get_contents(__DIR__ . '/constant.json'));
         return new Bni(
-            false,
-            'Test Wawat',
-            'ff19bcb7-3a15-4d0b-97b1-f36f9cf9bdb2',
-            'd227997a-3525-442d-b80e-2ab2e7d908f0',
-            '98c4277f-866d-46b0-ba83-d3e0e37e667e',
-            'b3b58219-8a88-401f-89c0-f2dc5bb7ce21'
+            $env = 'sandbox',
+            $clientId = $credentials->one_gate_payment->clientId,
+            $clientSecret = $credentials->one_gate_payment->clientSecret,
+            $apiKey = $credentials->one_gate_payment->apiKey,
+            $apiSecret = $credentials->one_gate_payment->apiSecret,
+            $appName = $credentials->one_gate_payment->appName
         );
     }
 

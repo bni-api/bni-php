@@ -1,22 +1,22 @@
 <?php
 
-namespace Wawatprigala\BniPhp\api;
+namespace BniApi\BniPhp\api;
 
-use Exception;
-use Illuminate\Support\Facades\Http;
-use Wawatprigala\BniPhp\Bni;
-use Wawatprigala\BniPhp\net\HttpClient;
-use Wawatprigala\BniPhp\utils\Response;
-use Wawatprigala\BniPhp\utils\Util;
+use BniApi\BniPhp\Bni;
+use BniApi\BniPhp\net\HttpClient;
+use BniApi\BniPhp\utils\Constant;
+use BniApi\BniPhp\utils\Response;
+use BniApi\BniPhp\utils\Util;
+use GuzzleHttp\RequestOptions;
 
 class SnapBI
 {
-    protected $bni;
-    protected $privateKeyPath;
-    protected $channelId;
-    protected $ipAddress;
-    protected $latitude;
-    protected $longitude;
+    public $bni;
+    public $privateKeyPath;
+    public $channelId;
+    public $ipAddress;
+    public $latitude;
+    public $longitude;
 
     function __construct(Bni $bni, string $privateKeyPath, string $channelId, string $ipAddress = '', string $latitude = '', string $longitude = '')
     {
@@ -30,26 +30,58 @@ class SnapBI
         $this->longitude = $longitude;
     }
 
+    public function requestSnapBI(string $url, string $token, array $data, string $timeStamp)
+    {
+        $header = [
+            'Authorization' => 'Bearer ' . $token,
+            'X-SIGNATURE' => $this->utils->generateSignatureServiceSnapBI('POST', $data, $url, $token, $timeStamp, $this->bni->apiSecret),
+            'X-TIMESTAMP' => $timeStamp,
+            'X-PARTNER-ID' => $this->bni->apiKey,
+            'X-IP-Address' => $this->ipAddress,
+            'X-DEVICE-ID' => 'bni-php/0.1.0',
+            'X-EXTERNAL-ID' => $this->utils->randomNumber(),
+            'CHANNEL-ID' => $this->channelId,
+            'X-LATITUDE' => $this->latitude,
+            'X-LONGITUDE' => $this->longitude
+        ];
+
+        $url = $this->bni->getBaseUrl() . $url;
+
+        $body = [
+            RequestOptions::JSON => $data
+        ];
+
+        return $this->httpClient->request('POST', $url, $header, $body);
+    }
+
     public function getToken()
     {
         $timeStamp = $this->utils->getTimeStamp();
-        $response = Http::withHeaders([
-            'X-SIGNATURE' => $this->utils->generateSignatureSnapBI(
-                $this->bni->clientId,
-                $this->privateKeyPath,
-                $timeStamp
-            ),
+
+        $url = $this->bni->getBaseUrl() . Constant::URL_SNAP_GETTOKEN;
+
+        $signature = $this->utils->generateSignatureSnapBI(
+            $this->bni->clientId,
+            $this->privateKeyPath,
+            $timeStamp
+        );
+
+        $header = [
+            'X-SIGNATURE' => $signature,
             'X-TIMESTAMP' => $timeStamp,
             'X-CLIENT-KEY' => $this->bni->clientId
-        ])->post($this->bni->getBaseUrl() . "/snap/v1/access-token/b2b", [
-            'grantType' => 'client_credentials',
-            'additionalInfo' => (object) []
-        ]);
+        ];
 
-        if ($response->failed()) {
-            throw new Exception($response->object()->responseCode . ' : ' . $response->object()->responseMessage);
-        }
-        return $response->object()->accessToken;
+        $data = [
+            RequestOptions::JSON => [
+                'grantType' => 'client_credentials',
+                'additionalInfo' => (object) []
+            ]
+        ];
+
+        $response = $this->httpClient->request('POST', $url, $header, $data);
+        return json_decode($response->getBody())->accessToken;
+      
     }
 
     public function balanceInquiry(
@@ -57,34 +89,17 @@ class SnapBI
         string $accountNo
     ) {
         $timeStamp = $this->utils->getTimeStamp();
+
+        $token = $this->getToken();
+
+        $url = Constant::URL_SNAP_BALANCEINQUIRY;
+
         $body = [
             'partnerReferenceNo' => $partnerReferenceNo,
             'accountNo' => $accountNo
         ];
-        $token = $this->getToken();
-        $response = $this->httpClient->requestSnapBI(
-            $token,
-            $this->bni->getBaseUrl() . '/snap-service/v1/balance-inquiry',
-            $body,
-            [
-                'X-SIGNATURE' => $this->utils->generateSignatureServiceSnapBI(
-                    'POST',
-                    $body,
-                    '/snap-service/v1/balance-inquiry',
-                    $token,
-                    $timeStamp,
-                    $this->bni->apiSecret
-                ),
-                'X-TIMESTAMP' => $timeStamp,
-                'X-PARTNER-ID' => $this->bni->apiKey,
-                'X-IP-Address' => $this->ipAddress,
-                'X-DEVICE-ID' => 'bni-php/0.1.0',
-                'X-EXTERNAL-ID' => $this->utils->randomNumber(),
-                'CHANNEL-ID' => $this->channelId,
-                'X-LATITUDE' => $this->latitude,
-                'X-LONGITUDE' => $this->longitude
-            ]
-        );
+
+        $response = $this->requestSnapBI($url, $token, $body, $timeStamp);
 
         return Response::snapBI($response);
     }
@@ -96,74 +111,45 @@ class SnapBI
         string $toDateTime
     ) {
         $timeStamp = $this->utils->getTimeStamp();
+
+        $token = $this->getToken();
+
+        $url = Constant::URL_SNAP_BANKSTATEMENT;
+
         $body = [
             'partnerReferenceNo' => $partnerReferenceNo,
             'accountNo' => $accountNo,
             'fromDateTime' => $fromDateTime,
             'toDateTime' => $toDateTime
         ];
-        $token = $this->getToken();
-        $response = $this->httpClient->requestSnapBI(
-            $token,
-            $this->bni->getBaseUrl() . '/snap-service/v1/bank-statement',
-            $body,
-            [
-                'X-SIGNATURE' => $this->utils->generateSignatureServiceSnapBI(
-                    'POST',
-                    $body,
-                    '/snap-service/v1/bank-statement',
-                    $token,
-                    $timeStamp,
-                    $this->bni->apiSecret
-                ),
-                'X-TIMESTAMP' => $timeStamp,
-                'X-PARTNER-ID' => $this->bni->apiKey,
-                'X-IP-Address' => $this->ipAddress,
-                'X-DEVICE-ID' => 'bni-php/0.1.0',
-                'X-EXTERNAL-ID' => $this->utils->randomNumber(),
-                'CHANNEL-ID' => $this->channelId,
-                'X-LATITUDE' => $this->latitude,
-                'X-LONGITUDE' => $this->longitude
-            ]
-        );
+
+        $response = $this->requestSnapBI($url, $token, $body, $timeStamp);
 
         return Response::snapBI($response);
     }
 
     public function internalAccountInquiry(
         string $partnerReferenceNo,
-        string $beneficiaryAccountNo
+        string $beneficiaryAccountNo = "false"
     ) {
         $timeStamp = $this->utils->getTimeStamp();
-        $body = [
-            'partnerReferenceNo' => $partnerReferenceNo,
-            'beneficiaryAccountNo' => $beneficiaryAccountNo
-        ];
+        
         $token = $this->getToken();
-        $response = $this->httpClient->requestSnapBI(
-            $token,
-            $this->bni->getBaseUrl() . '/snap-service/v1/account-inquiry-internal',
-            $body,
-            [
-                'X-SIGNATURE' => $this->utils->generateSignatureServiceSnapBI(
-                    'POST',
-                    $body,
-                    '/snap-service/v1/account-inquiry-internal',
-                    $token,
-                    $timeStamp,
-                    $this->bni->apiSecret
-                ),
-                'X-TIMESTAMP' => $timeStamp,
-                'X-PARTNER-ID' => $this->bni->apiKey,
-                'X-IP-Address' => $this->ipAddress,
-                'X-DEVICE-ID' => 'bni-php/0.1.0',
-                'X-EXTERNAL-ID' => $this->utils->randomNumber(),
-                'CHANNEL-ID' => $this->channelId,
-                'X-LATITUDE' => $this->latitude,
-                'X-LONGITUDE' => $this->longitude
 
-            ]
-        );
+        $url = Constant::URL_SNAP_INTERNALACCOUNTINQUIRY;
+        if($beneficiaryAccountNo == "false"){
+            $body = [
+                'partnerReferenceNo' => $partnerReferenceNo,
+            ];
+        } else {
+            $body = [
+                'partnerReferenceNo' => $partnerReferenceNo,
+                'beneficiaryAccountNo' => $beneficiaryAccountNo
+            ];
+        }
+
+        $response = $this->requestSnapBI($url, $token, $body, $timeStamp);
+
         return Response::snapBI($response);
     }
 
@@ -179,6 +165,11 @@ class SnapBI
         string $additionalInfoChannel
     ) {
         $timeStamp = $this->utils->getTimeStamp();
+        
+        $token = $this->getToken();
+
+        $url = Constant::URL_SNAP_TRANSACTIONSTATUSINQUIRY;
+
         $body = [
             'originalPartnerReferenceNo' => $originalPartnerReferenceNo,
             'originalreferenceNo' => $originalReferenceNo,
@@ -195,35 +186,12 @@ class SnapBI
             ]
         ];
 
-        $token = $this->getToken();
-        $response = $this->httpClient->requestSnapBI(
-            $token,
-            $this->bni->getBaseUrl() . '/snap-service/v1/transfer/status',
-            $body,
-            [
-                'X-SIGNATURE' => $this->utils->generateSignatureServiceSnapBI(
-                    'POST',
-                    $body,
-                    '/snap-service/v1/transfer/status',
-                    $token,
-                    $timeStamp,
-                    $this->bni->apiSecret
-                ),
-                'X-TIMESTAMP' => $timeStamp,
-                'X-PARTNER-ID' => $this->bni->apiKey,
-                'X-IP-Address' => $this->ipAddress,
-                'X-DEVICE-ID' => 'bni-php/0.1.0',
-                'X-EXTERNAL-ID' => $this->utils->randomNumber(),
-                'CHANNEL-ID' => $this->channelId,
-                'X-LATITUDE' => $this->latitude,
-                'X-LONGITUDE' => $this->longitude
-            ]
-        );
+        $response = $this->requestSnapBI($url, $token, $body, $timeStamp);
 
         return Response::snapBI($response);
     }
 
-    public function transferIntrabank(
+    public function transferIntraBank(
         string $partnerReferenceNo,
         string $amountValue,
         string $amountCurrency,
@@ -239,6 +207,11 @@ class SnapBI
         string $additionalInfoChannel
     ) {
         $timeStamp = $this->utils->getTimeStamp();
+
+        $token = $this->getToken();
+
+        $url = Constant::URL_SNAP_TRANSFERINTRABANK;
+
         $body = [
             'partnerReferenceNo' => $partnerReferenceNo,
             'amount' => [
@@ -259,38 +232,15 @@ class SnapBI
             ]
         ];
 
-        $token = $this->getToken();
-        $response = $this->httpClient->requestSnapBI(
-            $token,
-            $this->bni->getBaseUrl() . '/snap-service/v1/transfer-intrabank',
-            $body,
-            [
-                'X-SIGNATURE' => $this->utils->generateSignatureServiceSnapBI(
-                    'POST',
-                    $body,
-                    '/snap-service/v1/transfer-intrabank',
-                    $token,
-                    $timeStamp,
-                    $this->bni->apiSecret
-                ),
-                'X-TIMESTAMP' => $timeStamp,
-                'X-PARTNER-ID' => $this->bni->apiKey,
-                'X-IP-Address' => $this->ipAddress,
-                'X-DEVICE-ID' => 'bni-php/0.1.0',
-                'X-EXTERNAL-ID' => $this->utils->randomNumber(),
-                'CHANNEL-ID' => $this->channelId,
-                'X-LATITUDE' => $this->latitude,
-                'X-LONGITUDE' => $this->longitude
-            ]
-        );
+        $response = $this->requestSnapBI($url, $token, $body, $timeStamp);
 
         return Response::snapBI($response);
     }
 
     public function transferRTGS(
         string $partnerReferenceNo,
-        string $amountvalue,
-        string $amountcurrency,
+        string $amountValue,
+        string $amountCurrency,
         string $beneficiaryAccountName,
         string $beneficiaryAccountNo,
         string $beneficiaryAccountAddress,
@@ -310,15 +260,20 @@ class SnapBI
         string $senderPhone,
         string $sourceAccountNo,
         string $transactionDate,
-        string $additionalInfochanel,
-        string $additionalInfodeviceid
+        string $additionalInfoDeviceId,
+        string $additionalInfoChannel
     ) {
         $timeStamp = $this->utils->getTimeStamp();
+
+        $token = $this->getToken();
+
+        $url = Constant::URL_SNAP_TRANSACTIONSTATUSINQUIRY;
+
         $body = [
             'partnerReferenceNo' => $partnerReferenceNo,
             'amount' => [
-                'value' => $amountvalue,
-                'currency' => $amountcurrency
+                'value' => $amountValue,
+                'currency' => $amountCurrency
             ],
             'beneficiaryAccountName' => $beneficiaryAccountName,
             'beneficiaryAccountNo' => $beneficiaryAccountNo,
@@ -340,42 +295,20 @@ class SnapBI
             'sourceAccountNo' => $sourceAccountNo,
             'transactionDate' => $transactionDate,
             'additionalInfo' => [
-                'deviceid' => $additionalInfodeviceid,
-                'chanel' => $additionalInfochanel
+                'deviceId' => $additionalInfoDeviceId,
+                'channel' => $additionalInfoChannel
             ]
         ];
-        $token = $this->getToken();
-        $response = $this->httpClient->requestSnapBI(
-            $token,
-            $this->bni->getBaseUrl() . '/snap-service/v1/transfer-rtgs',
-            $body,
-            [
-                'X-SIGNATURE' => $this->utils->generateSignatureServiceSnapBI(
-                    'POST',
-                    $body,
-                    '/snap-service/v1/transfer-rtgs',
-                    $token,
-                    $timeStamp,
-                    $this->bni->apiSecret
-                ),
-                'X-TIMESTAMP' => $timeStamp,
-                'X-PARTNER-ID' => $this->bni->apiKey,
-                'X-IP-Address' => $this->ipAddress,
-                'X-DEVICE-ID' => 'bni-php/0.1.0',
-                'X-EXTERNAL-ID' => $this->utils->randomNumber(),
-                'CHANNEL-ID' => $this->channelId,
-                'X-LATITUDE' => $this->latitude,
-                'X-LONGITUDE' => $this->longitude
-            ]
-        );
+       
+        $response = $this->requestSnapBI($url, $token, $body, $timeStamp);
 
         return Response::snapBI($response);
     }
 
     public function transferSKNBI(
         string $partnerReferenceNo,
-        string $amountvalue,
-        string $amountcurrency,
+        string $amountValue,
+        string $amountCurrency,
         string $beneficiaryAccountName,
         string $beneficiaryAccountNo,
         string $beneficiaryAccountAddress,
@@ -395,15 +328,20 @@ class SnapBI
         string $senderPhone,
         string $sourceAccountNo,
         string $transactionDate,
-        string $additionalInfochanel,
-        string $additionalInfodeviceid
+        string $additionalInfoDeviceId,
+        string $additionalInfoChannel
     ) {
         $timeStamp = $this->utils->getTimeStamp();
+
+        $token = $this->getToken();
+
+        $url = Constant::URL_SNAP_TRANSFERSKNBI;
+
         $body = [
             'partnerReferenceNo' => $partnerReferenceNo,
             'amount' => [
-                'value' => $amountvalue,
-                'currency' => $amountcurrency
+                'value' => $amountValue,
+                'currency' => $amountCurrency
             ],
             'beneficiaryAccountName' => $beneficiaryAccountName,
             'beneficiaryAccountNo' => $beneficiaryAccountNo,
@@ -425,34 +363,12 @@ class SnapBI
             'sourceAccountNo' => $sourceAccountNo,
             'transactionDate' => $transactionDate,
             'additionalInfo' => [
-                'deviceid' => $additionalInfodeviceid,
-                'chanel' => $additionalInfochanel
+                'deviceId' => $additionalInfoDeviceId,
+                'channel' => $additionalInfoChannel
             ]
         ];
-        $token = $this->getToken();
-        $response = $this->httpClient->requestSnapBI(
-            $token,
-            $this->bni->getBaseUrl() . '/snap-service/v1/transfer-skn',
-            $body,
-            [
-                'X-SIGNATURE' => $this->utils->generateSignatureServiceSnapBI(
-                    'POST',
-                    $body,
-                    '/snap-service/v1/transfer-skn',
-                    $token,
-                    $timeStamp,
-                    $this->bni->apiSecret
-                ),
-                'X-TIMESTAMP' => $timeStamp,
-                'X-PARTNER-ID' => $this->bni->apiKey,
-                'X-IP-Address' => $this->ipAddress,
-                'X-DEVICE-ID' => 'bni-php/0.1.0',
-                'X-EXTERNAL-ID' => $this->utils->randomNumber(),
-                'CHANNEL-ID' => $this->channelId,
-                'X-LATITUDE' => $this->latitude,
-                'X-LONGITUDE' => $this->longitude
-            ]
-        );
+       
+        $response = $this->requestSnapBI($url, $token, $body, $timeStamp);
 
         return Response::snapBI($response);
     }
@@ -461,52 +377,35 @@ class SnapBI
         string $beneficiaryBankCode,
         string $beneficiaryAccountNo,
         string $partnerReferenceNo,
-        string $additionalInfodeviceid,
-        string $additionalInfochanel
+        string $additionalInfoDeviceId,
+        string $additionalInfoChannel
 
     ) {
         $timeStamp = $this->utils->getTimeStamp();
+
+        $token = $this->getToken();
+
+        $url = Constant::URL_SNAP_EXTERNALACCOUNTINQUIRY;
+
         $body = [
             'partnerReferenceNo' => $partnerReferenceNo,
             'beneficiaryAccountNo' => $beneficiaryAccountNo,
             'beneficiaryBankCode' => $beneficiaryBankCode,
             'additionalInfo' => [
-                'deviceId' => $additionalInfodeviceid,
-                'channel' => $additionalInfochanel
+                'deviceId' => $additionalInfoDeviceId,
+                'channel' => $additionalInfoChannel
             ]
         ];
-        $token = $this->getToken();
-        $response = $this->httpClient->requestSnapBI(
-            $token,
-            $this->bni->getBaseUrl() . '/snap-service/v1/account-inquiry-external',
-            $body,
-            [
-                'X-SIGNATURE' => $this->utils->generateSignatureServiceSnapBI(
-                    'POST',
-                    $body,
-                    '/snap-service/v1/account-inquiry-external',
-                    $token,
-                    $timeStamp,
-                    $this->bni->apiSecret
-                ),
-                'X-TIMESTAMP'   => $timeStamp,
-                'X-PARTNER-ID'  => $this->bni->apiKey,
-                'X-IP-Address'  => $this->ipAddress,
-                'X-DEVICE-ID'   => 'bni-php/0.1.0',
-                'X-EXTERNAL-ID' => $this->utils->randomNumber(),
-                'CHANNEL-ID'    => $this->channelId,
-                'X-LATITUDE'    => $this->latitude,
-                'X-LONGITUDE'   => $this->longitude
-            ]
-        );
+
+        $response = $this->requestSnapBI($url, $token, $body, $timeStamp);
 
         return Response::snapBI($response);
     }
 
-    public function transferInterbank(
+    public function transferInterBank(
         string $partnerReferenceNo,
-        string $amountvalue,
-        string $amountcurrency,
+        string $amountValue,
+        string $amountCurrency,
         string $beneficiaryAccountName,
         string $beneficiaryAccountNo,
         string $beneficiaryAccountAddress,
@@ -518,15 +417,20 @@ class SnapBI
         string $sourceAccountNo,
         string $transactionDate,
         string $feeType,
-        string $additionalInfochanel,
-        string $additionalInfodeviceid
+        string $additionalInfoDeviceId,
+        string $additionalInfoChannel
     ) {
         $timeStamp = $this->utils->getTimeStamp();
+
+        $token = $this->getToken();
+
+        $url = Constant::URL_SNAP_TRANSFERINTERBANK;
+
         $body = [
             'partnerReferenceNo' => $partnerReferenceNo,
             'amount' => [
-                'value' => $amountvalue,
-                'currency' => $amountcurrency
+                'value' => $amountValue,
+                'currency' => $amountCurrency
             ],
             'beneficiaryAccountName' => $beneficiaryAccountName,
             'beneficiaryAccountNo' => $beneficiaryAccountNo,
@@ -540,35 +444,13 @@ class SnapBI
             'transactionDate' => $transactionDate,
             'feeType' => $feeType,
             'additionalInfo' => [
-                'deviceId' => $additionalInfodeviceid,
-                'channel' => $additionalInfochanel
+                'deviceId' => $additionalInfoDeviceId,
+                'channel' => $additionalInfoChannel
             ]
         ];
-        $token = $this->getToken();
-        $response = $this->httpClient->requestSnapBI(
-            $token,
-            $this->bni->getBaseUrl() . '/snap-service/v1/transfer-interbank',
-            $body,
-            [
-                'X-SIGNATURE' => $this->utils->generateSignatureServiceSnapBI(
-                    'POST',
-                    $body,
-                    '/snap-service/v1/transfer-interbank',
-                    $token,
-                    $timeStamp,
-                    $this->bni->apiSecret
-                ),
-                'X-TIMESTAMP'   => $timeStamp,
-                'X-PARTNER-ID'  => $this->bni->apiKey,
-                'X-IP-Address'  => $this->ipAddress,
-                'X-DEVICE-ID'   => 'bni-php/0.1.0',
-                'X-EXTERNAL-ID' => $this->utils->randomNumber(),
-                'CHANNEL-ID'    => $this->channelId,
-                'X-LATITUDE'    => $this->latitude,
-                'X-LONGITUDE'   => $this->longitude
-            ]
-        );
 
+        $response = $this->requestSnapBI($url, $token, $body, $timeStamp);
+        
         return Response::snapBI($response);
     }
 }

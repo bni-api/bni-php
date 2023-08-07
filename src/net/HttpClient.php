@@ -1,42 +1,44 @@
 <?php
 
-namespace Wawatprigala\BniPhp\net;
+namespace BniApi\BniPhp\net;
 
-use Illuminate\Support\Facades\Http;
+use BniApi\BniPhp\utils\Util;
+use Exception;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Psr7\Request;
 
 class HttpClient
 {
 
-    public function request(
-        string $apiKey,
-        string $accessToken,
-        string $url,
-        array $data
-    ) {
-        $response = Http::withHeaders([
-            'X-API-Key' => $apiKey,
-            'user-agent' => 'bni-php/0.1.0',
-        ])
-            ->post($url . '?access_token=' . $accessToken, $data);
-
-        return $response;
+    public function __construct()
+    {
+        $this->utils = new Util;
+        $this->client = new Client();
     }
 
-    public function requestSnapBI(
-        string $accessToken,
+    public function request(
+        string $method,
         string $url,
-        array $data,
-        array $additionalHeaders
+        array $headers,
+        array $data
     ) {
-        $header = [
-            'user-agent' => 'bni-php/0.1.0',
-        ];
+        try {
 
-        $headers = array_merge($header, $additionalHeaders);
-        $response = Http::withHeaders($headers)
-            ->withToken($accessToken)
-            ->post($url, $data);
+            $header = [
+                'user-agent' => 'bni-php/0.1.0',
+            ];
 
-        return $response;
+            $headers = array_merge($header, $headers);
+            $request = new Request($method, $url, $headers);
+            $res = $this->client->sendAsync($request, $data)->wait();
+            return $res;
+        } catch (RequestException $e) {
+            if ($e->hasResponse()) {
+                return $e->getResponse();
+            } else {
+                return new Exception($e->getMessage(), 503);
+            }
+        }
     }
 }
