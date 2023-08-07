@@ -109,8 +109,16 @@ class Response
             $resObject = json_decode($response->getBody());
             if ($response->getStatusCode() !== 200) {
                 throw new Exception(
-                    $resObject->Response->parameters->responseCode . ' : ' . $resObject->Response->parameters->responseMessage
-                );
+                    json_encode($resObject)
+                );                    
+                // if($resObject->response->responseCode){
+                //     throw new Exception(
+                //         $resObject->response->responseCode . ' : ' . $resObject->response->responseMessage
+                //     );                    
+                // }
+                // throw new Exception(
+                //     $resObject->Response->parameters->responseCode . ' : ' . $resObject->Response->parameters->responseMessage
+                // );
             }
             print_r($resObject);
             return $resObject;

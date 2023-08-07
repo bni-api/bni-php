@@ -163,7 +163,7 @@ class RDL
         string $country,
         string $selfiePhoto,
     ) {
-        $url = $this->bni->getBaseUrl() . Constant::URL_RDL_FACERECOGNITION;
+        $url = $this->bni->getBaseUrl() . Constant::URL_RDL_FACERECOGNITION . '?access_token=' . $this->bni->getToken();
         $data = [
             "request" => [
                 "header" => [
@@ -193,7 +193,8 @@ class RDL
             RequestOptions::JSON => $data
         ];
         $response = $this->requestRDL($url, $dataJson, $data);
-        return Response::RDL($response);
+
+        return Response::faceRecog($response);
     }
 
     public function registerInvestorAccount(
