@@ -20,7 +20,7 @@ class RDL
         $this->utils = new Util;
     }
 
-    private function requestRDF($url, $dataJson, $data)
+    private function requestRDL($url, $dataJson, $data)
     {
         $time = $this->utils->getTimeStamp();
         $header = [
@@ -82,7 +82,7 @@ class RDL
         string $ownedBankAccNo,
         string $idIssuingDate
     ) {
-        $url = $this->bni->getBaseUrl() . Constant::URL_RDF_REGISTERINVESTOR . '?access_token=' . $this->bni->getToken();
+        $url = $this->bni->getBaseUrl() . Constant::URL_RDL_REGISTERINVESTOR . '?access_token=' . $this->bni->getToken();
         $data = [
             "request" => [
                 "header" => [
@@ -141,9 +141,9 @@ class RDL
         $dataJson = [
             RequestOptions::JSON => $data
         ];
-        $response = $this->requestRDF($url, $dataJson, $data);
+        $response = $this->requestRDL($url, $dataJson, $data);
         print_r(json_decode($response->getBody()));
-        return Response::RDF($response);
+        return Response::RDL($response);
     }
 
     public function faceRecognition(
@@ -165,7 +165,7 @@ class RDL
         string $country,
         string $selfiePhoto,
     ) {
-        $url = $this->bni->getBaseUrl() . Constant::URL_RDF_FACERECOGNITION;
+        $url = $this->bni->getBaseUrl() . Constant::URL_RDL_FACERECOGNITION;
         $data = [
             "request" => [
                 "header" => [
@@ -194,9 +194,9 @@ class RDL
         $dataJson = [
             RequestOptions::JSON => $data
         ];
-        $response = $this->requestRDF($url, $dataJson, $data);
+        $response = $this->requestRDL($url, $dataJson, $data);
         // print_r(json_decode($response->getBody()));
-        return Response::RDF($response);
+        return Response::RDL($response);
     }
 
     public function registerInvestorAccount(
@@ -210,7 +210,7 @@ class RDL
         string $bnisId,
         string $sre,
     ) {
-        $url = $this->bni->getBaseUrl() . Constant::URL_RDF_REGISTERINVESTORACCOUNT . '?access_token=' . $this->bni->getToken();
+        $url = $this->bni->getBaseUrl() . Constant::URL_RDL_REGISTERINVESTORACCOUNT . '?access_token=' . $this->bni->getToken();
         $data = [
             "request" => [
                 "header" => [
@@ -231,9 +231,9 @@ class RDL
         $dataJson = [
             RequestOptions::JSON => $data
         ];
-        $response = $this->requestRDF($url, $dataJson, $data);
+        $response = $this->requestRDL($url, $dataJson, $data);
         // print_r(json_decode($response->getBody()));
-        return Response::RDF($response);
+        return Response::RDL($response);
     }
 
     public function inquiryAccountBalance(
@@ -241,7 +241,7 @@ class RDL
         string $parentCompanyId,
         string $accountNumber
     ) {
-        $url = $this->bni->getBaseUrl() . Constant::URL_RDF_INQUIRYACCOUNTBALANCE . '?access_token=' . $this->bni->getToken();
+        $url = $this->bni->getBaseUrl() . Constant::URL_RDL_INQUIRYACCOUNTBALANCE . '?access_token=' . $this->bni->getToken();
         $data = [
             "request" => [
                 "header" => [
@@ -256,9 +256,9 @@ class RDL
         $dataJson = [
             RequestOptions::JSON => $data
         ];
-        $response = $this->requestRDF($url, $dataJson, $data);
+        $response = $this->requestRDL($url, $dataJson, $data);
 
-        return Response::RDF($response);
+        return Response::RDL($response);
     }
 
     public function inquiryAccountHistory(
@@ -266,7 +266,7 @@ class RDL
         string $parentCompanyId,
         string $accountNumber
     ) {
-        $url = $this->bni->getBaseUrl() . Constant::URL_RDF_INQUIRYACCOUNTHISTORY . '?access_token=' . $this->bni->getToken();
+        $url = $this->bni->getBaseUrl() . Constant::URL_RDL_INQUIRYACCOUNTHISTORY . '?access_token=' . $this->bni->getToken();
         $data = [
             "request" => [
                 "header" => [
@@ -281,9 +281,9 @@ class RDL
         $dataJson = [
             RequestOptions::JSON => $data
         ];
-        $response = $this->requestRDF($url, $dataJson, $data);
+        $response = $this->requestRDL($url, $dataJson, $data);
 
-        return Response::RDF($response);
+        return Response::RDL($response);
     }
 
     public function paymentUsingTransfer(
@@ -295,7 +295,7 @@ class RDL
         int $amount,
         string $remark,
     ) {
-        $url = $this->bni->getBaseUrl() . Constant::URL_RDF_PAYMENTUSINGTRANSFER . '?access_token=' . $this->bni->getToken();
+        $url = $this->bni->getBaseUrl() . Constant::URL_RDL_PAYMENTUSINGTRANSFER . '?access_token=' . $this->bni->getToken();
         $data = [
             "request" => [
                 "header" => [
@@ -314,9 +314,9 @@ class RDL
         $dataJson = [
             RequestOptions::JSON => $data
         ];
-        $response = $this->requestRDF($url, $dataJson, $data);
+        $response = $this->requestRDL($url, $dataJson, $data);
 
-        return Response::RDF($response);
+        return Response::RDL($response);
     }
 
     public function paymentUsingClearing(
@@ -333,7 +333,7 @@ class RDL
         string $remark,
         string $chargingType
     ) {
-        $url = $this->bni->getBaseUrl() . Constant::URL_RDF_PAYMENTUSINGCLEARING . '?access_token=' . $this->bni->getToken();
+        $url = $this->bni->getBaseUrl() . Constant::URL_RDL_PAYMENTUSINGCLEARING . '?access_token=' . $this->bni->getToken();
         $data = [
             "request" => [
                 "header" => [
@@ -357,9 +357,9 @@ class RDL
         $dataJson = [
             RequestOptions::JSON => $data
         ];
-        $response = $this->requestRDF($url, $dataJson, $data);
+        $response = $this->requestRDL($url, $dataJson, $data);
         // print_r(json_decode($response->getBody()));
-        return Response::RDF($response);
+        return Response::RDL($response);
     }
 
     public function inquiryAccountInfo(
@@ -367,7 +367,7 @@ class RDL
         string $parentCompanyId,
         string $accountNumber
     ) {
-        $url = $this->bni->getBaseUrl() . Constant::URL_RDF_INQUIRYACCOUNTINFO . '?access_token=' . $this->bni->getToken();
+        $url = $this->bni->getBaseUrl() . Constant::URL_RDL_INQUIRYACCOUNTINFO . '?access_token=' . $this->bni->getToken();
         $data = [
             "request" => [
                 "header" => [
@@ -382,9 +382,9 @@ class RDL
         $dataJson = [
             RequestOptions::JSON => $data
         ];
-        $response = $this->requestRDF($url, $dataJson, $data);
+        $response = $this->requestRDL($url, $dataJson, $data);
 
-        return Response::RDF($response);
+        return Response::RDL($response);
     }
 
     public function paymentUsingRTGS(
@@ -401,7 +401,7 @@ class RDL
         string $remark,
         string $chargingType
     ) {
-        $url = $this->bni->getBaseUrl() . Constant::URL_RDF_PAYMENTUSINGRTGS . '?access_token=' . $this->bni->getToken();
+        $url = $this->bni->getBaseUrl() . Constant::URL_RDL_PAYMENTUSINGRTGS . '?access_token=' . $this->bni->getToken();
         $data = [
             "request" => [
                 "header" => [
@@ -425,9 +425,9 @@ class RDL
         $dataJson = [
             RequestOptions::JSON => $data
         ];
-        $response = $this->requestRDF($url, $dataJson, $data);
+        $response = $this->requestRDL($url, $dataJson, $data);
         // print_r(json_decode($response->getBody()));
-        return Response::RDF($response);
+        return Response::RDL($response);
     }
 
     public function inquiryInterbankAccount(
@@ -437,7 +437,7 @@ class RDL
         string $beneficiaryBankCode,
         string $beneficiaryAccountNumber,
     ) {
-        $url = $this->bni->getBaseUrl() . Constant::URL_RDF_INQUIRYINTERBANKACCOUNT . '?access_token=' . $this->bni->getToken();
+        $url = $this->bni->getBaseUrl() . Constant::URL_RDL_INQUIRYINTERBANKACCOUNT . '?access_token=' . $this->bni->getToken();
         $data = [
             "request" => [
                 "header" => [
@@ -454,9 +454,9 @@ class RDL
         $dataJson = [
             RequestOptions::JSON => $data
         ];
-        $response = $this->requestRDF($url, $dataJson, $data);
+        $response = $this->requestRDL($url, $dataJson, $data);
 
-        return Response::RDF($response);
+        return Response::RDL($response);
     }
 
     public function inquiryPaymentStatus(
@@ -464,7 +464,7 @@ class RDL
         string $parentCompanyId,
         string $requestedUuid
     ) {
-        $url = $this->bni->getBaseUrl() . Constant::URL_RDF_INQUIRYPAYMENTSTATUS . '?access_token=' . $this->bni->getToken();
+        $url = $this->bni->getBaseUrl() . Constant::URL_RDL_INQUIRYPAYMENTSTATUS . '?access_token=' . $this->bni->getToken();
         $data = [
             "request" => [
                 "header" => [
@@ -479,9 +479,9 @@ class RDL
         $dataJson = [
             RequestOptions::JSON => $data
         ];
-        $response = $this->requestRDF($url, $dataJson, $data);
+        $response = $this->requestRDL($url, $dataJson, $data);
 
-        return Response::RDF($response);
+        return Response::RDL($response);
     }
 
     public function paymentUsingInterbank(
@@ -494,7 +494,7 @@ class RDL
         string $beneficiaryBankName,
         int $amount,
     ) {
-        $url = $this->bni->getBaseUrl() . Constant::URL_RDF_PAYMENTUSINGINTERBANK . '?access_token=' . $this->bni->getToken();
+        $url = $this->bni->getBaseUrl() . Constant::URL_RDL_PAYMENTUSINGINTERBANK . '?access_token=' . $this->bni->getToken();
         $data = [
             "request" => [
                 "header" => [
@@ -514,8 +514,8 @@ class RDL
         $dataJson = [
             RequestOptions::JSON => $data
         ];
-        $response = $this->requestRDF($url, $dataJson, $data);
+        $response = $this->requestRDL($url, $dataJson, $data);
 
-        return Response::RDF($response);
+        return Response::RDL($response);
     }
 }

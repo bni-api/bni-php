@@ -2,7 +2,7 @@
 
 namespace BniApi\BniPhp\test;
 
-use BniApi\BniPhp\api\RDF;
+use BniApi\BniPhp\api\RDL;
 use BniApi\BniPhp\Bni;
 use PHPUnit\Framework\TestCase;
 
@@ -25,8 +25,8 @@ class RDLTest extends TestCase
     public function test_rdl_registerInvestor()
     {
         $bni = $this->init();
-        $rdf = new RDF($bni);
-        $response = $rdf->registerInvestor(
+        $rdl = new RDL($bni);
+        $response = $rdl->registerInvestor(
             'SANDBOX',
             'STI_CHS',
             '492F33851D634CFB',
@@ -81,8 +81,8 @@ class RDLTest extends TestCase
     public function test_rdl_faceRecognition()
     {
         $bni = $this->init();
-        $rdf = new RDF($bni);
-        $response = $rdf->faceRecognition(
+        $rdl = new RDL($bni);
+        $response = $rdl->faceRecognition(
             'SANDBOX',
             'STI_CHS"',
             'MOHAMMAD',
@@ -107,80 +107,80 @@ class RDLTest extends TestCase
     public function test_rdl_registerInvestorAccount()
     {
         $bni = $this->init();
-        $rdf = new RDF($bni);
-        $response = $rdf->registerInvestorAccount('NI001', 'KSEI', '9100749959', 'IDR', '2', '1', '0259', '19050813401', 'NI001CX5U00109');
+        $rdl = new RDL($bni);
+        $response = $rdl->registerInvestorAccount('NI001', 'KSEI', '9100749959', 'IDR', '2', '1', '0259', '19050813401', 'NI001CX5U00109');
         $this->assertEquals($response->response->responseCode, '0001');
     }
 
     public function test_rdl_inquiryAccountBalance()
     {
         $bni = $this->init();
-        $rdf = new RDF($bni);
-        $response = $rdf->inquiryAccountBalance('NI001', 'KSEI', '0115476117');
+        $rdl = new RDL($bni);
+        $response = $rdl->inquiryAccountBalance('NI001', 'KSEI', '0115476117');
         $this->assertEquals($response->response->responseCode, '0001');
     }
 
     public function test_rdl_inquiryAccountHistory()
     {
         $bni = $this->init();
-        $rdf = new RDF($bni);
-        $response = $rdf->inquiryAccountHistory('NI001', 'KSEI', '0115476117');
+        $rdl = new RDL($bni);
+        $response = $rdl->inquiryAccountHistory('NI001', 'KSEI', '0115476117');
         $this->assertEquals($response->response->responseCode, '0001');
     }
 
     public function test_rdl_PaymentUsingTranfer()
     {
         $bni = $this->init();
-        $rdf = new RDF($bni);
-        $response = $rdf->paymentUsingTransfer('NI001', 'KSEI', '0115476117', '0115471119', 'IDR', 11500, 'Test RDN');
+        $rdl = new RDL($bni);
+        $response = $rdl->paymentUsingTransfer('NI001', 'KSEI', '0115476117', '0115471119', 'IDR', 11500, 'Test RDN');
         $this->assertEquals($response->response->responseCode, '0001');
     }
 
     public function test_rdl_PaymentUsingClearing()
     {
         $bni = $this->init();
-        $rdf = new RDF($bni);
-        $response = $rdf->paymentUsingClearing('NI001', 'KSEI', '0115476117', '3333333333', 'Jakarta', '', '140397', 'Panji Samudra', 'IDR', 15000, 'Test kliring', 'OUR');
+        $rdl = new RDL($bni);
+        $response = $rdl->paymentUsingClearing('NI001', 'KSEI', '0115476117', '3333333333', 'Jakarta', '', '140397', 'Panji Samudra', 'IDR', 15000, 'Test kliring', 'OUR');
         $this->assertEquals($response->response->responseCode, '0001');
     }
 
     public function test_rdl_inquiryAccountInfo()
     {
         $bni = $this->init();
-        $rdf = new RDF($bni);
-        $response = $rdf->inquiryAccountInfo('NI001', 'KSEI', '0115476117');
+        $rdl = new RDL($bni);
+        $response = $rdl->inquiryAccountInfo('NI001', 'KSEI', '0115476117');
         $this->assertEquals($response->response->responseCode, '0001');
     }
 
     public function test_rdl_PaymentUsingRTGS()
     {
         $bni = $this->init();
-        $rdf = new RDF($bni);
-        $response = $rdf->paymentUsingRTGS('NI001', 'KSEI', '0115476117', '3333333333', 'Jakarta', '', 'CENAIDJA', 'Panji Samudra', 'IDR', 120000000, 'Test rtgs', 'OUR');
+        $rdl = new RDL($bni);
+        $response = $rdl->paymentUsingRTGS('NI001', 'KSEI', '0115476117', '3333333333', 'Jakarta', '', 'CENAIDJA', 'Panji Samudra', 'IDR', 120000000, 'Test rtgs', 'OUR');
         $this->assertEquals($response->response->responseCode, '0001');
     }
 
     public function test_rdl_inquiryInterbankAccount()
     {
         $bni = $this->init();
-        $rdf = new RDF($bni);
-        $response = $rdf->inquiryInterbankAccount('NI001', 'KSEI', '0115476117', '013', '01300000');
+        $rdl = new RDL($bni);
+        $response = $rdl->inquiryInterbankAccount('NI001', 'KSEI', '0115476117', '013', '01300000');
         $this->assertEquals($response->response->responseCode, '0001');
     }
 
     public function test_rdl_inquiryPaymentStatus()
     {
         $bni = $this->init();
-        $rdf = new RDF($bni);
-        $response = $rdf->inquiryPaymentStatus('NI001', 'KSEI', 'E8C6E0027F6E429F');
+        $rdl = new RDL($bni);
+        $response = $rdl->inquiryPaymentStatus('NI001', 'KSEI', 'E8C6E0027F6E429F');
         $this->assertEquals($response->response->responseCode, '0001');
     }
 
-    public function test_rdf_paymentUsingInterbank()
+    public function test_rdl_paymentUsingInterbank()
     {
         $bni = $this->init();
-        $rdf = new RDF($bni);
-        $response = $rdf->paymentUsingInterbank('NI001', 'KSEI', '0115476117', '3333333333', 'KEN AROK', '014', 'BANK BCA', 15000);
+        $rdl = new RDL($bni);
+        $response = $rdl->paymentUsingInterbank('NI001', 'KSEI', '0115476117', '3333333333', 'KEN AROK', '014', 'BANK BCA', 15000);
         $this->assertEquals($response->response->responseCode, '0001');
     }
 }
