@@ -28,6 +28,7 @@ class Util
         $base64UrlSignature = $this->escapeString(base64_encode($signature));
         return $base64UrlHeader . "." . $base64UrlPayload . "." . $base64UrlSignature;
     }
+    
 
     public function generateSignatureV2(array $payload, string $apiSecret, string $time)
     {
@@ -39,18 +40,18 @@ class Util
         $timeStamp = [
             "timestamp" => $time
         ];
-        $payload = array_merge($payload, $timeStamp);
-        // print_r($payload);    
+        $data = array_merge($payload, $timeStamp);
+        $payload = stripslashes(JSON_encode($data));
         $base64UrlHeader = $this->escapeString(base64_encode($header));
-        $base64UrlPayload = $this->escapeString(base64_encode(JSON_encode($payload)));
+        $base64UrlPayload = $this->escapeString(base64_encode($payload));
         $signature = hash_hmac(
             'sha256',
             $base64UrlHeader . "." . $base64UrlPayload,
             $apiSecret,
             true
         );
+
         $base64UrlSignature = $this->escapeString(base64_encode($signature));
-        // print_r($payload);
         return $base64UrlSignature;
     }
 
