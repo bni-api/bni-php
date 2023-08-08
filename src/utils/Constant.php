@@ -72,3 +72,4 @@ class Constant
     const URL_RDF_INQUIRYPAYMENTSTATUS = '/rdf/v2.1/inquiry/payment/status';
     const URL_RDF_PAYMENTUSINGINTERBANK = '/rdf/v2.1/payment/interbank';
 }
+

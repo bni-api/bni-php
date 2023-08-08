@@ -27,8 +27,6 @@ class RDF
             'X-Signature' => $this->utils->generateSignatureV2($data, $this->bni->apiSecret, $time),
             'X-Timestamp' => $time
         ];
-        // print_r($this->utils->generateSignatureV2($data, $this->bni->apiSecret, $time));
-        // print_r($time);
         return $this->httpClient->request('POST', $url, $header, $dataJson);
     }
 
@@ -141,7 +139,7 @@ class RDF
             RequestOptions::JSON => $data
         ];
         $response = $this->requestRDF($url, $dataJson, $data );
-        print_r(json_decode($response->getBody()));
+        
         return Response::RDF($response);
     }
 
@@ -164,7 +162,7 @@ class RDF
         string $country,
         string $selfiePhoto,
     ) {
-        $url = $this->bni->getBaseUrl() . Constant::URL_RDF_FACERECOGNITION;
+        $url = $this->bni->getBaseUrl() . Constant::URL_RDF_FACERECOGNITION . '?access_token=' . $this->bni->getToken();
         $data = [
             "request" => [
                 "header" => [
@@ -193,9 +191,9 @@ class RDF
         $dataJson = [
             RequestOptions::JSON => $data
         ];
-        $response = $this->requestRDF($url, $dataJson, $data );
-        // print_r(json_decode($response->getBody()));
-        return Response::RDF($response);
+        $response = $this->requestRDF($url, $dataJson, $data);
+
+        return Response::faceRecog($response);
     }
 
     public function registerInvestorAccount(

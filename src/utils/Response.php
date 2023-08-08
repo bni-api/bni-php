@@ -120,7 +120,6 @@ class Response
                 //     $resObject->Response->parameters->responseCode . ' : ' . $resObject->Response->parameters->responseMessage
                 // );
             }
-            print_r($resObject);
             return $resObject;
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
