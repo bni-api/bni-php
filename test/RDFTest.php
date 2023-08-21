@@ -21,6 +21,7 @@ class RDFTest extends TestCase
             $appName = $credentials->one_gate_payment->appName
         );
     }
+
     public function test_rdf_registerInvestor()
     {
         $bni = $this->init();
@@ -139,7 +140,19 @@ class RDFTest extends TestCase
     {
         $bni = $this->init();
         $rdf = new RDF($bni);
-        $response = $rdf->paymentUsingClearing('NI001', 'KSEI', '0115476117', '3333333333', 'Jakarta', '', '140397', 'Panji Samudra', 'IDR', 15000, 'Test kliring', 'OUR');
+        $response = $rdf->paymentUsingClearing(
+            'NI001',
+            'KSEI',
+            '0115476117',
+            '3333333333',
+            'Jakarta',
+            '',
+            '140397',
+            'Panji Samudra',
+            'IDR', 15000,
+            'Test kliring',
+            'OUR'
+        );
         $this->assertEquals($response->response->responseCode, '0001');
     }
 
@@ -155,7 +168,19 @@ class RDFTest extends TestCase
     {
         $bni = $this->init();
         $rdf = new RDF($bni);
-        $response = $rdf->paymentUsingRTGS('NI001', 'KSEI', '0115476117', '3333333333', 'Jakarta', '', 'CENAIDJA', 'Panji Samudra', 'IDR', 120000000, 'Test rtgs', 'OUR');
+        $response = $rdf->paymentUsingRTGS(
+            'NI001',
+            'KSEI',
+            '0115476117',
+            '3333333333',
+            'Jakarta',
+            '',
+            'CENAIDJA',
+            'Panji Samudra',
+            'IDR', 120000000,
+            'Test rtgs',
+            'OUR'
+        );
         $this->assertEquals($response->response->responseCode, '0001');
     }
 
@@ -182,5 +207,195 @@ class RDFTest extends TestCase
         $response = $rdf->paymentUsingInterbank('NI001', 'KSEI', '0115476117', '3333333333', 'KEN AROK', '014', 'BANK BCA', 15000);
         $this->assertEquals($response->response->responseCode, '0001');
     }
-    
+
+
+    // Error Case
+    public function test_rdf_registerInvestor_error()
+    {
+        $bni = $this->init();
+        $rdf = new RDF($bni);
+        $response = $rdf->registerInvestor(
+            'SANDBOX',
+            'STI_CHS',
+            '492F33851D634CFB',
+            '01',
+            'Agus',
+            '',
+            'Saputra',
+            '1',
+            '001058893408123',
+            'ID',
+            'ID',
+            '2',
+            'Semarang',
+            '14081982',
+            'M',
+            'S',
+            'Dina Maryati',
+            '01',
+            '07',
+            '01',
+            '4147016201959999',
+            'Jakarta Barat',
+            '26102099',
+            'Jalan Mawar Melati',
+            '003009Sentosa',
+            'Cengkareng Barat',
+            'Cengkareng/Jakarta Barat',
+            '11730',
+            '0214',
+            '7459',
+            '',
+            '',
+            '0812',
+            '12348331',
+            '',
+            '',
+            'agus.saputra@gmail.com',
+            '8000000',
+            '0259',
+            'PT. BNI SECURITIES',
+            'IDD280436215354',
+            'Salman',
+            'St Baker',
+            'Jakarta Arrandelle',
+            'Pedagang',
+            '0337109074',
+            '10122008'
+        );
+        $this->assertEquals($response->response->responseCode, '0001');
+    }
+
+    public function test_rdf_faceRecognition_error()
+    {
+        $bni = $this->init();
+        $rdf = new RDF($bni);
+        $response = $rdf->faceRecognition(
+            'XYZ',
+            '',
+            '',
+            '',
+            'JELITA',
+            '3175044109890002',
+            '1989-09-01',
+            'Jakarta',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            ''
+        );
+        $this->assertEquals($response->response->responseCode, '0001');
+    }
+
+    public function test_rdf_registerInvestorAccount_error()
+    {
+        $bni = $this->init();
+        $rdf = new RDF($bni);
+        $response = $rdf->registerInvestorAccount('NI001', 'KSEI', '9100749959', 'AUD', '2', '1', '0259', '19050813401', 'NI001CX5U00109');
+        $this->assertEquals($response->response->responseCode, '0001');
+    }
+
+    public function test_rdf_inquiryAccountBalance_error()
+    {
+        $bni = $this->init();
+        $rdf = new RDF($bni);
+        $response = $rdf->inquiryAccountBalance('NI001', 'KSEI', '0221869561');
+        $this->assertEquals($response->response->responseCode, '0001');
+    }
+
+    public function test_rdf_inquiryAccountHistory_error()
+    {
+        $bni = $this->init();
+        $rdf = new RDF($bni);
+        $response = $rdf->inquiryAccountHistory('NI001', 'KSEI', '0315617904');
+        $this->assertEquals($response->response->responseCode, '0001');
+    }
+
+    public function test_rdf_inquiryAccountInfo_error()
+    {
+        $bni = $this->init();
+        $rdf = new RDF($bni);
+        $response = $rdf->inquiryAccountInfo('NI001', 'KSEI', '1122334455');
+        $this->assertEquals($response->response->responseCode, '0001');
+    }
+
+    public function test_rdf_PaymentUsingTranfer_error()
+    {
+        $bni = $this->init();
+        $rdf = new RDF($bni);
+        $response = $rdf->paymentUsingTransfer('NI001', 'KSEI', '1000152671', '0316031099', 'IDR', 30000000, 'Test RDN');
+        $this->assertEquals($response->response->responseCode, '0001');
+    }
+
+    public function test_rdf_PaymentUsingClearing_error()
+    {
+        $bni = $this->init();
+        $rdf = new RDF($bni);
+        $response = $rdf->paymentUsingClearing(
+            'NI001',
+            'KSEI',
+            '1122334455',
+            '3333333333',
+            'Jakarta',
+            '',
+            '140397',
+            'Panji Samudra',
+            'IDR',
+            900000000,
+            'Test kliring',
+            'OUR'
+        );
+        $this->assertEquals($response->response->responseCode, '0001');
+    }
+
+    public function test_rdf_PaymentUsingRTGS_error()
+    {
+        $bni = $this->init();
+        $rdf = new RDF($bni);
+        $response = $rdf->paymentUsingRTGS(
+            'NI001',
+            'KSEI',
+            '1122334455',
+            '3333333333',
+            'Jakarta',
+            '',
+            'CENAIDJA',
+            'Panji Samudra',
+            'IDR',
+            150000000,
+            'Test rtgs',
+            'OUR'
+        );
+        $this->assertEquals($response->response->responseCode, '0001');
+    }
+
+    public function test_rdf_inquiryInterbankAccount_error()
+    {
+        $bni = $this->init();
+        $rdf = new RDF($bni);
+        $response = $rdf->inquiryInterbankAccount('NI001', 'KSEI', '0115476117', '019', '01900000');
+        $this->assertEquals($response->response->responseCode, '0001');
+    }
+
+    public function test_rdf_inquiryPaymentStatus_error()
+    {
+        $bni = $this->init();
+        $rdf = new RDF($bni);
+        $response = $rdf->inquiryPaymentStatus('NI001', 'KSEI', '123456AAAAAABBB0');
+        $this->assertEquals($response->response->responseCode, '0001');
+    }
+
+    public function test_rdf_paymentUsingInterbank_error()
+    {
+        $bni = $this->init();
+        $rdf = new RDF($bni);
+        $response = $rdf->paymentUsingInterbank('NI001', 'KSEI', '0315617904', '3333333333', 'KEN AROK', '014', 'BANK BCA', 15000);
+        $this->assertEquals($response->response->responseCode, '0001');
+    }
+     
 }
