@@ -7,6 +7,7 @@ use BniApi\BniPhp\utils\Constant;
 use BniApi\BniPhp\utils\Response;
 use BniApi\BniPhp\utils\Util;
 use GuzzleHttp\RequestOptions;
+use stdClass;
 
 /**
  * Autopay class helps making all request to BNI Autopay SNAP API
@@ -26,11 +27,12 @@ class Autopay
     private $baseUrl;
 
     // header for request
-    private $origin    = 'www.spesandbox.com';
-    private $ipAddress = '127.0.0.1';
-    private $channelId = '';
-    private $latitude  = '';
-    private $longitude = '';
+    private $origin     = 'www.spesandbox.com';
+    private $ipAddress  = '127.0.0.1';
+    private $channelId  = '';
+    private $latitude   = '';
+    private $longitude  = '';
+    private $externalID = '';
 
     // merchant credentials
     private string $merchantID   = '';
@@ -56,6 +58,7 @@ class Autopay
         $this->clientID     = $clientID;
         $this->clientSecret = $clientSecret;
         $this->privateKey   = $privateKey;
+        $this->channelId    = $this->utils->randomString(5);
 
         switch ($env) {
             case self::ENV_PROD:
@@ -73,28 +76,42 @@ class Autopay
         }
     }
 
-    private function getSignatureToken()
+    /**
+     * Set a header value
+     *
+     * @param string $header header name
+     * @param string $value header value
+     */
+    public function setHeader($header, $value)
     {
-        $timeStamp = $this->utils->getTimeStamp();
-        // $url = $this->baseUrl . Constant::URL_AUTOPAY_SIGNATURE_AUTH;
-        $url = 'http://10.202.80.6:7101/utilities/signature-auth';
-
-        $header = [
-            'X-CLIENT-KEY' => $this->clientID,
-            'Private_Key' => $this->privateKey,
-            'X-TIMESTAMP' => $timeStamp,
-        ];
-
-        $response = $this->httpClient->request('POST', $url, $header, []);
-        
-        return json_decode($response->getBody())->signature;
+        $this->$header = $value;
     }
 
+    /**
+     * Generate signature token
+     *
+     * @param string $timestamp timestamp (date(c))
+     * @return string signature token
+     */
+    private function getSignatureToken($timestamp = '')
+    {
+        return $this->utils->generateSignatureAccessToken(
+            $this->clientID,
+            $this->privateKey,
+            $timestamp
+        );
+    }
+
+    /**
+     * Hit API to get access token
+     *
+     * @return string access token
+     */
     private function getToken()
     {
-        $timestamp = $this->utils->getTimeStamp();
-        $url = $this->baseUrl . Constant::URL_AUTOPAY_ACCESS_TOKEN_B2B;
-        $signatureAccessToken = $this->getSignatureToken();
+        $timestamp            = $this->utils->getTimeStamp();
+        $url                  = $this->baseUrl . Constant::URL_AUTOPAY_ACCESS_TOKEN_B2B;
+        $signatureAccessToken = $this->getSignatureToken($timestamp);
 
         $header = [
             'X-CLIENT-KEY' => $this->clientID,
@@ -112,26 +129,24 @@ class Autopay
         return json_decode($response->getBody())->accessToken;
     }
 
+    /**
+     * Generate signature service
+     *
+     * @param string $token access token from getToken()
+     * @param string $serviceUrl URL endpoint, @see Constant.php with URL_AUTOPAY prefix
+     * @param array $data request body
+     * @return string signature service
+     */
     private function getSignatureService($token = '', $serviceUrl = '', $data = [])
     {
-        $timeStamp = $this->utils->getTimeStamp();
-        // $url = $this->baseUrl . Constant::URL_AUTOPAY_SIGNATURE_SERVICE;
-        $url = 'http://10.202.80.6:7101/utilities/signature-service';
-
-        $header = [
-            'X-CLIENT-SECRET' => $this->clientSecret,
-            'X-TIMESTAMP' => $timeStamp,
-            'HttpMethod' => 'POST',
-            'AccessToken' => $token,
-            'EndPointUrl' => $serviceUrl
-        ];
-
-        $body = [
-            RequestOptions::JSON => $data
-        ];
-
-        $response = $this->httpClient->request('POST', $url, $header, $body);
-        return json_decode($response->getBody())->signature;
+        return $this->utils->generateSignatureService(
+            'POST',
+            $data,
+            $serviceUrl,
+            $token,
+            $this->utils->getTimeStamp(),
+            $this->clientSecret
+        );
     }
 
     /**
@@ -147,6 +162,8 @@ class Autopay
     {
         $signature = $this->getSignatureService($token, $url, $data);
 
+        $externalID = $this->externalID ? $this->externalID : $this->utils->randomNumber();
+
         $header = [
             'Content-Type: application/json',
             'Authorization' => 'Bearer ' . $token,
@@ -156,7 +173,7 @@ class Autopay
             'X-PARTNER-ID'  => $this->merchantID,
             'X-IP-ADDRESS'  => $this->ipAddress,
             'X-DEVICE-ID'   => 'bni-php/0.1.0',
-            'X-EXTERNAL-ID' => $this->utils->randomNumber(),
+            'X-EXTERNAL-ID' => $externalID,
             'CHANNEL-ID'    => $this->channelId,
             'X-LATITUDE'    => $this->latitude,
             'X-LONGITUDE'   => $this->longitude
@@ -201,13 +218,15 @@ class Autopay
             throw new \InvalidArgumentException('limit should be a multiple of 250000');
         }
 
+        $limit = $this->utils->formatAmount($limit);
+
         $data = [
             'partnerReferenceNo' => $partnerReferenceNo,
             'merchantId' => $this->merchantID,
             'additionalData' => [
                 'bankAccountNo' => $bankAccountNo,
                 'bankCardNo'    => $bankCardNo,
-                'limit'         => $limit,
+                'limit'         => (string) $limit,
                 'email'         => $email
             ],
             'additionalInfo' => [
@@ -272,14 +291,16 @@ class Autopay
         string $bankCardToken
     )
     {
-        $token = $this->getToken();
         $timeStamp = $this->utils->getTimeStamp();
+        $token = $this->getToken();
+
+        $amount = $this->utils->formatAmount($amount);
 
         $data = [
             'partnerReferenceNo' => $partnerReferenceNo,
             'accountNo'          => $accountNo,
             'additionalInfo' => [
-                'amount' => $amount,
+                'amount' => (string) $amount,
             ],
             'bankCardToken' => $bankCardToken
         ];
@@ -321,7 +342,8 @@ class Autopay
                 'value'    => (string) $amount['value'],
                 'currency' => $amount['currency']
             ],
-            'remark' => $remark
+            'remark'             => $remark,
+            'additionalInfo'     => new stdClass()
         ];
         
         $response = $this->sendRequest(Constant::URL_AUTOPAY_DEBIT, $token, $data, $timeStamp);
@@ -362,7 +384,7 @@ class Autopay
             'originalPartnerReferenceNo' => $originalPartnerReferenceNo,
             'partnerRefundNo'            => $partnerRefundNo,
             'refundAmount'               => [
-                'value'    => (string) $refundAmount['value'],
+                'value'    => (string) $this->utils->formatAmount($refundAmount['value']),
                 'currency' => $refundAmount['currency']
             ],
             'reason'         => $reason,
@@ -399,9 +421,10 @@ class Autopay
             'transactionDate'            => $transactionDate,
             'serviceCode'                => $serviceCode,
             'amount'                     => [
-                'value'    => (string) $amount['value'],
+                'value'    => (string) $this->utils->formatAmount($amount['value']),
                 'currency' => $amount['currency']
             ],
+            'additionalInfo'             => new stdClass()
         ];
         
         $response = $this->sendRequest(Constant::URL_AUTOPAY_DEBIT_STATUS, $token, $data, $timeStamp);
@@ -526,6 +549,7 @@ class Autopay
             'originalReferenceNo'        => $originalReferenceNo,
             'chargeToken'                => $chargeToken,
             'otp'                        => $otp,
+            'additionalInfo'             => new stdClass() // wth
         ];
         
         $response = $this->sendRequest(Constant::URL_AUTOPAY_OTP_VERIFY, $token, $data, $timeStamp);
@@ -557,6 +581,8 @@ class Autopay
         if ($limit % 250000 != 0 && $limit >= 250000) {
             throw new \InvalidArgumentException('limit should be a multiple of 250000');
         }
+
+        $limit = $this->utils->formatAmount($limit);
 
         $data = [
             'partnerReferenceNo' => $partnerReferenceNo,

@@ -66,8 +66,92 @@ class Util
         return base64_encode($hmac);
     }
 
+    /**
+     * Generate signature to get access token
+     *
+     * @param string $clientId client id
+     * @param string $privateKey private key
+     * @param string $timeStamp timestamp (date(c))
+     * @return string signature access token, used as `X-Signature` header when getting access token
+     */
+    public function generateSignatureAccessToken(
+        string $clientId,
+        string $privateKey,
+        string $timeStamp
+    )
+    {
+        $formattedPrivateKey = "-----BEGIN RSA PRIVATE KEY-----\n"
+            . wordwrap($privateKey, 64, "\n", true)
+            . "\n-----END RSA PRIVATE KEY-----";
+        $data = $clientId . '|' . $timeStamp;
+        $binarySignature = "";
+
+        openssl_sign($data, $binarySignature, $formattedPrivateKey, "SHA256");
+
+        return base64_encode($binarySignature);
+    }
+
+    /**
+     * Generate signature service
+     *
+     * @param string $method mostly `POST`
+     * @param array $body request body
+     * @param string $url request url (without base url)
+     * @param string $accessToken access token
+     * @param string $timeStamp timestamp (date(c))
+     * @param string $clientSecret client secret
+     * @return string signature service
+     */
+    public function generateSignatureService(
+        string $method,
+        array $body,
+        string $url,
+        string $accessToken,
+        string $timeStamp,
+        string $clientSecret
+    )
+    {
+        $requestBody = json_encode($body);
+        $hash = hash('sha256', $requestBody);
+
+        $stringToSign = $method . ':' . $url . ':' . $accessToken . ':' . strtolower($hash) . ':' . $timeStamp;
+        $hmac = hash_hmac('sha512', $stringToSign, $clientSecret, true);
+        return base64_encode($hmac);
+    }
+
     public function randomNumber()
     {
         return rand(10, 100000000) . time();
+    }
+
+    /**
+     * Generate random alphanumeric
+     *
+     * @param integer $length length of random string
+     * @return string random alphanumeric
+     */
+    public function randomString($length = 5)
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+
+        for ($i = 0; $i < $length; $i++)
+        {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+
+        return $randomString;
+    }
+
+    /**
+     * Format amount to 2 decimal places
+     *
+     * @param float $amount amount
+     * @return string formatted amount
+     */
+    public function formatAmount($amount = 0.00)
+    {
+        return number_format($amount, 2, '.', '');
     }
 }
