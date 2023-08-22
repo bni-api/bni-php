@@ -444,7 +444,7 @@ $response = $autopay->otp(
       'ow6XVqP7VCyQqSSzdv24OQjGl7IRuUAVcAgzKzJQoybSLPk0kKKCdqJqwrOXZ',
   $otpReasonCode  = '54',
   $additionalInfo = [
-      'exiperedOtp' => "2023-07-26T18:56:11+07:00",
+      'expiredOtp' => "2023-07-26T18:56:11+07:00",
   ],
   $externalStoreId = '134928924949479'
 );
