@@ -21,7 +21,7 @@ class Autopay
     public $bni;
 
     const ENV_ALPHA = 'alpha';
-    const ENV_UAT   = 'uat';
+    const ENV_BETA   = 'beta';
     const ENV_PROD  = 'prod';
 
     private $baseUrl;
@@ -65,7 +65,7 @@ class Autopay
                 $this->baseUrl = 'https://api-snap-autopay.bni-ecollection.com';
                 break;
             
-            case self::ENV_UAT:
+            case self::ENV_BETA:
                 $this->baseUrl = 'https://api-beta-autopay.bni-ecollection.com';
                 break;
             
