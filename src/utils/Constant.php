@@ -29,6 +29,21 @@ class Constant
     const URL_SNAP_EXTERNALACCOUNTINQUIRY = '/snap-service/v1/account-inquiry-external';
     const URL_SNAP_TRANSFERINTERBANK = '/snap-service/v1/transfer-interbank';
 
+    const URL_AUTOPAY_ACCESS_TOKEN_B2B  = '/api/v1.0/access-token/b2b';
+    const URL_AUTOPAY_SIGNATURE_AUTH    = '/api/v1.0/utilities/signature-auth';
+    const URL_AUTOPAY_SIGNATURE_SERVICE = '/api/v1.0/utilities/signature-service';
+
+    const URL_AUTOPAY_ACCOUNT_BINDING   = '/v1.0/registration-account-binding';
+    const URL_AUTOPAY_ACCOUNT_UNBINDING = '/v1.0/registration-account-unbinding';
+    const URL_AUTOPAY_BALANCE_INQUIRY   = '/v1.0/balance-inquiry';
+    const URL_AUTOPAY_DEBIT             = '/v1.0/debit/payment-host-to-host';
+    const URL_AUTOPAY_DEBIT_REFUND      = '/v1.0/debit/refund';
+    const URL_AUTOPAY_DEBIT_STATUS      = '/v1.0/debit/status';
+    const URL_AUTOPAY_LIMIT_INQUIRY     = '/v1.0/limit-inquiry';
+    const URL_AUTOPAY_OTP               = '/v1.0/otp';
+    const URL_AUTOPAY_OTP_VERIFY        = '/v1.0/otp-verification';
+    const URL_AUTOPAY_SET_LIMIT         = '/v1.0/registration/card-bind-limit';
+
     const URL_RDN_FACERECOGNITION = '/rekdana/v1.1/face/recog';
     const URL_RDN_CHECKSIDV2 = '/rdn/v2.1/checksid';
     const URL_RDN_REGISTERINVESTOR = '/rdn/v2.1/register/investor';
@@ -72,4 +87,3 @@ class Constant
     const URL_RDF_INQUIRYPAYMENTSTATUS = '/rdf/v2.1/inquiry/payment/status';
     const URL_RDF_PAYMENTUSINGINTERBANK = '/rdf/v2.1/payment/interbank';
 }
-

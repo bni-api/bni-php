@@ -326,6 +326,153 @@ $transferInterBank = $snap->transferInterBank(
 );
 ```
 
+### 2.2.C Autopay SNAP
+
+Create `Autopay` class object
+```php
+
+use BniApi\BniPhp\api\Autopay;
+
+$autopay = new Autopay(
+  $merchantID,
+  $clientID,
+  $clientSecret,
+  $privateKey,
+  'alpha'
+);
+```
+
+Available methods for `Autopay` class
+#### Account Binding
+```php
+$response = $autopay->accountBinding(
+  $partnerReferenceNo = '123456789009876544002',
+  $bankAccountNo = '92345678902787',
+  $bankCardNo = '92345678902788',
+  $limit = 250000.00,
+  $email = 'burhanaji2@gmail.com',
+  $custIdMerchant = '92345678902788'
+);
+```
+
+#### Account Unbinding
+```php
+$response = $autopay->accountUnbinding(
+  $partnerReferenceNo = '12345678900987654484',
+  $bankCardToken =
+      'vvSWxFEu5p6ONXT3qEoZ2L5o7YJ4UjH7Mee3SDuxigMixnfVuOnQpbJxuboXijOAlna' .
+      'ow6XVqP7VCyQqSSzdv24OQjGl7IRuUAVcAgzKzJQoybSLPk0kKKCdqJqwrOXZ',
+  $chargeToken = 'Xob2d8BlMxVyQRloodpujCIvuFortJ',
+  $otp = '',
+  $custIdMerchant = '12313213131'
+);
+```
+
+#### Balance Inquiry
+```php
+$response = $autopay->balanceInquiry(
+  $partnerReferenceNo = '2023102899999999999902',
+  $accountNo = '9234567846',
+  $amount = 1000.00,
+  $bankCardToken =
+      'q3jcQJJTrBvYzUt2VyzY68Klw8mG400K5NWaAL5JdTbjAqjXBG9LZr' .
+      '0F4khuVdrezjXFLEJRzvmF5xLZhT2fJj73FbQlf9FeqGCNW8HKSEOpzz83HYkUaQWBX2TPkaJM'
+);
+```
+
+#### Debit / Payment
+```php
+$response = $autopay->debit(
+  $partnerReferenceNo = '123456789009876477',
+  $bankCardToken      =
+      'YKYpg4xqTK1IuhlGQnrpiXHnxTcFx8ntjVfggWddVtTqsD8aUvi74oSijcVF0eV9' .
+      '1zVbCganXNROsFUURUzPLWbSZp5yHKmMnijS4D2yrMeJ7yJHHTYtRHpCP2GcoXJ3',
+  $chargeToken = 'ZDkLEQDZspP9FbahGkJoo3NmiSC6p0',
+  $otp         = '',
+  $amount      = [
+      'value'    => '1000.00',
+      'currency' => 'IDR'
+  ],
+  $remark      = 'remark'
+);
+```
+
+#### Debit Refund
+```php
+$response = $autopay->debitRefund(
+  $originalPartnerReferenceNo = '123456789009876408',
+  $partnerRefundNo            = '223456789009876487',
+  $refundAmount               = [
+      'value'    => 1000.00,
+      'currency' => 'IDR'
+  ],
+  $reason     = 'Complaint from customer',
+  $refundType = 'full'
+);
+```
+
+#### Debit Status
+```php
+$response = $autopay->debitStatus(
+  $originalPartnerReferenceNo = '123456789009876408',
+  $transactionDate            = '20220419',
+  $serviceCode                = '54',
+  $amount                     = [
+      'value'    => 1000.00,
+      'currency' => 'IDR'
+  ]
+);
+```
+
+#### Limit Inquiry
+```php
+$response = $autopay->limitInquiry(
+  $partnerReferenceNo = '2020102900000000000001',
+  $bankCardToken      = '6d7963617264746f6b656e',
+  $accountNo          = '7382382957893840',
+  $amount             = 200000.00
+);
+```
+
+#### OTP
+```php
+$response = $autopay->otp(
+  $partnerReferenceNo = '12345678900987654484',
+  $journeyID          = '12345678900987654484',
+  $bankCardToken      = 
+      'vvSWxFEu5p6ONXT3qEoZ2L5o7YJ4UjH7Mee3SDuxigMixnfVuOnQpbJxuboXijOAlna' .
+      'ow6XVqP7VCyQqSSzdv24OQjGl7IRuUAVcAgzKzJQoybSLPk0kKKCdqJqwrOXZ',
+  $otpReasonCode  = '54',
+  $additionalInfo = [
+      'expiredOtp' => "2023-07-26T18:56:11+07:00",
+  ],
+  $externalStoreId = '134928924949479'
+);
+```
+
+#### Verify OTP
+```php
+$response = $autopay->verifyOtp(
+  $originalPartnerReferenceNo = '123456789009876533',
+  $originalReferenceNo        = '7979309099377000825262452054700150269920536175232508970766089901',
+  $chargeToken                = 'dI7aK7aEbdgeMDnG2ygcEHQpyJQINm',
+  $otp                        = '359677'
+);
+```
+
+#### Set Limit
+```php
+$response = $autopay->setLimit(
+  $partnerReferenceNo = '12345678900987654484',
+  $bankCardToken      = 
+      'vvSWxFEu5p6ONXT3qEoZ2L5o7YJ4UjH7Mee3SDuxigMixnfVuOnQpbJxuboXijOAlna' .
+      'ow6XVqP7VCyQqSSzdv24OQjGl7IRuUAVcAgzKzJQoybSLPk0kKKCdqJqwrOXZ',
+  $limit              = 250000.00,
+  $chargeToken        = '931C5fuQgmB3FICZOag30G9p0X4Gtb',
+  $otp                = '898201'
+);
+```
+
 ## Get help
 
 * [Digital Services](https://digitalservices.bni.co.id/en/)
