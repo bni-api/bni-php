@@ -66,7 +66,7 @@ class Autopay
                 break;
             
             case self::ENV_BETA:
-                $this->baseUrl = 'https://api-beta-autopay.bni-ecollection.com';
+                $this->baseUrl = 'https://api-uat-autopay.bni-ecollection.com';
                 break;
             
             case self::ENV_ALPHA:
