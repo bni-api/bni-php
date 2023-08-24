@@ -43,4 +43,47 @@ class Constant
     const URL_AUTOPAY_OTP               = '/v1.0/otp';
     const URL_AUTOPAY_OTP_VERIFY        = '/v1.0/otp-verification';
     const URL_AUTOPAY_SET_LIMIT         = '/v1.0/registration/card-bind-limit';
+
+    const URL_RDN_FACERECOGNITION = '/rekdana/v1.1/face/recog';
+    const URL_RDN_CHECKSIDV2 = '/rdn/v2.1/checksid';
+    const URL_RDN_REGISTERINVESTOR = '/rdn/v2.1/register/investor';
+    const URL_RDN_REGISTERINVESTORACCOUNT = '/rdn/v2.1/register/investor/account';
+    const URL_RDN_SENDATASTATIC = '/rdn/v2.1/senddatastatic';
+    const URL_RDN_INQUIRYACCOUNTBALANCE = '/rdn/v2.1/inquiry/account/balance';
+    const URL_RDN_INQUIRYACCOUNTHISTORY = '/rdn/v2.1/inquiry/account/history';
+    const URL_RDN_INQUIRYACCOUNTINFO = '/rdn/v2.1/inquiry/account/info';
+    const URL_RDN_PAYMENTUSINGTRANSFER = '/rdn/v2.1/payment/transfer';
+    const URL_RDN_PAYMENTUSINGCLEARING = '/rdn/v2.1/payment/clearing';
+    const URL_RDN_INQUIRYINTERBANKACCOUNT = '/rdn/v2.1/inquiry/interbank/account';
+    const URL_RDN_PAYMENTUSINGRTGS = '/rdn/v2.1/payment/rtgs';
+    const URL_RDN_INQUIRYPAYMENTSTATUS = '/rdn/v2.1/inquiry/payment/status';
+    const URL_RDN_PAYMENTUSINGINTERBANK = '/rdn/v2.1/payment/interbank';
+
+
+    const URL_RDL_FACERECOGNITION = '/rekdana/v1.1/face/recog';
+    const URL_RDL_REGISTERINVESTOR = '/p2pl/v2.1/register/investor';
+    const URL_RDL_REGISTERINVESTORACCOUNT = '/p2pl/v2.1/register/investor/account';
+    const URL_RDL_INQUIRYACCOUNTBALANCE = '/p2pl/v2.1/inquiry/account/balance';
+    const URL_RDL_INQUIRYACCOUNTHISTORY = '/p2pl/v2.1/inquiry/account/history';
+    const URL_RDL_INQUIRYACCOUNTINFO = '/p2pl/v2.1/inquiry/account/info';
+    const URL_RDL_PAYMENTUSINGTRANSFER = '/p2pl/v2.1/payment/transfer';
+    const URL_RDL_PAYMENTUSINGCLEARING = '/p2pl/v2.1/payment/clearing';
+    const URL_RDL_INQUIRYINTERBANKACCOUNT = '/p2pl/v2.1/inquiry/interbank/account';
+    const URL_RDL_PAYMENTUSINGRTGS = '/p2pl/v2.1/payment/rtgs';
+    const URL_RDL_INQUIRYPAYMENTSTATUS = '/p2pl/v2.1/inquiry/payment/status';
+    const URL_RDL_PAYMENTUSINGINTERBANK = '/p2pl/v2.1/payment/interbank';
+
+
+    const URL_RDF_FACERECOGNITION = '/rekdana/v1.1/face/recog';
+    const URL_RDF_REGISTERINVESTOR = '/rdf/v2.1/register/investor';
+    const URL_RDF_REGISTERINVESTORACCOUNT = '/rdf/v2.1/register/investor/account';
+    const URL_RDF_INQUIRYACCOUNTBALANCE = '/rdf/v2.1/inquiry/account/balance';
+    const URL_RDF_INQUIRYACCOUNTHISTORY = '/rdf/v2.1/inquiry/account/history';
+    const URL_RDF_INQUIRYACCOUNTINFO = '/rdf/v2.1/inquiry/account/info';
+    const URL_RDF_PAYMENTUSINGTRANSFER = '/rdf/v2.1/payment/transfer';
+    const URL_RDF_PAYMENTUSINGCLEARING = '/rdf/v2.1/payment/clearing';
+    const URL_RDF_PAYMENTUSINGRTGS = '/rdf/v2.1/payment/rtgs';
+    const URL_RDF_INQUIRYINTERBANKACCOUNT = '/rdf/v2.1/inquiry/interbank/account';
+    const URL_RDF_INQUIRYPAYMENTSTATUS = '/rdf/v2.1/inquiry/payment/status';
+    const URL_RDF_PAYMENTUSINGINTERBANK = '/rdf/v2.1/payment/interbank';
 }
