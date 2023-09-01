@@ -93,12 +93,6 @@ class RDN
         string $accountNumberOnKsei,
         string $branchCode,
         string $ack
-        // string $externalReff,
-        // string $investorName,
-        // string $investorID,
-        // string $investorNPWP,
-        // string $investorPassport,
-        // string $actStatus
     ) {
         $url = $this->bni->getBaseUrl() . Constant::URL_RDN_CHECKSIDV2 . '?access_token=' . $this->bni->getToken();
         $data = [
@@ -282,8 +276,8 @@ class RDN
     public function sendDataStatic(
         string $companyId,
         string $parentCompanyId,
-        string $uuidFaceRecog,
         string $participantCode,
+        string $participantName,
         string $investorName,
         string $investorCode,
         string $investorAccountNumber,
@@ -300,6 +294,7 @@ class RDN
                     "requestUuid" => $this->utils->generateUUID(),
                 ],
                 "participantCode" => $participantCode,
+                "participantName" => $participantName,
                 "investorName" => $investorName,
                 "investorCode" => $investorCode,
                 "investorAccountNumber" => $investorAccountNumber,
