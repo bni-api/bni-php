@@ -94,7 +94,7 @@ class Response
             $resObject = json_decode($response->getBody());
             if ($response->getStatusCode() !== 200) {
                 throw new Exception(
-                    $resObject->response->responseCode . ' : ' . $resObject->response->responseMessage
+                    $resObject->response->responseCode . ' : ' . $resObject->response->responseMessage . ' : ' . $resObject->response->errorMessage
                 );
             }
             return $resObject;
