@@ -28,6 +28,38 @@ class Util
         $base64UrlSignature = $this->escapeString(base64_encode($signature));
         return $base64UrlHeader . "." . $base64UrlPayload . "." . $base64UrlSignature;
     }
+    
+
+    public function generateSignatureV2(array $payload, string $apiSecret, string $time)
+    {
+        $header = JSON_encode([
+            'alg' => 'HS256',
+            'typ' => 'JWT'
+        ]);
+        
+        $timeStamp = [
+            "timestamp" => $time
+        ];
+        $data = array_merge($payload, $timeStamp);
+        $payload = stripslashes(JSON_encode($data));
+        $base64UrlHeader = $this->escapeString(base64_encode($header));
+        $base64UrlPayload = $this->escapeString(base64_encode($payload));
+        $signature = hash_hmac(
+            'sha256',
+            $base64UrlHeader . "." . $base64UrlPayload,
+            $apiSecret,
+            true
+        );
+
+        $base64UrlSignature = $this->escapeString(base64_encode($signature));
+        return $base64UrlSignature;
+    }
+
+    public function generateUUID($length = 16)
+    {
+        $randomString = strtoupper(bin2hex(random_bytes($length/2)));
+        return $randomString;
+    }
 
     public function escapeString(string $string)
     {
