@@ -21,10 +21,13 @@ If you are not using Composer, you can clone or [download](https://github.com/bn
 
 ### 2.1 Choose an API Product
 
-We have 2 API products you can use:
+We have 5 API products you can use:
 
-- [One Gate Payment](#22A-snap) - A solution for a company to integrate its application / system with banking transaction services. [documentation](https://digitalservices.bni.co.id/en/api-one-gate-payment)
+- [One Gate Payment](https://digitalservices.bni.co.id/api-products-detail/one-gate-payment) - A solution for a company to integrate its application / system with banking transaction services. [documentation](https://digitalservices.bni.co.id/documentation/)
 - [Snap BI](https://apidevportal.bi.go.id/snap/info) - Integrate with SNAP BI [documentation](https://apidevportal.bi.go.id/snap/api-services)
+- [RDN](https://digitalservices.bni.co.id/api-products-detail/rdn-service) - is BNI's innovation in providing solutions for securities companies in opening digital accounts for investors and can facilitate book-entry transactions by integrating them with API. [documentation](https://digitalservices.bni.co.id/documentation/)
+- [RDL](https://digitalservices.bni.co.id/api-products-detail/p2p-lending) - is the provision of financial services to bring together lenders and loan recipients in order to enter into lending and borrowing agreements in rupiah currency directly through an electronic system using the internet network. [documentation](https://digitalservices.bni.co.id/documentation/)
+- [RDF](https://digitalservices.bni.co.id/api-products-detail/fintech-account-service) - is a solution for fintech companies registered with OJK in opening digital accounts to facilitate fund transfer transactions by utilizing API technology. [documentation](https://digitalservices.bni.co.id/documentation/)
 
 ### 2.2 Client Initialization and Configuration
 

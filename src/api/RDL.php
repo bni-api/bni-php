@@ -141,7 +141,7 @@ class RDL
         ];
         $response = $this->requestRDL($url, $dataJson, $data);
 
-        return Response::faceRecog($response);
+        return Response::RDL($response);
     }
 
     public function faceRecognition(
