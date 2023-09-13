@@ -193,7 +193,7 @@ class RDF
         ];
         $response = $this->requestRDF($url, $dataJson, $data);
 
-        return Response::faceRecog($response);
+        return Response::RDF($response);
     }
 
     public function registerInvestorAccount(
@@ -229,7 +229,7 @@ class RDF
             RequestOptions::JSON => $data
         ];
         $response = $this->requestRDF($url, $dataJson, $data );
-        // print_r(json_decode($response->getBody()));
+        
         return Response::RDF($response);
     }
 
