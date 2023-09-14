@@ -196,7 +196,7 @@ class Autopay
      * @param string $partnerReferenceNo unique identifier for each request
      * @param string $bankAccountNo 10-11 digits of bank account number
      * @param string $bankCardNo 16 digit of bank card number
-     * @param float $limit should be 2500000 and its multiples
+     * @param float $limit should be 250000 and its multiples
      * @param string $email
      * @param string $custIdMerchant optional
      * @return Object
@@ -213,7 +213,7 @@ class Autopay
         $token = $this->getToken();
         $timeStamp = $this->utils->getTimeStamp();
 
-        // validate limit, should be 2500000 and its multiples
+        // validate limit, should be 250000 and its multiples
         if ($limit % 250000 != 0 || $limit < 250000) {
             throw new \InvalidArgumentException('limit should be a multiple of 250000');
         }
@@ -561,7 +561,7 @@ class Autopay
      *
      * @param string $partnerReferenceNo unique identifier string (max 64 chars)
      * @param string $bankCardToken unique customer identifier, generated when hit account binding API
-     * @param float $limit should be 2500000 and its multiples
+     * @param float $limit should be 250000 and its multiples
      * @param string $chargeToken unique string identifier, as a response from previous API
      * @param string $otp 6 digits of OTP code
      * @return Object
@@ -577,7 +577,7 @@ class Autopay
         $token = $this->getToken();
         $timeStamp = $this->utils->getTimeStamp();
 
-        // validate limit, should be 2500000 and its multiples
+        // validate limit, should be 250000 and its multiples
         if ($limit % 250000 != 0 || $limit < 250000) {
             throw new \InvalidArgumentException('limit should be a multiple of 250000');
         }
