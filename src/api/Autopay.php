@@ -214,7 +214,7 @@ class Autopay
         $timeStamp = $this->utils->getTimeStamp();
 
         // validate limit, should be 2500000 and its multiples
-        if ($limit % 250000 != 0 && $limit >= 250000) {
+        if ($limit % 250000 != 0 || $limit < 250000) {
             throw new \InvalidArgumentException('limit should be a multiple of 250000');
         }
 
@@ -578,7 +578,7 @@ class Autopay
         $timeStamp = $this->utils->getTimeStamp();
 
         // validate limit, should be 2500000 and its multiples
-        if ($limit % 250000 != 0 && $limit >= 250000) {
+        if ($limit % 250000 != 0 || $limit < 250000) {
             throw new \InvalidArgumentException('limit should be a multiple of 250000');
         }
 
