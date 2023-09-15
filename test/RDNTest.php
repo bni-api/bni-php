@@ -13,12 +13,12 @@ class RDNTest extends TestCase
     {
         $credentials = json_decode(file_get_contents(__DIR__ . '/constant.json'));
         return new Bni(
-            $env = 'new_dev',
-            $clientId = $credentials->one_gate_payment->clientId,
-            $clientSecret = $credentials->one_gate_payment->clientSecret,
-            $apiKey = $credentials->one_gate_payment->apiKey,
-            $apiSecret = $credentials->one_gate_payment->apiSecret,
-            $appName = $credentials->one_gate_payment->appName
+            $env = 'sandbox-2',
+            $clientId = $credentials->api_services->clientId,
+            $clientSecret = $credentials->api_services->clientSecret,
+            $apiKey = $credentials->api_services->apiKey,
+            $apiSecret = $credentials->api_services->apiSecret,
+            $appName = $credentials->api_services->appName
         );
     }
 
