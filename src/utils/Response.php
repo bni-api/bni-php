@@ -3,6 +3,7 @@
 namespace BniApi\BniPhp\utils;
 
 use Exception;
+use UnexpectedValueException;
 
 class Response
 {
@@ -21,6 +22,27 @@ class Response
         }
     }
 
+    /**
+     * Get a response from autopay API as an object
+     *
+     * @param $response GuzzleHttp\Psr7\Response
+     * @return object
+     */
+    public static function autopay($response)
+    {
+        try {
+            $resObject = json_decode($response->getBody());
+            if (! str_starts_with($response->getStatusCode(), 200)) {
+                throw new UnexpectedValueException(
+                    $resObject->responseCode . ' : ' . $resObject->responseMessage
+                );
+            }
+            return $resObject;
+        } catch (Exception $e) {
+            throw new UnexpectedValueException($e->getMessage());
+        }
+    }
+
     public static function snapBI($response)
     {
         try {
@@ -28,7 +50,7 @@ class Response
             if ($response->getStatusCode() !== 200) {
                 throw new Exception(
                     $resObject->responseCode . ' : ' . $resObject->responseMessage
-                ); 
+                );
             }
 
             $statusCodeSuccess = [
