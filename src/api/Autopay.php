@@ -107,7 +107,7 @@ class Autopay
      *
      * @return string access token
      */
-    private function getToken()
+    public function getToken()
     {
         $timestamp            = $this->utils->getTimeStamp();
         $url                  = $this->baseUrl . Constant::URL_AUTOPAY_ACCESS_TOKEN_B2B;
