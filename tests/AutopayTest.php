@@ -22,7 +22,7 @@ class AutopayTest extends \Codeception\Test\Unit
     const RESP_CODE_ACCOUNT_UNBINDING = '2000900';
     const RESP_CODE_BALANCE_INQUIRY   = '2001100';
     const RESP_CODE_DEBIT             = '2005400';
-    const RESP_CODE_DEBIT_REFUND      = '2025800';
+    const RESP_CODE_DEBIT_REFUND      = '2005800';
     const RESP_CODE_DEBIT_STATUS      = '2005500';
     const RESP_CODE_LIMIT_INQUIRY     = '2000000';
     const RESP_CODE_OTP               = '2008100';
