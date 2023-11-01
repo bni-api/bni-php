@@ -214,7 +214,7 @@ class Autopay
         $timeStamp = $this->utils->getTimeStamp();
 
         // validate limit, should be greater than 0
-        if ($limit > 0) {
+        if ($limit <= 0) {
             throw new \InvalidArgumentException('limit should be greater than 0');
         }
 
@@ -578,7 +578,7 @@ class Autopay
         $timeStamp = $this->utils->getTimeStamp();
 
         // validate limit, should be greater than 0
-        if ($limit > 0) {
+        if ($limit <= 0) {
             throw new \InvalidArgumentException('limit should be greater than 0');
         }
 
