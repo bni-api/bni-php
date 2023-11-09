@@ -12,7 +12,7 @@ trait inquiryAccountStatementService
         string $fromDate,
         string $toDate,
         string $transactionType,
-        string $accountList
+        array $accountList
     ){
         $url = $this->bni->getBaseUrl() . Constant::URL_BNI_DIRECT_INQUIRY_REGULER_TRANSACTION . '?access_token=' . $this->bni->getToken();
         $data = [
@@ -21,7 +21,7 @@ trait inquiryAccountStatementService
             'fromDate' => $fromDate,
             'toDate' => $toDate,
             'transactionType' => $transactionType,
-            'accountList' => explode(",", $accountList)
+            'accountList' => $accountList
         ];
         $dataJson = [
             RequestOptions::JSON => $data
