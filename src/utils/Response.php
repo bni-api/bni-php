@@ -88,7 +88,6 @@ class Response
                     $resObject->response->responseCode . ' : ' . $resObject->response->responseMessage
                 );
             }
-            print_r($resObject);
             return $resObject;
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
