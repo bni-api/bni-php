@@ -33,16 +33,18 @@ class BNIDirect {
     protected $httpClient;
     protected $utils;
     protected $bni;
+    protected $bniDirectApiKey;
 
-    function __construct(Bni $bni)
+    function __construct(Bni $bni, string $bniDirectApiKey)
     {
         $this->bni = $bni;
         $this->httpClient = new HttpClient;
         $this->utils = new Util;
+        $this->bniDirectApiKey = $bniDirectApiKey;
     }
 
-    private function generateBniDirectKey(string $corporateId, string $userId, string $bniDirectApiKey){
-        $data = strtolower($corporateId).strtolower($userId).$bniDirectApiKey;
+    private function generateBniDirectKey(string $corporateId, string $userId){
+        $data = strtolower($corporateId).strtolower($userId).$this->bniDirectApiKey;
         $encrypData = hash('sha256', $data);
         
         return strtolower($encrypData);
@@ -52,7 +54,7 @@ class BNIDirect {
         $time = $this->utils->getTimeStamp();
         $header = [
             'X-API-Key' => $this->bni->apiKey,
-            // 'bnidirect-api-key' => $this->generateBniDirectKey($data->corporateId, $data->userId, "dummyKey"), //sandbox
+            // 'bnidirect-api-key' => $this->generateBniDirectKey($data->corporateId, $data->userId),
             'bnidirect-api-key' => 'dc8f7943e027345677c7dade0441936c3bb3f8d697ef8f7b28ae5dfdeea78dd1',
             'X-Signature' => $this->utils->generateSignatureV2($data, $this->bni->apiSecret, $time),
             'X-Timestamp' => $time
