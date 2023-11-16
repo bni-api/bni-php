@@ -92,4 +92,14 @@ class Constant
     const ECOLLECTION_TYPE_UPDATEBILLING = "updatebilling";
     const ECOLLECTION_TYPE_INQUIRYBILLING = "inquirybilling";
     const ECOLLECTION_TYPE_INACTIVEBILLING = "inactivebilling";
+
+
+    const URL_BNI_DIRECT_CREATE_MPN_G2_BILLING_ID = '/bnidirect/api/MPNG2/CreateBilling';
+    const URL_BNI_DIRECT_INQUIRY_NPWP = '/bnidirect/api/MPNG2/InquiryNPWP';
+    const URL_BNI_DIRECT_INQUIRY_INHOUSE_AND_VA_BENEFICIARY_NAME = '/bnidirect/api/InHouse/InquiryBeneficiaryName';
+    const URL_BNI_DIRECT_INQUIRY_LLG_RTGS_ONLINE_BENEFICIARY_NAME = '/bnidirect/api/Online/InquiryBeneficiaryName';
+    const URL_BNI_DIRECT_INQUIRY_REGULER_TRANSACTION = '/bnidirect/api/Account/InquiryAccountStatement';
+    const URL_BNI_DIRECT_INQUIRY_BILLING = '/bnidirect/api/Billing/Inquiry';
+    const URL_BNI_DIRECT_INQUIRY_BNI_POPS_CASH_AND_CARRY = '/bnidirect/api/BNIPOPS/CashandCarry/Inquiry';
+    
 }

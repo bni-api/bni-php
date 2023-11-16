@@ -146,4 +146,20 @@ class Response
             throw new Exception($e->getMessage());
         }
     }
+
+    public static function BniDirect($response)
+    {
+        try {
+            $resObject = json_decode($response->getBody());
+            print_r($resObject);
+            if (! str_starts_with($response->getStatusCode(), 200)) {
+                throw new UnexpectedValueException(
+                    'Error : ' . $resObject->errorReason
+                );
+            }
+            return $resObject;
+        } catch (Exception $e) {
+            throw new UnexpectedValueException($e->getMessage());
+        }
+    }
 }

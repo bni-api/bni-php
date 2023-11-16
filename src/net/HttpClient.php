@@ -10,6 +10,8 @@ use GuzzleHttp\Psr7\Request;
 
 class HttpClient
 {
+    public $utils;
+    public $client;
 
     public function __construct()
     {
