@@ -125,24 +125,36 @@ class BniDirectTest extends TestCase
     //     $this->assertEquals($response->requestStatus, '0');
     // }
 
-    public function test_bni_direct_inquiry_bni_pops_cash_and_carry()
+    // public function test_bni_direct_inquiry_bni_pops_cash_and_carry()
+    // {
+    //     $bni = $this->init();
+    //     $bniDirect = new BNIDirect($bni);
+    //     $response = $bniDirect->inquiryBniPopsCashAndCarry(
+    //         $corporateId= 'BNI_SIT',
+    //         $userId= 'WTI_MAKER1',
+    //         $debitAccountNo= '115208364',
+    //         $salesOrganizationCode= '1003',
+    //         $distributionChannelCode= '10',
+    //         $productCode= '00',
+    //         $shipTo= '1123123',
+    //         $debitOrCreditNoteNo= 123231,
+    //         $materialCode= 'A040900001',
+    //         $trip= '1123123',
+    //         $quantity= '100',
+    //         $deliveryDate= '20190913',
+    //         $transportir= ''
+    //     );
+    //     $this->assertEquals($response->requestStatus, '0');
+    // }
+
+    public function test_bni_direct_balance_inquiry()
     {
         $bni = $this->init();
         $bniDirect = new BNIDirect($bni);
-        $response = $bniDirect->inquiryBniPopsCashAndCarry(
+        $response = $bniDirect->balanceInquiry(
             $corporateId= 'BNI_SIT',
             $userId= 'WTI_MAKER1',
-            $debitAccountNo= '115208364',
-            $salesOrganizationCode= '1003',
-            $distributionChannelCode= '10',
-            $productCode= '00',
-            $shipTo= '1123123',
-            $debitOrCreditNoteNo= 123231,
-            $materialCode= 'A040900001',
-            $trip= '1123123',
-            $quantity= '100',
-            $deliveryDate= '20190913',
-            $transportir= ''
+            $accountList= ["116952891","4447"],
         );
         $this->assertEquals($response->requestStatus, '0');
     }

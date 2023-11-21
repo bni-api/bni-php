@@ -12,6 +12,7 @@ use inquiryBniPopsCashAndCarryService;
 use inquiryInhouseAndVABeneficiaryNameService;
 use inquiryLLG_RTGS_OnlineBeneficiaryNameService;
 use inquiryNPWPService;
+use balanceInquiry;
 
 require_once('src/api/BniDirectService/createMPNG2Billing.php');
 require_once('src/api/BniDirectService/inquiryNPWP.php');
@@ -20,6 +21,7 @@ require_once('src/api/BniDirectService/inquiryLLG_RTGS_OnlineBeneficiaryName.php
 require_once('src/api/BniDirectService/inquiryAccountStatement.php');
 require_once('src/api/BniDirectService/inquiryBilling.php');
 require_once('src/api/BniDirectService/inquiryBniPopsCashAndCarry.php');
+require_once('src/api/BniDirectService/balanceInquiry.php');
 
 class BNIDirect {
     use createMPNG2BillingService;
@@ -29,6 +31,7 @@ class BNIDirect {
     use inquiryAccountStatementService;
     use inquiryBillingService;
     use inquiryBniPopsCashAndCarryService;
+    use balanceInquiry;
     
     protected $httpClient;
     protected $utils;

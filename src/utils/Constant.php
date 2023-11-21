@@ -101,5 +101,6 @@ class Constant
     const URL_BNI_DIRECT_INQUIRY_REGULER_TRANSACTION = '/bnidirect/api/Account/InquiryAccountStatement';
     const URL_BNI_DIRECT_INQUIRY_BILLING = '/bnidirect/api/Billing/Inquiry';
     const URL_BNI_DIRECT_INQUIRY_BNI_POPS_CASH_AND_CARRY = '/bnidirect/api/BNIPOPS/CashandCarry/Inquiry';
+    const URL_BNI_DIRECT_BALANCE_INQUIRY = '/bnidirect/api/Account/InquiryBalance';
     
 }
