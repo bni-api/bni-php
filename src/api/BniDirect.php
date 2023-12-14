@@ -57,27 +57,31 @@ class BNIDirect {
     protected $httpClient;
     protected $utils;
     protected $bni;
+    protected $bniDirectApiKey;
 
-    function __construct(Bni $bni)
+    function __construct(Bni $bni, string $bniDirectKey)
     {
         $this->bni = $bni;
         $this->httpClient = new HttpClient;
         $this->utils = new Util;
+        $this->bniDirectKey = $bniDirectKey;
     }
 
-    private function generateBniDirectKey(string $corporateId, string $userId, string $bniDirectApiKey){
-        $data = strtolower($corporateId).strtolower($userId).$bniDirectApiKey;
+    private function generateBniDirectKey(string $corporateId, string $userId){
+        $data = strtolower($corporateId).strtolower($userId).$this->bniDirectKey;
         $encrypData = hash('sha256', $data);
         
         return strtolower($encrypData);
     }
 
     protected function requestBNIDirect($url, $dataJson, $data ) {
+        print_r($data);
         $time = $this->utils->getTimeStamp();
         $header = [
             'X-API-Key' => $this->bni->apiKey,
-            // 'bnidirect-api-key' => $this->generateBniDirectKey($data->corporateId, $data->userId, "dummyKey"), //sandbox
-            'bnidirect-api-key' => 'dc8f7943e027345677c7dade0441936c3bb3f8d697ef8f7b28ae5dfdeea78dd1',
+            'bnidirect-api-key' => $this->generateBniDirectKey($data['corporateId'], $data['userId']),
+            // 'bnidirect-api-key' => 'dc8f7943e027345677c7dade0441936c3bb3f8d697ef8f7b28ae5dfdeea78dd1',
+            // 'bnidirect-api-key' => 'a39a04f8801b490da63db5b5e71b95ea6e0d8b6782df26b52c48c35bc19c22f2',
             'X-Signature' => $this->utils->generateSignatureV2($data, $this->bni->apiSecret, $time),
             'X-Timestamp' => $time
         ];

@@ -12,7 +12,7 @@ class BniDirectTest extends TestCase
     {
         $credentials = json_decode(file_get_contents(__DIR__ . '/constant.json'));
         return new Bni(
-            $env = 'dev',
+            $env = 'sandbox-2',
             $clientId = $credentials->api_services->clientId,
             $clientSecret = $credentials->api_services->clientSecret,
             $apiKey = $credentials->api_services->apiKey,
@@ -21,10 +21,19 @@ class BniDirectTest extends TestCase
         );
     }
 
+    public function BniDirect(Bni $bni)
+    {
+        $credentials = json_decode(file_get_contents(__DIR__ . '/constant.json'));
+        return new BNIDirect(
+            $bni,
+            $credentials->api_services->bniDirectKey
+        );
+    }
+
     // public function test_bni_direct_create_mpng2_billing_id()
     // {
     //     $bni = $this->init();
-    //     $bniDirect = new BNIDirect($bni);
+    //     $bniDirect = $this->BniDirect($bni);
     //     $response = $bniDirect->createMPNG2Billing(
     //         $corporateId= 'BNI_SIT',
     //         $userId= 'WTI_MAKER1',
@@ -56,7 +65,7 @@ class BniDirectTest extends TestCase
     // public function test_bni_direct_inquiry_npwp()
     // {
     //     $bni = $this->init();
-    //     $bniDirect = new BNIDirect($bni);
+    //     $bniDirect = $this->BniDirect($bni);
     //     $response = $bniDirect->inquiryNPWP(
     //         $corporateId= 'BNI_SIT',
     //         $userId= 'WTI_MAKER1',
@@ -70,22 +79,22 @@ class BniDirectTest extends TestCase
     // }
 
     /* success */
-    // public function test_bni_direct_inquiry_inhouse_and_va_beneficiary_name()
-    // {
-    //     $bni = $this->init();
-    //     $bniDirect = new BNIDirect($bni);
-    //     $response = $bniDirect->inquiryInhouseAndVABeneficiaryName('BNI_SIT','WTI_MAKER1','113183203');
-    //     $this->assertEquals($response->requestStatus, '0');
-    // }
+    public function test_bni_direct_inquiry_inhouse_and_va_beneficiary_name()
+    {
+        $bni = $this->init();
+        $bniDirect = $this->BniDirect($bni);
+        $response = $bniDirect->inquiryInhouseAndVABeneficiaryName('companymb','jenomaker','113183203');
+        $this->assertEquals($response->requestStatus, '0');
+    }
 
     /* success */
     // public function test_bni_direct_inquiry_llg_rtgs_online_beneficiary_name()
     // {
     //     $bni = $this->init();
-    //     $bniDirect = new BNIDirect($bni);
+    //     $bniDirect = $this->BniDirect($bni);
     //     $response = $bniDirect->inquiryLLG_RTGS_OnlineBeneficiaryName(
-    //         $corporateId =  'BNI_SIT' ,
-    //         $userId =  'WTI_MAKER1' ,
+    //         $corporateId =  'companymb' ,
+    //         $userId =  'jenomaker' ,
     //         $beneficiaryAccountNo =  '10541448' ,
     //         $beneficiaryBankCode =  '002' 
     //     );
@@ -95,7 +104,7 @@ class BniDirectTest extends TestCase
     // public function test_bni_direct_inquiry_account_statement()
     // {
     //     $bni = $this->init();
-    //     $bniDirect = new BNIDirect($bni);
+    //     $bniDirect = $this->BniDirect($bni);
     //     $response = $bniDirect->inquiryAccountStatement(
     //         $corporateId  =  'BNI_SIT' ,
     //         $userId  =  'WTI_MAKER1' ,
@@ -110,7 +119,7 @@ class BniDirectTest extends TestCase
     // public function test_bni_direct_inquiry_billing()
     // {
     //     $bni = $this->init();
-    //     $bniDirect = new BNIDirect($bni);
+    //     $bniDirect = $this->BniDirect($bni);
     //     $response = $bniDirect->inquiryBilling(
     //         $corporateId = 'BNI_SIT' ,
     //         $userId = 'WTI_MAKER1' ,
@@ -128,7 +137,7 @@ class BniDirectTest extends TestCase
     // public function test_bni_direct_inquiry_bni_pops_cash_and_carry()
     // {
     //     $bni = $this->init();
-    //     $bniDirect = new BNIDirect($bni);
+    //     $bniDirect = $this->BniDirect($bni);
     //     $response = $bniDirect->inquiryBniPopsCashAndCarry(
     //         $corporateId= 'BNI_SIT',
     //         $userId= 'WTI_MAKER1',
@@ -150,7 +159,7 @@ class BniDirectTest extends TestCase
     public function test_bni_direct_balance_inquiry()
     {
         $bni = $this->init();
-        $bniDirect = new BNIDirect($bni);
+        $bniDirect = $this->BniDirect($bni);
         $response = $bniDirect->balanceInquiry(
             $corporateId= 'BNI_SIT',
             $userId= 'WTI_MAKER1',
@@ -162,7 +171,7 @@ class BniDirectTest extends TestCase
     public function test_bni_direct_domestic_single_bi_fast_transfer()
     {
         $bni = $this->init();
-        $bniDirect = new BNIDirect($bni);
+        $bniDirect = $this->BniDirect($bni);
         $response = $bniDirect->domesticSingleBIFastTransfer(
             $corporateId= 'BNI_SIT',
             $userId= 'WTI_MAKER1',
@@ -194,7 +203,7 @@ class BniDirectTest extends TestCase
     public function test_bni_direct_inquiry_forex_rate()
     {
         $bni = $this->init();
-        $bniDirect = new BNIDirect($bni);
+        $bniDirect = $this->BniDirect($bni);
         $response = $bniDirect->inquiryForexRate(
             $corporateId= 'BNI_SIT',
             $userId= 'WTI_MAKER1',
@@ -206,7 +215,7 @@ class BniDirectTest extends TestCase
     public function test_bni_direct_inquiry_child_account()
     {
         $bni = $this->init();
-        $bniDirect = new BNIDirect($bni);
+        $bniDirect = $this->BniDirect($bni);
         $response = $bniDirect->inquiryForexRate(
             $corporateId= 'BNI_SIT',
             $userId= 'WTI_MAKER1',
@@ -218,7 +227,7 @@ class BniDirectTest extends TestCase
     public function test_bni_direct_callback_api()
     {
         $bni = $this->init();
-        $bniDirect = new BNIDirect($bni);
+        $bniDirect = $this->BniDirect($bni);
         $response = $bniDirect->callbackApi(
             $corporateId= 'BNI_SIT',
             $userId= 'WTI_MAKER1',
@@ -231,7 +240,7 @@ class BniDirectTest extends TestCase
     public function test_bni_direct_inquiry_bi_fast_beneficiary_name()
     {
         $bni = $this->init();
-        $bniDirect = new BNIDirect($bni);
+        $bniDirect = $this->BniDirect($bni);
         $response = $bniDirect->inquiryBIFastBeneficiaryName(
             $corporateId= 'BNI_SIT',
             $userId= 'WTI_MAKER1',
@@ -246,7 +255,7 @@ class BniDirectTest extends TestCase
     public function test_bni_direct_bulk_payment_mixed()
     {
         $bni = $this->init();
-        $bniDirect = new BNIDirect($bni);
+        $bniDirect = $this->BniDirect($bni);
         $response = $bniDirect->bulkPaymentMixed(
             $corporateId= 'BNI_SIT',
             $userId= 'WTI_MAKER1',
@@ -273,7 +282,7 @@ class BniDirectTest extends TestCase
     public function test_bni_direct_payroll_mixed()
     {
         $bni = $this->init();
-        $bniDirect = new BNIDirect($bni);
+        $bniDirect = $this->BniDirect($bni);
         $response = $bniDirect->payrollMixed(
             $corporateId= 'BNI_SIT',
             $userId= 'WTI_MAKER1',
