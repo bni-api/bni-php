@@ -51,11 +51,13 @@ class BNIDirect {
     }
 
     protected function requestBNIDirect($url, $dataJson, $data ) {
+        print_r($data);
         $time = $this->utils->getTimeStamp();
         $header = [
             'X-API-Key' => $this->bni->apiKey,
-            // 'bnidirect-api-key' => $this->generateBniDirectKey($data->corporateId, $data->userId),
-            'bnidirect-api-key' => 'dc8f7943e027345677c7dade0441936c3bb3f8d697ef8f7b28ae5dfdeea78dd1',
+            'bnidirect-api-key' => $this->generateBniDirectKey($data['corporateId'], $data['userId']),
+            // 'bnidirect-api-key' => 'dc8f7943e027345677c7dade0441936c3bb3f8d697ef8f7b28ae5dfdeea78dd1',
+            // 'bnidirect-api-key' => 'a39a04f8801b490da63db5b5e71b95ea6e0d8b6782df26b52c48c35bc19c22f2',
             'X-Signature' => $this->utils->generateSignatureV2($data, $this->bni->apiSecret, $time),
             'X-Timestamp' => $time
         ];

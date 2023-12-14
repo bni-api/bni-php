@@ -16,7 +16,9 @@ class HttpClient
     public function __construct()
     {
         $this->utils = new Util;
-        $this->client = new Client();
+        $this->client = new Client([
+            'verify' => false
+        ]);
     }
 
     public function request(
