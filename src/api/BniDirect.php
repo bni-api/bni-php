@@ -12,6 +12,13 @@ use inquiryBniPopsCashAndCarryService;
 use inquiryInhouseAndVABeneficiaryNameService;
 use inquiryLLG_RTGS_OnlineBeneficiaryNameService;
 use inquiryNPWPService;
+use bniPopsCashAndCarryService;
+use bniPopsProductAllocationService;
+use bniPopsResubmitCashAndCarryService;
+use bniPopsResubmitProductAllocationService;
+use bulkGetStatusService;
+use createVirtualAccountService;
+use updateVirtualAccountService;
 
 require_once('src/api/BniDirectService/createMPNG2Billing.php');
 require_once('src/api/BniDirectService/inquiryNPWP.php');
@@ -20,6 +27,13 @@ require_once('src/api/BniDirectService/inquiryLLG_RTGS_OnlineBeneficiaryName.php
 require_once('src/api/BniDirectService/inquiryAccountStatement.php');
 require_once('src/api/BniDirectService/inquiryBilling.php');
 require_once('src/api/BniDirectService/inquiryBniPopsCashAndCarry.php');
+require_once('src/api/BniDirectService/bniPopsCashAndCarry.php');
+require_once('src/api/BniDirectService/bniPopsProductAllocation.php');
+require_once('src/api/BniDirectService/bniPopsResubmitCashAndCarry.php');
+require_once('src/api/BniDirectService/bniPopsResubmitProductAllocation.php');
+require_once('src/api/BniDirectService/bulkGetStatus.php');
+require_once('src/api/BniDirectService/createVirtualAccount.php');
+require_once('src/api/BniDirectService/updateVirtualAccount.php');
 
 class BNIDirect {
     use createMPNG2BillingService;
@@ -29,6 +43,13 @@ class BNIDirect {
     use inquiryAccountStatementService;
     use inquiryBillingService;
     use inquiryBniPopsCashAndCarryService;
+    use bniPopsCashAndCarryService;
+    use bniPopsProductAllocationService;
+    use bniPopsResubmitCashAndCarryService;
+    use bniPopsResubmitProductAllocationService;
+    use bulkGetStatusService;
+    use createVirtualAccountService;
+    use updateVirtualAccountService;
     
     protected $httpClient;
     protected $utils;
@@ -44,7 +65,7 @@ class BNIDirect {
     }
 
     private function generateBniDirectKey(string $corporateId, string $userId){
-        $data = strtolower($corporateId).strtolower($userId).$this->bniDirectApiKey;
+        $data = strtolower($corporateId).strtolower($userId).$this->bni->bniDirectApiKey;
         $encrypData = hash('sha256', $data);
         
         return strtolower($encrypData);
@@ -54,8 +75,7 @@ class BNIDirect {
         $time = $this->utils->getTimeStamp();
         $header = [
             'X-API-Key' => $this->bni->apiKey,
-            // 'bnidirect-api-key' => $this->generateBniDirectKey($data->corporateId, $data->userId),
-            'bnidirect-api-key' => 'dc8f7943e027345677c7dade0441936c3bb3f8d697ef8f7b28ae5dfdeea78dd1',
+            'bnidirect-api-key' => $this->generateBniDirectKey($data->corporateId, $data->userId),
             'X-Signature' => $this->utils->generateSignatureV2($data, $this->bni->apiSecret, $time),
             'X-Timestamp' => $time
         ];

@@ -26,6 +26,7 @@ class Bni
     const PRODUCTION_BASE_URL = "https://api.bni.co.id";
 
     const SANDBOX_TUNNELING_BASE_URL = "https://sb-dev-in.dglapm.id";
+    const SANDBOX_DEV_URL = "https://localhost:8065";
     const DEV_TUNNELING_BASE_URL = "https://dev-in.dglapm.id";
 
     const ENV_DEV = 'dev';
@@ -34,6 +35,7 @@ class Bni
     const ENV_SANDBOX = 'sandbox';
     const ENV_SANDBOX_2 = 'sandbox-2';
     const ENV_PRODUCTION = 'prod';
+    const ENV_SANDBOX_DEV = 'sandbox-dev';
 
 
     function __construct(string $env, $clientId, $clientSecret, $apiKey, $apiSecret, $appName)
@@ -62,6 +64,8 @@ class Bni
             $baseUrl = self::DEV_TUNNELING_BASE_URL;
         else if ($this->env === self::ENV_SANDBOX_2) 
             $baseUrl = self::SANDBOX_TUNNELING_BASE_URL;
+        else if ($this->env === self::ENV_SANDBOX_DEV) 
+            $baseUrl = self::SANDBOX_DEV_URL;
         return $baseUrl;
     }
 

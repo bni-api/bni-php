@@ -150,6 +150,7 @@ class Response
 
     public static function BniDirect($response)
     {
+        print_r(json_decode($response));
         try {
             $resObject = json_decode($response->getBody());
             print_r($resObject);
