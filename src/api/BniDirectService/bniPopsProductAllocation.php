@@ -27,6 +27,7 @@ trait bniPopsProductAllocationService
             'distributionChannelCode' => $distributionChannelCode,
             'productCode' => $productCode,
             'shipTo' => $shipTo,
+            'scheduleAggreementNo' => $scheduleAggreementNo,
             'debitOrCreditNoteNo' => $debitOrCreditNoteNo,
             'productInformationDetail' => $productInformationDetail
         ];

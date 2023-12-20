@@ -23,7 +23,7 @@ trait bniPopsResubmitProductAllocationService
             RequestOptions::JSON => $data
         ];
         $response = $this->requestBNIDirect($url, $dataJson, $data );
-        print_r($response);
+        
         return Response::BniDirect($response);
     }
 }

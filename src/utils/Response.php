@@ -88,7 +88,7 @@ class Response
                     $resObject->response->responseCode . ' : ' . $resObject->response->responseMessage
                 );
             }
-            print_r($resObject);
+            
             return $resObject;
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
@@ -150,10 +150,8 @@ class Response
 
     public static function BniDirect($response)
     {
-        print_r(json_decode($response));
         try {
             $resObject = json_decode($response->getBody());
-            print_r($resObject);
             if (! str_starts_with($response->getStatusCode(), 200)) {
                 throw new UnexpectedValueException(
                     'Error : ' . $resObject->errorReason

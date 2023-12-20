@@ -25,9 +25,8 @@ class Bni
     const UAT_BASE_URL = "https://newapidev.bni.co.id:8065";
     const PRODUCTION_BASE_URL = "https://api.bni.co.id";
 
-    const SANDBOX_TUNNELING_BASE_URL = "https://sb-dev-in.dglapm.id";
-    const SANDBOX_DEV_URL = "https://localhost:8065";
-    const DEV_TUNNELING_BASE_URL = "https://dev-in.dglapm.id";
+    const SANDBOX_TUNNELING_BASE_URL = "https://localhost:8065";
+    const DEV_TUNNELING_BASE_URL = "http://localhost:8066";
 
     const ENV_DEV = 'dev';
     const ENV_DEV_2 = 'dev-2';
@@ -83,7 +82,6 @@ class Bni
                     'grant_type' => 'client_credentials'
                 ]
             ];
-
             $response = $this->client->request('POST', $url, $header, $data);
             return json_decode($response->getBody())->access_token;
         } catch (ClientException $th) {
