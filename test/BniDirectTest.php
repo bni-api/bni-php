@@ -30,45 +30,45 @@ class BniDirectTest extends TestCase
         );
     }
 
-    // public function test_bni_direct_create_mpng2_billing_id()
-    // {
-    //     $bni = $this->init();
-    //     $bniDirect = $this->BniDirect($bni);
-    //     $response = $bniDirect->createMPNG2Billing(
-    //         $corporateId= 'BNI_SIT',
-    //         $userId= 'WTI_MAKER1',
-    //         $npwp= '111929199928123',
-    //         $taxPayerName= 'NAMA NPWP',
-    //         $taxPayerAddress1= 'ALAMAT 1',
-    //         $taxPayerAddress2= '',
-    //         $taxPayerAddress3= '',
-    //         $taxPayerCity= 'JAKARTA',
-    //         $NOP= '',
-    //         $MAPCode= '411122',
-    //         $depositTypeCode= '111',
-    //         $wajibPungutNPWP= '',
-    //         $wajibPungutName= '',
-    //         $wajibPungutAddress1= '',
-    //         $wajibPungutAddress2= '',
-    //         $wajibPungutAddress3= '',
-    //         $participantId= '111828293938',
-    //         $assessmentTaxNumber= '',
-    //         $amountCurrency= 'IDR',
-    //         $amount= '100000',
-    //         $monthFrom= '01',
-    //         $monthTo= '12',
-    //         $year= '2019'
-    //     );
-    //     $this->assertEquals($response->requestStatus, '0');
-    // }
+    public function test_bni_direct_create_mpng2_billing_id()
+    {
+        $bni = $this->init();
+        $bniDirect = $this->BniDirect($bni);
+        $response = $bniDirect->createMPNG2Billing(
+            $corporateId= 'companymb',
+            $userId= 'jenomaker',
+            $npwp= '111929199928123',
+            $taxPayerName= 'NAMA NPWP',
+            $taxPayerAddress1= 'ALAMAT 1',
+            $taxPayerAddress2= '',
+            $taxPayerAddress3= '',
+            $taxPayerCity= 'JAKARTA',
+            $NOP= '',
+            $MAPCode= '411122',
+            $depositTypeCode= '111',
+            $wajibPungutNPWP= '',
+            $wajibPungutName= '',
+            $wajibPungutAddress1= '',
+            $wajibPungutAddress2= '',
+            $wajibPungutAddress3= '',
+            $participantId= '111828293938',
+            $assessmentTaxNumber= '',
+            $amountCurrency= 'IDR',
+            $amount= '100000',
+            $monthFrom= '01',
+            $monthTo= '12',
+            $year= '2019'
+        );
+        $this->assertEquals($response->requestStatus, '0');
+    }
 
     // public function test_bni_direct_inquiry_npwp()
     // {
     //     $bni = $this->init();
     //     $bniDirect = $this->BniDirect($bni);
     //     $response = $bniDirect->inquiryNPWP(
-    //         $corporateId= 'BNI_SIT',
-    //         $userId= 'WTI_MAKER1',
+    //         $corporateId= 'companymb',
+    //         $userId= 'jenomaker',
     //         $npwp= '111822839281234',
     //         $NOP= '',
     //         $MAPCode= '411112',
@@ -79,13 +79,13 @@ class BniDirectTest extends TestCase
     // }
 
     /* success */
-    public function test_bni_direct_inquiry_inhouse_and_va_beneficiary_name()
-    {
-        $bni = $this->init();
-        $bniDirect = $this->BniDirect($bni);
-        $response = $bniDirect->inquiryInhouseAndVABeneficiaryName('companymb','jenomaker','113183203');
-        $this->assertEquals($response->requestStatus, '0');
-    }
+    // public function test_bni_direct_inquiry_inhouse_and_va_beneficiary_name()
+    // {
+    //     $bni = $this->init();
+    //     $bniDirect = $this->BniDirect($bni);
+    //     $response = $bniDirect->inquiryInhouseAndVABeneficiaryName('companymb','jenomaker','113183203');
+    //     $this->assertEquals($response->requestStatus, '0');
+    // }
 
     /* success */
     // public function test_bni_direct_inquiry_llg_rtgs_online_beneficiary_name()
@@ -106,8 +106,8 @@ class BniDirectTest extends TestCase
     //     $bni = $this->init();
     //     $bniDirect = $this->BniDirect($bni);
     //     $response = $bniDirect->inquiryAccountStatement(
-    //         $corporateId  =  'BNI_SIT' ,
-    //         $userId  =  'WTI_MAKER1' ,
+    //         $corporateId  =  'companymb' ,
+    //         $userId  =  'jenomaker' ,
     //         $fromDate  =  '20220328' ,
     //         $toDate  =  '20190903' ,
     //         $transactionType  =  'All' ,
@@ -121,8 +121,8 @@ class BniDirectTest extends TestCase
     //     $bni = $this->init();
     //     $bniDirect = $this->BniDirect($bni);
     //     $response = $bniDirect->inquiryBilling(
-    //         $corporateId = 'BNI_SIT' ,
-    //         $userId = 'WTI_MAKER1' ,
+    //         $corporateId = 'companymb' ,
+    //         $userId = 'jenomaker' ,
     //         $debitedAccountNo = '115208364' ,
     //         $institution = 'MPN' ,
     //         $customerInformation1 = '11129192812818' ,
@@ -139,19 +139,17 @@ class BniDirectTest extends TestCase
     //     $bni = $this->init();
     //     $bniDirect = $this->BniDirect($bni);
     //     $response = $bniDirect->inquiryBniPopsCashAndCarry(
-    //         $corporateId= 'BNI_SIT',
-    //         $userId= 'WTI_MAKER1',
+    //         $corporateId= 'companymb',
+    //         $userId= 'jenomaker',
     //         $debitAccountNo= '115208364',
     //         $salesOrganizationCode= '1003',
     //         $distributionChannelCode= '10',
     //         $productCode= '00',
     //         $shipTo= '1123123',
     //         $debitOrCreditNoteNo= 123231,
-    //         $materialCode= 'A040900001',
-    //         $trip= '1123123',
-    //         $quantity= '100',
-    //         $deliveryDate= '20190913',
-    //         $transportir= ''
+    //         $productInformationDetail= array(
+    //             (object) array('materialCode' => 'A040900001', 'trip' => '1123123', 'quantity' => '100', 'deliveryDate' => '20190913', 'transportir' => '')
+    //         )
     //     );
     //     $this->assertEquals($response->requestStatus, '0');
     // }

@@ -15,13 +15,9 @@ trait inquiryBniPopsCashAndCarryService
         string $productCode,
         string $shipTo,
         int $debitOrCreditNoteNo,
-        string $materialCode,
-        string $trip,
-        string $quantity,
-        string $deliveryDate,
-        string $transportir
+        array $productInformationDetail
     ){
-        $url = $this->bni->getBaseUrl() . Constant::URL_BNI_DIRECT_INQUIRY_REGULER_TRANSACTION . '?access_token=' . $this->bni->getToken();
+        $url = $this->bni->getBaseUrl() . Constant::URL_BNI_DIRECT_INQUIRY_BNI_POPS_CASH_AND_CARRY . '?access_token=' . $this->bni->getToken();
         $data = [
             'corporateId' => $corporateId,
             'userId' => $userId,
@@ -31,13 +27,7 @@ trait inquiryBniPopsCashAndCarryService
             'productCode' => $productCode,
             'shipTo' => $shipTo,
             'debitOrCreditNoteNo' => $debitOrCreditNoteNo,
-            'productInformationDetail' => [
-                'materialCode' => $materialCode,
-                'trip' => $trip,
-                'quantity' => $quantity,
-                'deliveryDate' => $deliveryDate,
-                'transportir' => $transportir
-            ]
+            'productInformationDetail' => $productInformationDetail
         ];
         $dataJson = [
             RequestOptions::JSON => $data

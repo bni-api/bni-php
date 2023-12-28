@@ -51,7 +51,6 @@ class BNIDirect {
     }
 
     protected function requestBNIDirect($url, $dataJson, $data ) {
-        print_r($data);
         $time = $this->utils->getTimeStamp();
         $header = [
             'X-API-Key' => $this->bni->apiKey,
