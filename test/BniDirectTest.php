@@ -12,7 +12,7 @@ class BniDirectTest extends TestCase
     {
         $credentials = json_decode(file_get_contents(__DIR__ . '/constant.json'));
         return new Bni(
-            $env = 'sandbox-2',
+            $env = 'dev',
             $clientId = $credentials->api_services->clientId,
             $clientSecret = $credentials->api_services->clientSecret,
             $apiKey = $credentials->api_services->apiKey,
@@ -25,8 +25,9 @@ class BniDirectTest extends TestCase
     {
         $credentials = json_decode(file_get_contents(__DIR__ . '/constant.json'));
         return new BNIDirect(
-            $bni,
-            $credentials->api_services->bniDirectKey
+            $bni
+            ,
+            $credentials->api_services->bniDirectKey,
         );
     }
 
@@ -161,8 +162,8 @@ class BniDirectTest extends TestCase
         $bni = $this->init();
         $bniDirect = $this->BniDirect($bni);
         $response = $bniDirect->balanceInquiry(
-            $corporateId= 'BNI_SIT',
-            $userId= 'WTI_MAKER1',
+            $corporateId= 'companymb',
+            $userId= 'jenomaker',
             $accountList= ["116952891","4447"],
         );
         $this->assertEquals($response->requestStatus, '0');
@@ -173,8 +174,8 @@ class BniDirectTest extends TestCase
         $bni = $this->init();
         $bniDirect = $this->BniDirect($bni);
         $response = $bniDirect->domesticSingleBIFastTransfer(
-            $corporateId= 'BNI_SIT',
-            $userId= 'WTI_MAKER1',
+            $corporateId= 'companymb',
+            $userId= 'jenomaker',
             $debitedAccountNo= '1000599764',
             $amountCurrency= 'IDR',
             $amount= '500000',
@@ -205,8 +206,8 @@ class BniDirectTest extends TestCase
         $bni = $this->init();
         $bniDirect = $this->BniDirect($bni);
         $response = $bniDirect->inquiryForexRate(
-            $corporateId= 'BNI_SIT',
-            $userId= 'WTI_MAKER1',
+            $corporateId= 'companymb',
+            $userId= 'jenomaker',
             $currencyList= ["IDR","USD"],
         );
         $this->assertEquals($response->requestStatus, '0');
@@ -217,8 +218,8 @@ class BniDirectTest extends TestCase
         $bni = $this->init();
         $bniDirect = $this->BniDirect($bni);
         $response = $bniDirect->inquiryForexRate(
-            $corporateId= 'BNI_SIT',
-            $userId= 'WTI_MAKER1',
+            $corporateId= 'companymb',
+            $userId= 'jenomaker',
             $currencyList= ["IDR","USD"],
         );
         $this->assertEquals($response->requestStatus, '0');
@@ -229,8 +230,8 @@ class BniDirectTest extends TestCase
         $bni = $this->init();
         $bniDirect = $this->BniDirect($bni);
         $response = $bniDirect->callbackApi(
-            $corporateId= 'BNI_SIT',
-            $userId= 'WTI_MAKER1',
+            $corporateId= 'companymb',
+            $userId= 'jenomaker',
             $apiRefNo= '2324dab653f',
             $status= 'Executed Successfully',
         );
@@ -242,8 +243,8 @@ class BniDirectTest extends TestCase
         $bni = $this->init();
         $bniDirect = $this->BniDirect($bni);
         $response = $bniDirect->inquiryBIFastBeneficiaryName(
-            $corporateId= 'BNI_SIT',
-            $userId= 'WTI_MAKER1',
+            $corporateId= 'companymb',
+            $userId= 'jenomaker',
             $usedProxy= 'N',
             $beneficiaryAccountNo= '9832132281',
             $proxyId= '',
@@ -257,8 +258,8 @@ class BniDirectTest extends TestCase
         $bni = $this->init();
         $bniDirect = $this->BniDirect($bni);
         $response = $bniDirect->bulkPaymentMixed(
-            $corporateId= 'BNI_SIT',
-            $userId= 'WTI_MAKER1',
+            $corporateId= 'companymb',
+            $userId= 'jenomaker',
             $apiRefNo= 'TRX029SEPT23009971301',
             $instructionDate= '20230929',
             $session= '',
@@ -284,8 +285,8 @@ class BniDirectTest extends TestCase
         $bni = $this->init();
         $bniDirect = $this->BniDirect($bni);
         $response = $bniDirect->payrollMixed(
-            $corporateId= 'BNI_SIT',
-            $userId= 'WTI_MAKER1',
+            $corporateId= 'companymb',
+            $userId= 'jenomaker',
             $apiRefNo= 'YXX029SEPT2300997131',
             $instructionDate= '20230929',
             $session= '',

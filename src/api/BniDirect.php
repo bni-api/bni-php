@@ -57,7 +57,7 @@ class BNIDirect {
     protected $httpClient;
     protected $utils;
     protected $bni;
-    protected $bniDirectApiKey;
+    protected $bniDirectKey;
 
     function __construct(Bni $bni, string $bniDirectKey)
     {
