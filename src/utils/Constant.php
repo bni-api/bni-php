@@ -109,5 +109,13 @@ class Constant
     const URL_BNI_DIRECT_INQUIRY_BI_FAST_BENEFICIARY_NAME = '/bnidirect/api/BIFAST/InquiryBeneficiaryName';
     const URL_BNI_DIRECT_BULK_PAYMENT_MIXED = '/bnidirect/api/MassPayment/BulkPaymentMixed';
     const URL_BNI_DIRECT_PAYROLL_MIXED = '/bnidirect/api/MassPayment/PayrollMixed';
+    const URL_BNI_DIRECT_BILLING_PAYMENT = '/bnidirect/api/Billing/Payment';
+    const URL_BNI_DIRECT_GET_PAYMENT_STATUS = '/bnidirect/api/InquiryTransactionStatus';
+    const URL_BNI_DIRECT_INHOUSE_TRANSFER = '/bnidirect/api/InHouse/Transfer';
+    const URL_BNI_DIRECT_INQUIRY_BNI_POPS_PRODUCT_ALLOCATION = '/bnidirect/api/BNIPOPS/ProductAllocation/Inquiry';
+    const URL_BNI_DIRECT_TRANSFER_INTERNATIONAL = '/bnidirect/api/International/Transfer';
+    const URL_BNI_DIRECT_TRANSFER_LLG = '/bnidirect/api/LLG/Transfer';
+    const URL_BNI_DIRECT_TRANSFER_ONLINE = '/bnidirect/api/Online/Transfer';
+    const URL_BNI_DIRECT_TRANSFER_RTGS = '/bnidirect/api/RTGS/Transfer';
     
 }

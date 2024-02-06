@@ -20,6 +20,14 @@ use inquiryBIFastBeneficiaryName;
 use callbackApi;
 use bulkPaymentMixed;
 use payrollMixed;
+use billingPayment;
+use getPaymentStatus;
+use inhouseTransfer;
+use inquiryBniPopsProductAllocation;
+use transferInternational;
+use transferLLG;
+use transferOnline;
+use transferRTGS;
 
 require_once('src/api/BniDirectService/createMPNG2Billing.php');
 require_once('src/api/BniDirectService/inquiryNPWP.php');
@@ -36,6 +44,14 @@ require_once('src/api/BniDirectService/inquiryBIFastBeneficiaryName.php');
 require_once('src/api/BniDirectService/callbackApi.php');
 require_once('src/api/BniDirectService/bulkPaymentMixed.php');
 require_once('src/api/BniDirectService/payrollMixed.php');
+require_once('src/api/BniDirectService/billingPayment.php');
+require_once('src/api/BniDirectService/getPaymentStatus.php');
+require_once('src/api/BniDirectService/inhouseTransfer.php');
+require_once('src/api/BniDirectService/inquiryBniPopsProductAllocation.php');
+require_once('src/api/BniDirectService/transferInternational.php');
+require_once('src/api/BniDirectService/transferLLG.php');
+require_once('src/api/BniDirectService/transferOnline.php');
+require_once('src/api/BniDirectService/transferRTGS.php');
 
 class BNIDirect {
     use createMPNG2BillingService;
@@ -53,6 +69,15 @@ class BNIDirect {
     use callbackApi;
     use bulkPaymentMixed;
     use payrollMixed;
+    use billingPayment;
+    use getPaymentStatus;
+    use inhouseTransfer;
+    use inquiryBniPopsProductAllocation;
+    use transferInternational;
+    use transferLLG;
+    use transferOnline;
+    use transferRTGS;
+
     
     protected $httpClient;
     protected $utils;
