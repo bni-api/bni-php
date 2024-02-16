@@ -146,4 +146,21 @@ class Response
             throw new Exception($e->getMessage());
         }
     }
+
+    public static function FSCM($response)
+    {
+        try {
+            $resObject = json_decode($response->getBody());
+            print_r($resObject);
+            if (! str_starts_with($response->getStatusCode(), 200)) {
+                throw new UnexpectedValueException(
+                    // $resObject->error_code . ':' . $resObject->error_msg
+                    json_encode($resObject)
+                );
+            }
+            return $resObject;
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
 }

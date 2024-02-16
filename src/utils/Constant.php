@@ -92,4 +92,15 @@ class Constant
     const ECOLLECTION_TYPE_UPDATEBILLING = "updatebilling";
     const ECOLLECTION_TYPE_INQUIRYBILLING = "inquirybilling";
     const ECOLLECTION_TYPE_INACTIVEBILLING = "inactivebilling";
+
+    const URL_FSCM_SEND_INVOICE = "/FSCM/send_invoice";
+    const URL_FSCM_INQUIRY = "/FSCM/inquiry";
+    const URL_FSCM_CHECK_TRANSACTION_PLAFOND = "/FSCM/check-transaction-plafond";
+    const URL_FSCM_CHECK_LIMIT = " /FSCM/check_limiT";
+    const URL_FSCM_CHECK_STOP_SUPPLY = "/FSCM/check-stop-supply";
+    const URL_FSCM_DELETE_INVOICE = "/FSCM/Delete_invoice";
+    const URL_FSCM_PRA_NOTA = "/FSCM/pranota";
+    const URL_FSCM_DELETE_PRA_NOTA = " /FSCM/delete_pranota";
+
+
 }
