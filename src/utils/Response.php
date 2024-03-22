@@ -54,7 +54,6 @@ class Response
             }
 
             $statusCodeSuccess = [
-                '2000000',
                 '2001100',
                 '2001400',
                 '2001500',
@@ -72,7 +71,7 @@ class Response
                     $resObject->responseCode . ' : ' . $resObject->responseMessage
                 );
             }
-
+            
             return $resObject;
         } catch (Exception $e) {
             throw new Exception($e->getMessage());

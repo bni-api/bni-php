@@ -78,10 +78,8 @@ class SnapBI
                 'additionalInfo' => (object) []
             ]
         ];
-
         $response = $this->httpClient->request('POST', $url, $header, $data);
         return json_decode($response->getBody())->accessToken;
-      
     }
 
     public function balanceInquiry(
@@ -103,30 +101,6 @@ class SnapBI
 
         return Response::snapBI($response);
     }
-
-    // public function bankStatement(
-    //     string $partnerReferenceNo,
-    //     string $accountNo,
-    //     string $fromDateTime,
-    //     string $toDateTime
-    // ) {
-    //     $timeStamp = $this->utils->getTimeStamp();
-
-    //     $token = $this->getToken();
-
-    //     $url = Constant::URL_SNAP_BANKSTATEMENT;
-
-    //     $body = [
-    //         'partnerReferenceNo' => $partnerReferenceNo,
-    //         'accountNo' => $accountNo,
-    //         'fromDateTime' => $fromDateTime,
-    //         'toDateTime' => $toDateTime
-    //     ];
-
-    //     $response = $this->requestSnapBI($url, $token, $body, $timeStamp);
-
-    //     return Response::snapBI($response);
-    // }
 
     public function internalAccountInquiry(
         string $partnerReferenceNo,
@@ -272,7 +246,7 @@ class SnapBI
 
         $token = $this->getToken();
 
-        $url = Constant::URL_SNAP_TRANSACTIONSTATUSINQUIRY;
+        $url = Constant::URL_SNAP_TRANSFERRTGS;
 
         $body = [
             'partnerReferenceNo' => $partnerReferenceNo,
@@ -379,9 +353,9 @@ class SnapBI
     }
 
     public function externalAccountInquiry(
-        string $beneficiaryBankCode,
         string $beneficiaryAccountNo,
         string $partnerReferenceNo,
+        string $beneficiaryBankCode,
         string $additionalInfoDeviceId,
         string $additionalInfoChannel
 
@@ -393,15 +367,15 @@ class SnapBI
         $url = Constant::URL_SNAP_EXTERNALACCOUNTINQUIRY;
 
         $body = [
-            'partnerReferenceNo' => $partnerReferenceNo,
             'beneficiaryAccountNo' => $beneficiaryAccountNo,
+            'partnerReferenceNo' => $partnerReferenceNo,
             'beneficiaryBankCode' => $beneficiaryBankCode,
             'additionalInfo' => [
                 'deviceId' => $additionalInfoDeviceId,
                 'channel' => $additionalInfoChannel
             ]
         ];
-
+        
         $response = $this->requestSnapBI($url, $token, $body, $timeStamp);
 
         return Response::snapBI($response);

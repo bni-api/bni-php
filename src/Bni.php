@@ -20,13 +20,13 @@ class Bni
 
     private $client;
     
-    const SANDBOX_BASE_URL = "https://sandbox.bni.co.id";
+    const SANDBOX_BASE_URL = "https://sandbox.bni.co.id"; #sandbox-prod
     const DEV_BASE_URL = "https://newapidev.bni.co.id:8066";
     const UAT_BASE_URL = "https://newapidev.bni.co.id:8065";
     const PRODUCTION_BASE_URL = "https://api.bni.co.id";
 
-    const SANDBOX_TUNNELING_BASE_URL = "https://sb-dev-in.dglapm.id";
-    const DEV_TUNNELING_BASE_URL = "https://dev-in.dglapm.id";
+    const SANDBOX_TUNNELING_BASE_URL = "https://10.45.249.88:8965"; #sandbox-dev
+    const DEV_TUNNELING_BASE_URL = "http://10.45.249.86:8066";
 
     const ENV_DEV = 'dev';
     const ENV_DEV_2 = 'dev-2';
