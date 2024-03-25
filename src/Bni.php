@@ -25,14 +25,10 @@ class Bni
     const UAT_BASE_URL = "https://newapidev.bni.co.id:8065";
     const PRODUCTION_BASE_URL = "https://api.bni.co.id";
 
-    const SANDBOX_TUNNELING_BASE_URL = "https://10.45.249.88:8965"; #sandbox-dev
-    const DEV_TUNNELING_BASE_URL = "http://10.45.249.86:8066";
 
     const ENV_DEV = 'dev';
-    const ENV_DEV_2 = 'dev-2';
     const ENV_UAT = 'uat';
     const ENV_SANDBOX = 'sandbox';
-    const ENV_SANDBOX_2 = 'sandbox-2';
     const ENV_PRODUCTION = 'prod';
 
 
@@ -58,10 +54,6 @@ class Bni
             $baseUrl = self::UAT_BASE_URL;
         else if ($this->env === self::ENV_PRODUCTION) 
             $baseUrl = self::PRODUCTION_BASE_URL;
-        else if ($this->env === self::ENV_DEV_2) 
-            $baseUrl = self::DEV_TUNNELING_BASE_URL;
-        else if ($this->env === self::ENV_SANDBOX_2) 
-            $baseUrl = self::SANDBOX_TUNNELING_BASE_URL;
         return $baseUrl;
     }
 
