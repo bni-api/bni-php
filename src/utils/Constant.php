@@ -92,4 +92,8 @@ class Constant
     const ECOLLECTION_TYPE_UPDATEBILLING = "updatebilling";
     const ECOLLECTION_TYPE_INQUIRYBILLING = "inquirybilling";
     const ECOLLECTION_TYPE_INACTIVEBILLING = "inactivebilling";
+
+    const URL_BNI_MOVE_PRESCREENING = "/digiloan/prescreening";
+    const URL_BNI_MOVE_SAVE_IMAGE = "/digiloan/saveimage";
+
 }

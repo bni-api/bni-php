@@ -122,7 +122,7 @@ class Response
             throw new Exception($e->getMessage());
         }
     }
-
+    
     public static function faceRecog($response)
     {
         try {
@@ -139,6 +139,22 @@ class Response
                 // throw new Exception(
                 //     $resObject->Response->parameters->responseCode . ' : ' . $resObject->Response->parameters->responseMessage
                 // );
+            }
+            return $resObject;
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function BniMove($response)
+    {
+        try {
+            $resObject = json_decode($response->getBody());
+            print_r($resObject);
+            if ($response->getStatusCode() !== 200) {
+                throw new Exception(
+                    $resObject->response->responseCode . ' : ' . $resObject->response->responseMessage . ' : ' . $resObject->response->errorMessage
+                );
             }
             return $resObject;
         } catch (Exception $e) {
