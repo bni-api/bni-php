@@ -28,6 +28,7 @@ We have 5 API products you can use:
 - [RDN](https://digitalservices.bni.co.id/api-products-detail/rdn-service) - is BNI's innovation in providing solutions for securities companies in opening digital accounts for investors and can facilitate book-entry transactions by integrating them with API. [documentation](https://digitalservices.bni.co.id/documentation/)
 - [RDL](https://digitalservices.bni.co.id/api-products-detail/p2p-lending) - is the provision of financial services to bring together lenders and loan recipients in order to enter into lending and borrowing agreements in rupiah currency directly through an electronic system using the internet network. [documentation](https://digitalservices.bni.co.id/documentation/)
 - [RDF](https://digitalservices.bni.co.id/api-products-detail/fintech-account-service) - is a solution for fintech companies registered with OJK in opening digital accounts to facilitate fund transfer transactions by utilizing API technology. [documentation](https://digitalservices.bni.co.id/documentation/)
+- [BNI Move](https://digitalservices.bni.co.id/api-products) check out our API here. [documentation](https://digitalservices.bni.co.id/documentation)
 
 ### 2.2 Client Initialization and Configuration
 
@@ -208,15 +209,6 @@ $bankStatement = $snap->bankStatement(
   $accountNo = '0115476117',
   $fromDateTime = '2010-01-01T12:08:56+07:00', // optional
   $toDateTime = '2011-01-01T12:08:56+07:00' // optional
-);
-```
-
-#### Internal Account Inquiry
-
-```php
-$internalAccountInquiry = $snap->internalAccountInquiry(
-  $partnerReferenceNo = '2020102900000000000001', // optional
-  $beneficiaryAccountNo = '0115476151'
 );
 ```
 
@@ -1301,6 +1293,67 @@ $paymentUsingInterbank = $rdl->paymentUsingInterbank(
   $amount = 15000,
 )
 ```
+
+### 2.2.F Digiloan BNI Move
+
+Create `Bni Move` Class Object
+
+```php
+use BniApi\BniPhp\Bni;
+use BniApi\BniPhp\api\RDL;
+
+$bni = new Bni(
+  $env = 'sandbox', // dev, sandbox, prod
+  $clientId = '{your-client-id}',
+  $clientSecret = '{your-client-secret}',
+  $apiKey = '{your-api-key}',
+  $apiSecret = '{your-api-secret}',
+  $appName = '{your-app-name}'
+);
+```
+
+#### Prescreening
+
+```php
+$bniMove = new BniMove($bni)
+$prescreening = $bniMove->prescreening(
+  $kodeMitra = 'BNI',
+  $npp = '',
+  $namaLengkapKtp = 'Muhammad Haikal Madani',
+  $noKtp = '3174052209980002',
+  $noHandphone = '085921658045',
+  $alamatUsaha = 'jakarta',
+  $provinsiUsaha = '06',
+  $kotaUsaha = '143',
+  $kecamatanUsaha = '1074',
+  $kelurahanUsaha = '4254',
+  $kodePosUsaha = '11450',
+  $sektorEkonomi = '2',
+  $totalPenjualan = 50000000,
+  $jangkaWaktu = '12',
+  $jenisPinjaman = '1',
+  $maximumKredit = 50000000,
+  $jenisKelamin = '1',
+  $tanggalLahir = '1998-10-07',
+  $subSektorEkonomi = '050111',
+  $deskripsi = 'Usaha Ternak Perikanan',
+  $Email = 'muhammadhaikalmadani@mail.com'
+);
+```
+#### Save Image
+
+```php
+$bniMove = new BniMove($bni)
+$prescreening = $bniMove->saveImage(
+  $Id = 'MJO2024022000004',
+  $deskripsi = 'Foto Identitas KTP',
+  $jenisDokumen = 'A03',
+  $namaFile = 'Foto KTP',
+  $extensionFile = 'png',
+  $dataBase64 = '{image}' #convert your image to base64
+);
+```
+
 
 ## Get help
 
