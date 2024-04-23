@@ -25,7 +25,7 @@ class BniMove
 
     private function requestBniMove($url, $data, $dataJson)
     {
-        $time = $this->utils->getTimeStamp();
+        $time = $this->utils->getTimeStampBniMove();
         $header = [
             'x-api-key' => $this->bni->apiKey,
             'x-signature' => $this->utils->generateSignatureV2($data, $this->bni->apiSecret, $time),

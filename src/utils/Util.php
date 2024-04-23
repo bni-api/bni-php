@@ -2,6 +2,8 @@
 
 namespace BniApi\BniPhp\utils;
 
+use DateTime;
+
 class Util
 {
     public function generateClientId(string $clientId)
@@ -74,6 +76,32 @@ class Util
     {
         date_default_timezone_set('Asia/Jakarta');
         return date('c');
+    }
+
+    public function getTimeStampBniMove()
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $date = new DateTime();
+        $year = $date->format('Y');
+        $month = $date->format('m');
+        $day = $date->format('d');
+        $hours = $date->format('H');
+        $minutes = $date->format('i');
+        $seconds = $date->format('s');
+        $milliseconds = $date->format('u');
+
+        $timezoneOffset = -$date->getOffset() / 60;
+        $timezoneOffsetHours = floor(abs($timezoneOffset) / 60);
+        $timezoneOffsetMinutes = abs($timezoneOffset) % 60;
+
+        $formattedTimestamp = sprintf(
+            '%04d-%02d-%02dT%02d:%02d:%02d.%03d%s%02d:%02d',
+            $year, $month, $day, $hours, $minutes, $seconds, $milliseconds,
+            $timezoneOffset >= 0 ? '+' : '-',
+            $timezoneOffsetHours, $timezoneOffsetMinutes
+        );
+
+        return $formattedTimestamp;
     }
 
     public function generateSignatureSnapBI(string $clientId, string $privateKeyPath, string $timeStamp)
