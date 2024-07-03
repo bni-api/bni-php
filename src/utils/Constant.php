@@ -96,4 +96,10 @@ class Constant
     const URL_BNI_MOVE_PRESCREENING = "/digiloan/prescreening";
     const URL_BNI_MOVE_SAVE_IMAGE = "/digiloan/saveimage";
 
+    const URL_OTR_REMITTANCE_BANK_AND_CURRENCY_LIMITATION = "/getBankAndCurrencyLimitation";
+    const URL_OTR_REMITTANCE_CHARGES_AND_RATE_INQUIRY = "/chargesAndRateInquiry";
+    const URL_OTR_REMITTANCE_TRANSCATION_OVERBOOKING = "/transaction/overbooking";
+    const URL_OTR_REMITTANCE_TRACKING_TRANSCATION = "/transaction/tracking/";
+
+
 }

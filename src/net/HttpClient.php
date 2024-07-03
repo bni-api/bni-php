@@ -10,21 +10,24 @@ use GuzzleHttp\Psr7\Request;
 
 class HttpClient
 {
+    public $utils;
+    public $client;
 
     public function __construct()
     {
         $this->utils = new Util;
-        $this->client = new Client();
+        $this->client = new Client([
+            'verify' => false
+        ]);
     }
 
     public function request(
         string $method,
         string $url,
         array $headers,
-        array $data
+        array $data,
     ) {
         try {
-
             $header = [
                 'user-agent' => 'bni-php/0.1.0',
             ];
