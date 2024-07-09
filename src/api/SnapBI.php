@@ -151,7 +151,7 @@ class SnapBI
 
         $body = [
             'originalPartnerReferenceNo' => $originalPartnerReferenceNo,
-            'originalreferenceNo' => $originalReferenceNo,
+            'originalReferenceNo' => $originalReferenceNo,
             'originalExternalId' => $originalExternalId,
             'serviceCode' => $serviceCode,
             'transactionDate' => $transactionDate,

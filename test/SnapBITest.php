@@ -18,7 +18,7 @@ class SnapBITest extends TestCase
     private function init()
     {
         return new Bni(
-            $env = 'sandbox-2',
+            $env = 'sandbox',
             $clientId = $this->getCredentials()->clientId,
             $clientSecret = $this->getCredentials()->clientSecret,
             $apiKey = $this->getCredentials()->apiKey,
@@ -63,12 +63,12 @@ class SnapBITest extends TestCase
         $bni = $this->init();
         $snap = $this->snap($bni);
         $response = $snap->transactionStatusInquiry(
-            '202310271020300006',
+            '2022051314142684054947620220513141426840549476',
             '',
             '',
             '22',
             '',
-            '110000010',
+            '100000001.00',
             'IDR',
             '09864ADCASA',
             'API'

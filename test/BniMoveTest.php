@@ -13,7 +13,7 @@ class BniMoveTest extends TestCase
     {
         $credentials = json_decode(file_get_contents(__DIR__ . '/constant.json'));
         return new Bni(
-            $env = 'dev',
+            $env = 'sandbox',
             $clientId = $credentials->api_services->clientId,
             $clientSecret = $credentials->api_services->clientSecret,
             $apiKey = $credentials->api_services->apiKey,
