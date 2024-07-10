@@ -142,29 +142,6 @@ $getInterBankPayment = $ogp->getInterBankPayment(
 );
 ```
 
-#### Hold Amount
-
-```php
-$holdAmount = $ogp->holdAmount(
-  $customerReferenceNumber = '20170504153218296', // max 20 char client defined reference number
-  $amount = '12007',
-  $accountNo = '0115476151',
-  $detail = '' // optional
-);
-```
-
-#### Hold Amount Release
-
-```php
-$holdAmountRelease =  $ogp->holdAmountRelease(
-  $customerReferenceNumber = '20170504153218296', // max 20 char client defined reference number
-  $amount = 12007,
-  $accountNo = '0115476151',
-  $bankReference = '513668', // journal number. you can get this value from hold amount response
-  $holdTransactionDate = '31052010' // the date when you do the hold transaction
-);
-```
-
 ### 2.2.B Snap BI
 
 Create `Snap BI` class object
