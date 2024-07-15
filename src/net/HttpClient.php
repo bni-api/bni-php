@@ -10,11 +10,15 @@ use GuzzleHttp\Psr7\Request;
 
 class HttpClient
 {
+    public $utils;
+    public $client;
 
     public function __construct()
     {
         $this->utils = new Util;
-        $this->client = new Client();
+        $this->client = new Client([
+            'verify' => false
+        ]);
     }
 
     public function request(
