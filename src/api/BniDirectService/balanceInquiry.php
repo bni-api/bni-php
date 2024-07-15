@@ -4,23 +4,17 @@ use BniApi\BniPhp\utils\Constant;
 use BniApi\BniPhp\utils\Response;
 use GuzzleHttp\RequestOptions;
 
-trait inquiryAccountStatementService
+trait balanceInquiry
 {
-    public function inquiryAccountStatement(
+    public function balanceInquiry(
         string $corporateId,
         string $userId,
-        string $fromDate,
-        string $toDate,
-        string $transactionType,
         array $accountList
     ){
-        $url = $this->bni->getBaseUrl() . Constant::URL_BNI_DIRECT_INQUIRY_ACCOUNT_STATEMENT . '?access_token=' . $this->bni->getToken();
+        $url = $this->bni->getBaseUrl() . Constant::URL_BNI_DIRECT_BALANCE_INQUIRY . '?access_token=' . $this->bni->getToken();
         $data = [
             'corporateId' => $corporateId,
             'userId' => $userId,
-            'fromDate' => $fromDate,
-            'toDate' => $toDate,
-            'transactionType' => $transactionType,
             'accountList' => $accountList
         ];
         $dataJson = [

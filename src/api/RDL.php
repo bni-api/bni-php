@@ -230,7 +230,6 @@ class RDL
             RequestOptions::JSON => $data
         ];
         $response = $this->requestRDL($url, $dataJson, $data);
-        // print_r(json_decode($response->getBody()));
         return Response::RDL($response);
     }
 
@@ -356,7 +355,6 @@ class RDL
             RequestOptions::JSON => $data
         ];
         $response = $this->requestRDL($url, $dataJson, $data);
-        // print_r(json_decode($response->getBody()));
         return Response::RDL($response);
     }
 
@@ -424,7 +422,6 @@ class RDL
             RequestOptions::JSON => $data
         ];
         $response = $this->requestRDL($url, $dataJson, $data);
-        // print_r(json_decode($response->getBody()));
         return Response::RDL($response);
     }
 

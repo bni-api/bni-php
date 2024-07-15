@@ -4,40 +4,32 @@ use BniApi\BniPhp\utils\Constant;
 use BniApi\BniPhp\utils\Response;
 use GuzzleHttp\RequestOptions;
 
-trait inquiryBniPopsCashAndCarryService
+trait inquiryBniPopsProductAllocation
 {
-    public function inquiryBniPopsCashAndCarry(
+    public function inquiryBniPopsProductAllocation(
         string $corporateId,
         string $userId,
-        string $debitAccountNo,
+        string $debitedAccountNo,
         string $salesOrganizationCode,
         string $distributionChannelCode,
         string $productCode,
         string $shipTo,
-        int $debitOrCreditNoteNo,
-        string $materialCode,
-        string $trip,
-        string $quantity,
-        string $deliveryDate,
-        string $transportir
+        string $scheduleAggreementNo,
+        string $debitOrCreditNoteNo,
+        array $productInformationDetail,
     ){
-        $url = $this->bni->getBaseUrl() . Constant::URL_BNI_DIRECT_INQUIRY_BNI_POPS_CASH_AND_CARRY . '?access_token=' . $this->bni->getToken();
+        $url = $this->bni->getBaseUrl() . Constant::URL_BNI_DIRECT_INQUIRY_BNI_POPS_PRODUCT_ALLOCATION . '?access_token=' . $this->bni->getToken();
         $data = [
             'corporateId' => $corporateId,
             'userId' => $userId,
-            'debitAccountNo' => $debitAccountNo,
+            'debitedAccountNo' => $debitedAccountNo,
             'salesOrganizationCode' => $salesOrganizationCode,
             'distributionChannelCode' => $distributionChannelCode,
             'productCode' => $productCode,
             'shipTo' => $shipTo,
+            'scheduleAggreementNo' => $scheduleAggreementNo,
             'debitOrCreditNoteNo' => $debitOrCreditNoteNo,
-            'productInformationDetail' => [
-                'materialCode' => $materialCode,
-                'trip' => $trip,
-                'quantity' => $quantity,
-                'deliveryDate' => $deliveryDate,
-                'transportir' => $transportir
-            ]
+            'productInformationDetail' => $productInformationDetail
         ];
         $dataJson = [
             RequestOptions::JSON => $data
@@ -47,4 +39,5 @@ trait inquiryBniPopsCashAndCarryService
         return Response::BniDirect($response);
     }
 }
+
 ?>

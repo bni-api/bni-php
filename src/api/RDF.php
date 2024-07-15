@@ -355,7 +355,6 @@ class RDF
             RequestOptions::JSON => $data
         ];
         $response = $this->requestRDF($url, $dataJson, $data );
-        // print_r(json_decode($response->getBody()));
         return Response::RDF($response);
     }
 
@@ -423,7 +422,6 @@ class RDF
             RequestOptions::JSON => $data
         ];
         $response = $this->requestRDF($url, $dataJson, $data );
-        // print_r(json_decode($response->getBody()));
         return Response::RDF($response);
     }
 

@@ -19,22 +19,16 @@ class Bni
     public $apiSecret;
 
     private $client;
-    
-    const SANDBOX_BASE_URL = "https://sandbox.bni.co.id";
+ 
+    const SANDBOX_BASE_URL = "https://sandbox.bni.co.id"; #sandbox-prod
     const DEV_BASE_URL = "https://newapidev.bni.co.id:8066";
     const UAT_BASE_URL = "https://newapidev.bni.co.id:8065";
     const PRODUCTION_BASE_URL = "https://api.bni.co.id";
 
-    const SANDBOX_TUNNELING_BASE_URL = "https://localhost:8065";
-    const DEV_TUNNELING_BASE_URL = "http://localhost:8066";
-
     const ENV_DEV = 'dev';
-    const ENV_DEV_2 = 'dev-2';
     const ENV_UAT = 'uat';
     const ENV_SANDBOX = 'sandbox';
-    const ENV_SANDBOX_2 = 'sandbox-2';
     const ENV_PRODUCTION = 'prod';
-    const ENV_SANDBOX_DEV = 'sandbox-dev';
 
 
     function __construct(string $env, $clientId, $clientSecret, $apiKey, $apiSecret, $appName)
@@ -59,12 +53,6 @@ class Bni
             $baseUrl = self::UAT_BASE_URL;
         else if ($this->env === self::ENV_PRODUCTION) 
             $baseUrl = self::PRODUCTION_BASE_URL;
-        else if ($this->env === self::ENV_DEV_2) 
-            $baseUrl = self::DEV_TUNNELING_BASE_URL;
-        else if ($this->env === self::ENV_SANDBOX_2) 
-            $baseUrl = self::SANDBOX_TUNNELING_BASE_URL;
-        else if ($this->env === self::ENV_SANDBOX_DEV) 
-            $baseUrl = self::SANDBOX_DEV_URL;
         return $baseUrl;
     }
 

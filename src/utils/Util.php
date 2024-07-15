@@ -2,6 +2,9 @@
 
 namespace BniApi\BniPhp\utils;
 
+use DateTime;
+use DateTimeZone;
+
 class Util
 {
     public function generateClientId(string $clientId)
@@ -74,6 +77,13 @@ class Util
     {
         date_default_timezone_set('Asia/Jakarta');
         return date('c');
+    }
+
+    public function getTimeStampBniMove()
+    {
+        $date = new DateTime("now", new DateTimeZone('Asia/Jakarta'));
+        $formattedTimestamp = $date->format('Y-m-d\TH:i:s.uP');
+        return $formattedTimestamp;
     }
 
     public function generateSignatureSnapBI(string $clientId, string $privateKeyPath, string $timeStamp)
