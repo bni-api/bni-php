@@ -77,7 +77,6 @@ class BNIDirect {
     use transferLLG;
     use transferOnline;
     use transferRTGS;
-
     
     protected $httpClient;
     protected $utils;
@@ -89,18 +88,17 @@ class BNIDirect {
         $this->bni = $bni;
         $this->httpClient = new HttpClient;
         $this->utils = new Util;
-        $this->bniDirectKey = $bniDirectKey;
+        $this->bniDirectApiKey = $bniDirectApiKey;
     }
 
     private function generateBniDirectKey(string $corporateId, string $userId){
-        $data = strtolower($corporateId).strtolower($userId).$this->bniDirectKey;
+        $data = strtolower($corporateId).strtolower($userId).$this->bniDirectApiKey;
         $encrypData = hash('sha256', $data);
         
         return strtolower($encrypData);
     }
 
     protected function requestBNIDirect($url, $dataJson, $data ) {
-        print_r($data);
         $time = $this->utils->getTimeStamp();
         $header = [
             'X-API-Key' => $this->bni->apiKey,

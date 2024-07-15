@@ -14,7 +14,7 @@ trait inquiryAccountStatementService
         string $transactionType,
         array $accountList
     ){
-        $url = $this->bni->getBaseUrl() . Constant::URL_BNI_DIRECT_INQUIRY_REGULER_TRANSACTION . '?access_token=' . $this->bni->getToken();
+        $url = $this->bni->getBaseUrl() . Constant::URL_BNI_DIRECT_INQUIRY_ACCOUNT_STATEMENT . '?access_token=' . $this->bni->getToken();
         $data = [
             'corporateId' => $corporateId,
             'userId' => $userId,

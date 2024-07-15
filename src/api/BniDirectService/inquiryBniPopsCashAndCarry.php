@@ -21,7 +21,7 @@ trait inquiryBniPopsCashAndCarryService
         string $deliveryDate,
         string $transportir
     ){
-        $url = $this->bni->getBaseUrl() . Constant::URL_BNI_DIRECT_INQUIRY_REGULER_TRANSACTION . '?access_token=' . $this->bni->getToken();
+        $url = $this->bni->getBaseUrl() . Constant::URL_BNI_DIRECT_INQUIRY_BNI_POPS_CASH_AND_CARRY . '?access_token=' . $this->bni->getToken();
         $data = [
             'corporateId' => $corporateId,
             'userId' => $userId,

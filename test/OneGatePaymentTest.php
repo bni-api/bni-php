@@ -99,30 +99,30 @@ class OneGatePaymentTest extends TestCase
         $this->assertEquals($response->getInterbankPaymentResponse->parameters->responseCode, '0001');
     }
 
-    public function test_ogp_holdAmount()
-    {
-        $bni = $this->init();
-        $ogp = new OneGatePayment($bni);
-        $response = $ogp->holdAmount(
-            '20181001112233009',
-            12007,
-            '0115476151',
-            'testHold'
-        );
-        $this->assertEquals($response->holdAmountResponse->parameters->responseCode, '0001');
-    }
+    // public function test_ogp_holdAmount()
+    // {
+    //     $bni = $this->init();
+    //     $ogp = new OneGatePayment($bni);
+    //     $response = $ogp->holdAmount(
+    //         '20181001112233009',
+    //         12007,
+    //         '0115476151',
+    //         'testHold'
+    //     );
+    //     $this->assertEquals($response->holdAmountResponse->parameters->responseCode, '0001');
+    // }
 
-    public function test_ogp_holdAmountRelease()
-    {
-        $bni = $this->init();
-        $ogp = new OneGatePayment($bni);
-        $response = $ogp->holdAmountRelease(
-            '20181001112233010',
-            12007,
-            '0115476151',
-            '657364',
-            '31052010'
-        );
-        $this->assertEquals($response->holdAmountReleaseResponse->parameters->responseCode, '0001');
-    }
+    // public function test_ogp_holdAmountRelease()
+    // {
+    //     $bni = $this->init();
+    //     $ogp = new OneGatePayment($bni);
+    //     $response = $ogp->holdAmountRelease(
+    //         '20181001112233010',
+    //         12007,
+    //         '0115476151',
+    //         '657364',
+    //         '31052010'
+    //     );
+    //     $this->assertEquals($response->holdAmountReleaseResponse->parameters->responseCode, '0001');
+    // }
 }
