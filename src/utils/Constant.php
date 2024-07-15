@@ -106,6 +106,13 @@ class Constant
     const URL_BNI_DIRECT_INQUIRY_REGULER_TRANSACTION = '/bnidirect/api/Account/InquiryAccountStatement';
     const URL_BNI_DIRECT_INQUIRY_BILLING = '/bnidirect/api/Billing/Inquiry';
     const URL_BNI_DIRECT_INQUIRY_BNI_POPS_CASH_AND_CARRY = '/bnidirect/api/BNIPOPS/CashandCarry/Inquiry';
+    const URL_BNI_DIRECT_BNI_POPS_CASH_AND_CARRY = '/bnidirect/api/BNIPOPS/CashandCarry/Payment';
+    const URL_BNI_DIRECT_BNI_POPS_PRODUCT_ALLOCATION = '/bnidirect/api/BNIPOPS/ProductAllocation/Payment';
+    const URL_BNI_DIRECT_BNI_POPS_RESUBMIT_CASH_AND_CARRY = '/bnidirect/api/BNIPOPS/CashandCarry/Resubmit';
+    const URL_BNI_DIRECT_BNI_POPS_RESUBMIT_PRODUCT_ALLOCATION = '/bnidirect/api/BNIPOPS/ProductAllocation/Resubmit';
+    const URL_BNI_DIRECT_BULK_GET_STATUS = '/bnidirect/api/Account/BulkGetStatus';
+    const URL_BNI_DIRECT_CREATE_VIRTUAL_ACCOUNT = '/bnidirect/api/VirtualAccount/Create';
+    const URL_BNI_DIRECT_UPDATE_VIRTUAL_ACCOUNT = '/bnidirect/api/VirtualAccount/Update';
     const URL_BNI_DIRECT_BALANCE_INQUIRY = '/bnidirect/api/Account/InquiryBalance';
     const URL_BNI_DIRECT_DOMESTIC_SINGLE_BI_FAST_TRANSFER = '/bnidirect/api/BIFAST/Transfer';
     const URL_BNI_DIRECT_INQUIRY_FOREX_RATE = '/bnidirect/api/Account/InquiryForexRate';

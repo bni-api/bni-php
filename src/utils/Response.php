@@ -165,7 +165,6 @@ class Response
     {
         try {
             $resObject = json_decode($response->getBody());
-            print_r($resObject);
             if (! str_starts_with($response->getStatusCode(), 200)) {
                 throw new UnexpectedValueException(
                     'Error : ' . $resObject->errorReason
