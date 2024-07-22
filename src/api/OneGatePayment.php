@@ -209,63 +209,65 @@ class OneGatePayment
         return Response::oneGatePayment($response, 'getInterbankPaymentResponse');
     }
 
-    public function holdAmount(
-        string $customerReferenceNumber,
-        int $amount,
-        string $accountNo,
-        string $detail
-    ) {
-        $url = $this->bni->getBaseUrl() . Constant::URL_H2H_HOLDAMOUNT . '?access_token=' . $this->bni->getToken();
+    /* 2 services commented as requested from WDC */
 
-        $body = [
-            'customerReferenceNumber' => $customerReferenceNumber,
-            'amount' => $amount,
-            'accountNo' => $accountNo,
-            'detail' => $detail,
-            'clientId' => $this->utils->generateClientId($this->bni->appName)
-        ];
+    // public function holdAmount(
+    //     string $customerReferenceNumber,
+    //     int $amount,
+    //     string $accountNo,
+    //     string $detail
+    // ) {
+    //     $url = $this->bni->getBaseUrl() . Constant::URL_H2H_HOLDAMOUNT . '?access_token=' . $this->bni->getToken();
 
-        $signature = [
-            'signature' => $this->utils->generateSignature($body, $this->bni->apiSecret)
-        ];
+    //     $body = [
+    //         'customerReferenceNumber' => $customerReferenceNumber,
+    //         'amount' => $amount,
+    //         'accountNo' => $accountNo,
+    //         'detail' => $detail,
+    //         'clientId' => $this->utils->generateClientId($this->bni->appName)
+    //     ];
 
-        $data = [
-            RequestOptions::JSON => array_merge($body, $signature)
-        ];
+    //     $signature = [
+    //         'signature' => $this->utils->generateSignature($body, $this->bni->apiSecret)
+    //     ];
 
-        $response = $this->requestOgp($url, $data);
+    //     $data = [
+    //         RequestOptions::JSON => array_merge($body, $signature)
+    //     ];
 
-        return Response::oneGatePayment($response, 'holdAmountResponse');
-    }
+    //     $response = $this->requestOgp($url, $data);
 
-    public function holdAmountRelease(
-        string $customerReferenceNumber,
-        int $amount,
-        string $accountNo,
-        string $bankReference,
-        string $holdTransactionDate
-    ) {
-        $url = $this->bni->getBaseUrl() . Constant::URL_H2H_HOLDAMOUNTRELEASE . '?access_token=' . $this->bni->getToken();
+    //     return Response::oneGatePayment($response, 'holdAmountResponse');
+    // }
 
-        $body = [
-            'customerReferenceNumber' => $customerReferenceNumber,
-            'amount' => $amount,
-            'accountNo' => $accountNo,
-            'bankReference' => $bankReference,
-            'holdTransactionDate' => $holdTransactionDate,
-            'clientId' => $this->utils->generateClientId($this->bni->appName)
-        ];
+    // public function holdAmountRelease(
+    //     string $customerReferenceNumber,
+    //     int $amount,
+    //     string $accountNo,
+    //     string $bankReference,
+    //     string $holdTransactionDate
+    // ) {
+    //     $url = $this->bni->getBaseUrl() . Constant::URL_H2H_HOLDAMOUNTRELEASE . '?access_token=' . $this->bni->getToken();
 
-        $signature = [
-            'signature' => $this->utils->generateSignature($body, $this->bni->apiSecret)
-        ];
+    //     $body = [
+    //         'customerReferenceNumber' => $customerReferenceNumber,
+    //         'amount' => $amount,
+    //         'accountNo' => $accountNo,
+    //         'bankReference' => $bankReference,
+    //         'holdTransactionDate' => $holdTransactionDate,
+    //         'clientId' => $this->utils->generateClientId($this->bni->appName)
+    //     ];
 
-        $data = [
-            RequestOptions::JSON => array_merge($body, $signature)
-        ];
+    //     $signature = [
+    //         'signature' => $this->utils->generateSignature($body, $this->bni->apiSecret)
+    //     ];
 
-        $response = $this->requestOgp($url, $data);
+    //     $data = [
+    //         RequestOptions::JSON => array_merge($body, $signature)
+    //     ];
 
-        return Response::oneGatePayment($response, 'holdAmountReleaseResponse');
-    }
+    //     $response = $this->requestOgp($url, $data);
+
+    //     return Response::oneGatePayment($response, 'holdAmountReleaseResponse');
+    // }
 }
