@@ -6,18 +6,24 @@ use GuzzleHttp\RequestOptions;
 
 trait inquiryLLG_RTGS_OnlineBeneficiaryNameService
 {
+    /**
+     * Inquiry LLG/RTGS/Online Beneficiary Name
+     * @param string $corporateId Corporate ID (max 40 chars)
+     * @param string $userId User ID (max 40 chars)
+     * @param string $beneficiaryAccountNo Beneficiary Account No. (max 16 chars)
+     * @param string $beneficiaryBankCode Beneficiary Bank Code (max 40 chars)
+     * @return Object
+     */
+
     public function inquiryLLG_RTGS_OnlineBeneficiaryName(
-        string $corporateId,
-        string $userId,
-        string $beneficiaryAccountNo,
-        string $beneficiaryBankCode
+        array $params
     ){
-        $url = $this->bni->getBaseUrl() . Constant::URL_BNI_DIRECT_INQUIRY_LLG_RTGS_ONLINE_BENEFICIARY_NAME . '?access_token=' . $this->bni->getToken();
+        $url = $this->bni->getBaseUrl() . Constant::URL_BNI_DIRECT_INQUIRY_LLG_RTGS_ONLINE_BENEFICIARY_NAME;
         $data = [
-            'corporateId' => $corporateId,
-            'userId' => $userId,
-            'beneficiaryAccountNo' => $beneficiaryAccountNo,
-            'beneficiaryBankCode' => $beneficiaryBankCode
+            'corporateId' => $params['corporateId'],
+            'userId' => $params['userId'],
+            'beneficiaryAccountNo' => $params['beneficiaryAccountNo'],
+            'beneficiaryBankCode' => $params['beneficiaryBankCode']
         ];
         $dataJson = [
             RequestOptions::JSON => $data

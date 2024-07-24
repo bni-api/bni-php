@@ -165,14 +165,15 @@ class Response
     {
         try {
             $resObject = json_decode($response->getBody());
-            if (! str_starts_with($response->getStatusCode(), 200)) {
-                throw new UnexpectedValueException(
-                    'Error : ' . $resObject->errorReason
+            if (!str_starts_with($response->getStatusCode(), 200)) {
+                throw new Exception(
+                    json_encode($resObject)
+                    // $resObject->Response->parameters->responseCode . ' : ' . $resObject->Response->parameters->responseMessage . ' : ' . $resObject->Response->parameters->errorMessage
                 );
             }
             return $resObject;
         } catch (Exception $e) {
-            throw new UnexpectedValueException($e->getMessage());
+            throw new Exception($e->getMessage());
         }
     }
 }

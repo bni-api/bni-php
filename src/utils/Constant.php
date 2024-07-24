@@ -7,6 +7,7 @@ class Constant
     const ERROR_GET_TOKEN = 'Error Get Token';
 
     const URL_GET_TOKEN = '/api/oauth/token';
+    const URL_GET_TOKEN_V1_1 = '/access-token/oauth';
     
     const URL_H2H_GETBALANCE = '/H2H/v2/getbalance';
     const URL_H2H_GETINHOUSEINQUIRY = '/H2H/v2/getinhouseinquiry';
@@ -103,31 +104,31 @@ class Constant
     const URL_BNI_DIRECT_INQUIRY_ACCOUNT_STATEMENT = '/bnidirect/api/Account/InquiryAccountStatement';
     const URL_BNI_DIRECT_INQUIRY_BILLING = '/bnidirect/api/Billing/Inquiry';
     const URL_BNI_DIRECT_INQUIRY_BNI_POPS_CASH_AND_CARRY = '/bnidirect/api/BNIPOPS/CashandCarry/Inquiry';
-    const URL_BNI_DIRECT_INQUIRY_REGULER_TRANSACTION = '/bnidirect/api/Account/InquiryAccountStatement';
-    const URL_BNI_DIRECT_INQUIRY_BILLING = '/bnidirect/api/Billing/Inquiry';
-    const URL_BNI_DIRECT_INQUIRY_BNI_POPS_CASH_AND_CARRY = '/bnidirect/api/BNIPOPS/CashandCarry/Inquiry';
+    const URL_BNI_DIRECT_INQUIRY_BNI_POPS_PRODUCT_ALLOCATION = '/bnidirect/api/BNIPOPS/ProductAllocation/Inquiry';
+    const URL_BNI_DIRECT_GET_PAYMENT_STATUS = '/bnidirect/api/InquiryTransactionStatus';
+    const URL_BNI_DIRECT_INHOUSE_TRANSFER = '/bnidirect/api/InHouse/Transfer';
+    const URL_BNI_DIRECT_TRANSFER_LLG = '/bnidirect/api/LLG/Transfer';
+    const URL_BNI_DIRECT_TRANSFER_RTGS = '/bnidirect/api/RTGS/Transfer';
+    const URL_BNI_DIRECT_TRANSFER_ONLINE = '/bnidirect/api/Online/Transfer';
+    const URL_BNI_DIRECT_TRANSFER_INTERNATIONAL = '/bnidirect/api/International/Transfer';
+    const URL_BNI_DIRECT_BILLING_PAYMENT = '/bnidirect/api/Billing/Payment';
     const URL_BNI_DIRECT_BNI_POPS_CASH_AND_CARRY = '/bnidirect/api/BNIPOPS/CashandCarry/Payment';
     const URL_BNI_DIRECT_BNI_POPS_PRODUCT_ALLOCATION = '/bnidirect/api/BNIPOPS/ProductAllocation/Payment';
     const URL_BNI_DIRECT_BNI_POPS_RESUBMIT_CASH_AND_CARRY = '/bnidirect/api/BNIPOPS/CashandCarry/Resubmit';
     const URL_BNI_DIRECT_BNI_POPS_RESUBMIT_PRODUCT_ALLOCATION = '/bnidirect/api/BNIPOPS/ProductAllocation/Resubmit';
-    const URL_BNI_DIRECT_BULK_GET_STATUS = '/bnidirect/api/Account/BulkGetStatus';
     const URL_BNI_DIRECT_CREATE_VIRTUAL_ACCOUNT = '/bnidirect/api/VirtualAccount/Create';
     const URL_BNI_DIRECT_UPDATE_VIRTUAL_ACCOUNT = '/bnidirect/api/VirtualAccount/Update';
+    const URL_BNI_DIRECT_INQUIRY_VIRTUAL_ACCOUNT_TRANSACTION = '/bnidirect/api/VirtualAccount/InquiryTransaction';
+    const URL_BNI_DIRECT_BULK_GET_STATUS = '/bnidirect/api/Account/BulkGetStatus';
     const URL_BNI_DIRECT_BALANCE_INQUIRY = '/bnidirect/api/Account/InquiryBalance';
-    const URL_BNI_DIRECT_DOMESTIC_SINGLE_BI_FAST_TRANSFER = '/bnidirect/api/BIFAST/Transfer';
     const URL_BNI_DIRECT_INQUIRY_FOREX_RATE = '/bnidirect/api/Account/InquiryForexRate';
-    const URL_BNI_DIRECT_INQUIRY_CHILD_ACCOUNT = '/bnidirect/api/Account/InquiryForexRate';
-    const URL_BNI_DIRECT_CALLBACK_API = '/bnidirect/bulk/CallBack';
-    const URL_BNI_DIRECT_INQUIRY_BI_FAST_BENEFICIARY_NAME = '/bnidirect/api/BIFAST/InquiryBeneficiaryName';
     const URL_BNI_DIRECT_BULK_PAYMENT_MIXED = '/bnidirect/api/MassPayment/BulkPaymentMixed';
     const URL_BNI_DIRECT_PAYROLL_MIXED = '/bnidirect/api/MassPayment/PayrollMixed';
-    const URL_BNI_DIRECT_BILLING_PAYMENT = '/bnidirect/api/Billing/Payment';
-    const URL_BNI_DIRECT_GET_PAYMENT_STATUS = '/bnidirect/api/InquiryTransactionStatus';
-    const URL_BNI_DIRECT_INHOUSE_TRANSFER = '/bnidirect/api/InHouse/Transfer';
-    const URL_BNI_DIRECT_INQUIRY_BNI_POPS_PRODUCT_ALLOCATION = '/bnidirect/api/BNIPOPS/ProductAllocation/Inquiry';
-    const URL_BNI_DIRECT_TRANSFER_INTERNATIONAL = '/bnidirect/api/International/Transfer';
-    const URL_BNI_DIRECT_TRANSFER_LLG = '/bnidirect/api/LLG/Transfer';
-    const URL_BNI_DIRECT_TRANSFER_ONLINE = '/bnidirect/api/Online/Transfer';
-    const URL_BNI_DIRECT_TRANSFER_RTGS = '/bnidirect/api/RTGS/Transfer';
+    const URL_BNI_DIRECT_DOMESTIC_SINGLE_BI_FAST_TRANSFER = '/bnidirect/api/BIFAST/Transfer';
+    const URL_BNI_DIRECT_INQUIRY_BI_FAST_BENEFICIARY_NAME = '/bnidirect/api/BIFAST/InquiryBeneficiaryName';
+    const URL_BNI_DIRECT_SINGLE_BULK_PAYMENT = '/bnidirect/api/MassPayment/SingleBulkPaymentMixed';
+    const URL_BNI_DIRECT_SINGLE_PAYROLL = '/bnidirect/api/MassPayment/SinglePayrollMixed';
+    const URL_BNI_DIRECT_SINGLE_BULK_PAYMENT_SUBMIT = '/bnidirect/api/MassPayment/SingleBulkPaymentMixed/Submit';
+    const URL_BNI_DIRECT_SINGLE_PAYROLL_SUBMIT = '/bnidirect/api/MassPayment/SinglePayrollMixed/Submit';
 
 }   

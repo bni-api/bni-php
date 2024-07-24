@@ -6,18 +6,24 @@ use GuzzleHttp\RequestOptions;
 
 trait bulkGetStatusService
 {
+    /**
+     * Bulk Get Status
+     * @param string $corporateId Corporate ID (max 40 chars)
+     * @param string $userId User ID (max 40 chars)
+     * @param string|null $fileRefNo File Reference No. (max 40 chars) - optional
+     * @param string $apiRefNo Api Reference (max 1996 chars)
+     * @return Object
+     */
+
     public function bulkGetStatus(
-        $corporateId,
-        $userId,
-        $fileRefNo,
-        $apiRefNo
+        array $params
     ){
-        $url = $this->bni->getBaseUrl() . Constant::URL_BNI_DIRECT_BULK_GET_STATUS . '?access_token=' . $this->bni->getToken();
+        $url = $this->bni->getBaseUrl() . Constant::URL_BNI_DIRECT_BULK_GET_STATUS;
         $data = [
-            'corporateId' => $corporateId,
-            'userId' => $userId,
-            'fileRefNo' => $fileRefNo,
-            'apiRefNo' => $apiRefNo,
+            'corporateId' => $params['corporateId'],
+            'userId' => $params['userId'],
+            'fileRefNo' => $params['fileRefNo'] ?? null,
+            'apiRefNo' => $params['apiRefNo'],
         ];
         $dataJson = [
             RequestOptions::JSON => $data

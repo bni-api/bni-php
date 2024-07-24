@@ -6,16 +6,22 @@ use GuzzleHttp\RequestOptions;
 
 trait balanceInquiry
 {
+    /**
+     * Balance Inquiry
+     * @param string $corporateId Corporate ID (max 40 chars)
+     * @param string $userId User ID (max 40 chars)
+     * @param string[] $accountList List of Account (array of strings)
+     * @return Object
+     */
+
     public function balanceInquiry(
-        string $corporateId,
-        string $userId,
-        array $accountList
+        array $params
     ){
-        $url = $this->bni->getBaseUrl() . Constant::URL_BNI_DIRECT_BALANCE_INQUIRY . '?access_token=' . $this->bni->getToken();
+        $url = $this->bni->getBaseUrl() . Constant::URL_BNI_DIRECT_BALANCE_INQUIRY;
         $data = [
-            'corporateId' => $corporateId,
-            'userId' => $userId,
-            'accountList' => $accountList
+            'corporateId' => $params['corporateId'],
+            'userId' => $params['userId'],
+            'accountList' => $params['accountList']
         ];
         $dataJson = [
             RequestOptions::JSON => $data

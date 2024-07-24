@@ -4,24 +4,24 @@ use BniApi\BniPhp\utils\Constant;
 use BniApi\BniPhp\utils\Response;
 use GuzzleHttp\RequestOptions;
 
-trait inquiryForexRate
+trait singleBulkPaymentSubmit
 {
     /**
-     * Inquiry Forex Rate
-     * @param string $corporateId Corporate ID (max 40 chars)
-     * @param string $userId User ID (max 40 chars)
-     * @param array $currencyList Array of Account
+     * Single Bulk Payment - Submit
+     * @param string $corporateId Corporate ID (max 40 chars) - required
+     * @param string $userId User ID (max 40 chars) - required
+     * @param string $apiRefNo Api Reference No (max 1996 chars) - required
      * @return Object
      */
 
-    public function inquiryForexRate(
+    public function singleBulkPaymentSubmit(
         array $params
     ){
-        $url = $this->bni->getBaseUrl() . Constant::URL_BNI_DIRECT_INQUIRY_FOREX_RATE;
+        $url = $this->bni->getBaseUrl() . Constant::URL_BNI_DIRECT_SINGLE_BULK_PAYMENT_SUBMIT;
         $data = [
             'corporateId' => $params['corporateId'],
             'userId' => $params['userId'],
-            'currencyList' => $params['currencyList']
+            'apiRefNo' => $params['apiRefNo']
         ];
         $dataJson = [
             RequestOptions::JSON => $data

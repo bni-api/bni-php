@@ -4,34 +4,35 @@ use BniApi\BniPhp\utils\Constant;
 use BniApi\BniPhp\utils\Response;
 use GuzzleHttp\RequestOptions;
 
-trait bniPopsResubmitProductAllocationService
+trait inquiryVirtualAccountTransaction
 {
     /**
-     * BNI POPS – Resubmit Product Allocation
+     * Inquiry Virtual Account Transaction
      * @param string $corporateId Corporate ID (max 40 chars)
      * @param string $userId User ID (max 40 chars)
-     * @param string $transactionReferenceNo Transaction Reference No. (max 40 chars)
-     * @param string|null $SONumber SO Number (max 40 chars) - optional
+     * @param string $virtualAccountNo Virtual Account No. (max 40 chars)
+     * @param string $fromDate From Date (yyyyMMdd, max 8 chars)
+     * @param string $toDate To Date (yyyyMMdd, max 8 chars)
      * @return Object
      */
 
-    public function bniPopsResubmitProductAllocation(
+    public function inquiryVirtualAccountTransaction(
         array $params
     ){
-        $url = $this->bni->getBaseUrl() . Constant::URL_BNI_DIRECT_BNI_POPS_RESUBMIT_PRODUCT_ALLOCATION;
+        $url = $this->bni->getBaseUrl() . Constant::URL_BNI_DIRECT_INQUIRY_VIRTUAL_ACCOUNT_TRANSACTION;
         $data = [
             'corporateId' => $params['corporateId'],
             'userId' => $params['userId'],
-            'transactionReferenceNo' => $params['transactionReferenceNo'],
-            'SONumber' => $params['SONumber'] ?? null
+            'virtualAccountNo' => $params['virtualAccountNo'],
+            'fromDate' => $params['fromDate'],
+            'toDate' => $params['toDate']
         ];
         $dataJson = [
             RequestOptions::JSON => $data
         ];
         $response = $this->requestBNIDirect($url, $dataJson, $data );
-        
+
         return Response::BniDirect($response);
     }
 }
-
 ?>

@@ -6,22 +6,30 @@ use GuzzleHttp\RequestOptions;
 
 trait inquiryNPWPService
 {
+    /**
+     * Inquiry NPWP
+     * @param string $corporateId Corporate ID (max 40 chars)
+     * @param string $userId User ID (max 40 chars)
+     * @param string $npwp NPWP (max 15 chars)
+     * @param string|null $NOP Tax Object Number (NOP) (max 18 chars) - optional
+     * @param string $MAPCode MAP/ Account Code (max 6 chars)
+     * @param string $depositTypeCode Deposit Type Code (max 40 chars)
+     * @param string $currency Currency Code (max 3 chars)
+     * @return Object
+     */
+
     public function inquiryNPWP(
-        string $corporateId,
-        string $userId,
-        string $NOP,
-        string $mapCode,
-        string $depositTypeCode,
-        string $currency
+        array $params
     ){
-        $url = $this->bni->getBaseUrl() . Constant::URL_BNI_DIRECT_INQUIRY_NPWP . '?access_token=' . $this->bni->getToken();
+        $url = $this->bni->getBaseUrl() . Constant::URL_BNI_DIRECT_INQUIRY_NPWP;
         $data = [
-            'corporateId' => $corporateId,
-            'userId' => $userId,
-            'NOP' => $NOP,
-            'mapCode' => $mapCode,
-            'depositTypeCode' => $depositTypeCode,
-            'currency' => $currency
+            'corporateId' => $params['corporateId'],
+            'userId' => $params['userId'],
+            'npwp' => $params['npwp'],
+            'NOP' => $params['NOP'] ?? null,
+            'MAPCode' => $params['MAPCode'],
+            'depositTypeCode' => $params['depositTypeCode'],
+            'currency' => $params['currency']
         ];
         $dataJson = [
             RequestOptions::JSON => $data

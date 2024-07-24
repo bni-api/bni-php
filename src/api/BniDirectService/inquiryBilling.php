@@ -6,28 +6,34 @@ use GuzzleHttp\RequestOptions;
 
 trait inquiryBillingService
 {
+    /**
+     * Inquiry Billing
+     * @param string $corporateId Corporate ID (max 40 chars)
+     * @param string $userId User ID (max 40 chars)
+     * @param string $debitedAccountNo Debited Account (max 16 chars)
+     * @param string $institution Institution (max 40 chars)
+     * @param string $customerInformation1 Customer Information (1) (max length not specified)
+     * @param string|null $customerInformation2 Customer Information (2) (max length not specified) - optional
+     * @param string|null $customerInformation3 Customer Information (3) (max length not specified) - optional
+     * @param string|null $customerInformation4 Customer Information (4) (max length not specified) - optional
+     * @param string|null $customerInformation5 Customer Information (5) (max length not specified) - optional
+     * @return Object
+     */
+
     public function inquiryBilling(
-        string $corporateId,
-        string $userId,
-        string $debitedAccountNo,
-        string $institution,
-        string $customerInformation1,
-        string $customerInformation2,
-        string $customerInformation3,
-        string $customerInformation4,
-        string $customerInformation5,
+        array $params
     ){
-        $url = $this->bni->getBaseUrl() . Constant::URL_BNI_DIRECT_INQUIRY_BILLING . '?access_token=' . $this->bni->getToken();
+        $url = $this->bni->getBaseUrl() . Constant::URL_BNI_DIRECT_INQUIRY_BILLING;
         $data = [
-            'corporateId' => $corporateId,
-            'userId' => $userId,
-            'debitedAccountNo' => $debitedAccountNo,
-            'institution' => $institution,
-            'customerInformation1' => $customerInformation1,
-            'customerInformation2' => $customerInformation2,
-            'customerInformation3' => $customerInformation3,
-            'customerInformation4' => $customerInformation4,
-            'customerInformation5' => $customerInformation5
+            'corporateId' => $params['corporateId'],
+            'userId' => $params['userId'],
+            'debitedAccountNo' => $params['debitedAccountNo'],
+            'institution' => $params['institution'],
+            'customerInformation1' => $params['customerInformation1'],
+            'customerInformation2' => $params['customerInformation2'] ?? null,
+            'customerInformation3' => $params['customerInformation3'] ?? null,
+            'customerInformation4' => $params['customerInformation4'] ?? null,
+            'customerInformation5' => $params['customerInformation5'] ?? null
         ];
         $dataJson = [
             RequestOptions::JSON => $data

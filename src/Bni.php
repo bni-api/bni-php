@@ -56,10 +56,14 @@ class Bni
         return $baseUrl;
     }
 
-    public function getToken()
+    public function getToken(string $version = '1')
     {
         try {
-            $url = $this->getBaseUrl(). Constant::URL_GET_TOKEN;
+            if($version !== '1.1'){
+                $url = $this->getBaseUrl().Constant::URL_GET_TOKEN;
+            } else{
+                $url = $this->getBaseUrl().Constant::URL_GET_TOKEN_V1_1;
+            }
 
             $header = [
                 'Content-Type' => 'application/x-www-form-urlencoded',
